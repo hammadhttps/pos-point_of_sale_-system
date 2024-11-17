@@ -4,29 +4,28 @@ A multi-branch Point of Sale system with role-based access and offline functiona
 
 ## Features ✨
 
-- **Multi-User Roles** 
+**Multi-User Roles** 
   - Super Admin: System-wide control
   - Branch Manager: Branch operations
   - Data Entry: Inventory management
   - Cashier: Sales processing
-
-- **Branch Management** 
+ **Branch Management** 
   - Unique branch codes
   - Employee tracking
   - Location management
 
-- **Inventory System** 
+ **Inventory System** 
   - Product management
   - Vendor tracking
   - Stock monitoring
 
-- **Reporting** 
+ **Reporting** 
   - Sales analytics
   - Stock reports
   - Custom date ranges
   - Visual charts
 
-- **Offline Support** 
+ **Offline Support** 
   - Local data storage
   - Auto-sync when online
   - Notification system
