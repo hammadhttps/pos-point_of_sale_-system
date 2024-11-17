@@ -9,6 +9,7 @@ A multi-branch Point of Sale system with role-based access and offline functiona
   - Branch Manager: Branch operations
   - Data Entry: Inventory management
   - Cashier: Sales processing
+
  **Branch Management** 
   - Unique branch codes
   - Employee tracking
