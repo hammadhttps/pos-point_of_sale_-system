@@ -1,14 +1,11 @@
 package controller;
 
 import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 public class second_page_controller {
@@ -22,33 +19,37 @@ public class second_page_controller {
     @FXML
     private AnchorPane anchorPane;
 
-    // Fade transition for images
+    // Continuous fade-in and fade-out for images
     private void fadeInAndOutImages() {
+        // Fade-in and fade-out for Super Admin image
         FadeTransition fadeSupAdmin = new FadeTransition(Duration.seconds(2), supadmin_img);
         fadeSupAdmin.setFromValue(0);
         fadeSupAdmin.setToValue(1);
-        fadeSupAdmin.setCycleCount(1);
-        fadeSupAdmin.setAutoReverse(true);
+        fadeSupAdmin.setCycleCount(FadeTransition.INDEFINITE);
+        fadeSupAdmin.setAutoReverse(true);  // Auto-reverse to fade in and out
         fadeSupAdmin.play();
 
+        // Fade-in and fade-out for Branch Manager image
         FadeTransition fadeBM = new FadeTransition(Duration.seconds(2), BM_img);
         fadeBM.setFromValue(0);
         fadeBM.setToValue(1);
-        fadeBM.setCycleCount(1);
+        fadeBM.setCycleCount(FadeTransition.INDEFINITE);
         fadeBM.setAutoReverse(true);
         fadeBM.play();
 
+        // Fade-in and fade-out for Data Entry image
         FadeTransition fadeData = new FadeTransition(Duration.seconds(2), data_img);
         fadeData.setFromValue(0);
         fadeData.setToValue(1);
-        fadeData.setCycleCount(1);
+        fadeData.setCycleCount(FadeTransition.INDEFINITE);
         fadeData.setAutoReverse(true);
         fadeData.play();
 
+        // Fade-in and fade-out for Cashier image
         FadeTransition fadeCash = new FadeTransition(Duration.seconds(2), cash_img);
         fadeCash.setFromValue(0);
         fadeCash.setToValue(1);
-        fadeCash.setCycleCount(1);
+        fadeCash.setCycleCount(FadeTransition.INDEFINITE);
         fadeCash.setAutoReverse(true);
         fadeCash.play();
     }
@@ -78,7 +79,7 @@ public class second_page_controller {
 
     // Call all animations
     public void initialize() {
-        // Fade images in and out
+        // Fade images in and out continuously
         fadeInAndOutImages();
 
         // Drop the text labels one after another
