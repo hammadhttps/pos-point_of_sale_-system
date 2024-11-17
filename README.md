@@ -1,4 +1,4 @@
- # POS System 🏪
+# POS System 🏪
 
 A multi-branch Point of Sale system with role-based access and offline functionality.
 
