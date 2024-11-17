@@ -82,7 +82,7 @@
             <Insets left="530.0" top="35.0" />
          </StackPane.margin>
       </ImageView>
-      <Button fx:id="sa_btn" mnemonicParsing="false" prefHeight="47.0" prefWidth="137.0" text="Super Admin">
+      <Button fx:id="sa_btn" mnemonicParsing="false" onAction="#sa_action" prefHeight="47.0" prefWidth="137.0" text="Super Admin">
          <StackPane.margin>
             <Insets right="350.0" top="-50.0" />
          </StackPane.margin>
@@ -90,7 +90,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="bm_btn" mnemonicParsing="false" prefHeight="48.0" prefWidth="154.0" text="Branch Manager">
+      <Button fx:id="bm_btn" mnemonicParsing="false" onAction="#bm_action" prefHeight="48.0" prefWidth="154.0" text="Branch Manager">
          <StackPane.margin>
             <Insets right="-600.0" top="-50.0" />
          </StackPane.margin>
@@ -98,7 +98,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="data_btn" mnemonicParsing="false" prefHeight="47.0" prefWidth="178.0" text="Data Entry Operator">
+      <Button fx:id="data_btn" mnemonicParsing="false" onAction="#data_btn" prefHeight="47.0" prefWidth="178.0" text="Data Entry Operator">
          <StackPane.margin>
             <Insets right="350.0" top="400.0" />
          </StackPane.margin>
@@ -106,7 +106,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="csh_btn" mnemonicParsing="false" prefHeight="53.0" prefWidth="127.0" text="Cashier">
+      <Button fx:id="csh_btn" mnemonicParsing="false" onAction="#csh_action" prefHeight="53.0" prefWidth="127.0" text="Cashier">
          <StackPane.margin>
             <Insets right="-600.0" top="400.0" />
          </StackPane.margin>
@@ -146,7 +146,7 @@
             <Image url="@icons/clerk.png" />
          </image>
       </ImageView>
-      <Button fx:id="cancel_btn" mnemonicParsing="false" prefHeight="53.0" prefWidth="127.0" text="Cancel">
+      <Button fx:id="cancel_btn" mnemonicParsing="false" onAction="#cance_action" prefHeight="53.0" prefWidth="127.0" text="Cancel">
          <StackPane.margin>
             <Insets bottom="-630.0" right="-1000.0" />
          </StackPane.margin>

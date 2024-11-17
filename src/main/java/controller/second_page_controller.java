@@ -2,16 +2,22 @@ package controller;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class second_page_controller {
 
     @FXML
     private Label sup_text, bm_text, csh_text, dt_text;
+
+    @FXML
+    private Button cancel_btn;
 
     @FXML
     private ImageView supadmin_img, BM_img, data_img, cash_img;
@@ -81,8 +87,28 @@ public class second_page_controller {
     public void initialize() {
 
         fadeInAndOutImages();
-
-
         dropText();
+        cancel_btn.setOnAction(this::cance_action);
+
+    }
+
+    public void cance_action(ActionEvent actionEvent) {
+
+
+        Stage stg=(Stage) cancel_btn.getScene().getWindow();
+        stg.close();
+
+    }
+
+    public void csh_action(ActionEvent actionEvent) {
+    }
+
+    public void data_btn(ActionEvent actionEvent) {
+    }
+
+    public void bm_action(ActionEvent actionEvent) {
+    }
+
+    public void sa_action(ActionEvent actionEvent) {
     }
 }
