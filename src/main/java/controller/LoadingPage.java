@@ -76,14 +76,14 @@ public class LoadingPage {
 
     private void showSecondScreen() {
         try {
-            // Load the second screen FXML
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/second_screen.fxml"));
             Parent root = loader.load();
 
 
             Stage stage = (Stage) anchorPane.getScene().getWindow();
 
-            // Set the new scene with the second screen
+
             Scene scene = new Scene(root);
             stage.setScene(scene);
 

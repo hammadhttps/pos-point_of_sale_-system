@@ -79,10 +79,10 @@ public class second_page_controller {
 
     // Call all animations
     public void initialize() {
-        // Fade images in and out continuously
+
         fadeInAndOutImages();
 
-        // Drop the text labels one after another
+
         dropText();
     }
 }
