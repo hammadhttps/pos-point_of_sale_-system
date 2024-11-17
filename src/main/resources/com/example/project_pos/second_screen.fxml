@@ -25,7 +25,7 @@
                   <Insets left="-20.0" />
                </padding>
             </Label>
-            <Label layoutX="1.0" layoutY="229.0" prefHeight="68.0" prefWidth="227.0" text="Super Admin" textFill="WHITE">
+            <Label fx:id="sup_text" layoutX="1.0" layoutY="229.0" prefHeight="68.0" prefWidth="227.0" text="Super Admin" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
@@ -33,7 +33,7 @@
                   <Insets left="50.0" />
                </padding>
             </Label>
-            <Label layoutX="-2.0" layoutY="306.0" prefHeight="68.0" prefWidth="242.0" text="Branch Manager" textFill="WHITE">
+            <Label fx:id="bm_text" layoutX="-2.0" layoutY="306.0" prefHeight="68.0" prefWidth="242.0" text="Branch Manager" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -41,7 +41,7 @@
                   <Insets left="50.0" />
                </padding>
             </Label>
-            <Label layoutX="6.0" layoutY="382.0" prefHeight="53.0" prefWidth="227.0" text="Cashier" textFill="WHITE">
+            <Label fx:id="csh_text" layoutX="6.0" layoutY="382.0" prefHeight="53.0" prefWidth="227.0" text="Cashier" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -49,7 +49,7 @@
                   <Insets left="70.0" />
                </padding>
             </Label>
-            <Label layoutY="424.0" prefHeight="108.0" prefWidth="242.0" text="Data Entry  Operator" textFill="WHITE">
+            <Label fx:id="dt_text" layoutY="424.0" prefHeight="108.0" prefWidth="242.0" text="Data Entry  Operator" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -113,7 +113,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
-      <ImageView fitHeight="108.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="supadmin_img" fitHeight="108.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
          <StackPane.margin>
             <Insets right="350.0" top="-220.0" />
          </StackPane.margin>
@@ -121,7 +121,7 @@
             <Image url="@icons/administrator-icon.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="108.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="BM_img" fitHeight="108.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
          <StackPane.margin>
             <Insets right="-600.0" top="-220.0" />
          </StackPane.margin>
@@ -129,7 +129,7 @@
             <Image url="@icons/Manager-icon.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="108.0" fitWidth="142.0" layoutX="385.0" layoutY="208.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="data_img" fitHeight="108.0" fitWidth="142.0" layoutX="385.0" layoutY="208.0" pickOnBounds="true" preserveRatio="true">
          <StackPane.margin>
             <Insets right="350.0" top="200.0" />
          </StackPane.margin>
@@ -137,7 +137,7 @@
             <Image url="@icons/images (1).png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="108.0" fitWidth="142.0" layoutX="385.0" layoutY="418.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="cash_img" fitHeight="108.0" fitWidth="142.0" layoutX="385.0" layoutY="418.0" pickOnBounds="true" preserveRatio="true">
          <StackPane.margin>
             <Insets right="-600.0" top="190.0" />
          </StackPane.margin>
