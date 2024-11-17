@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="748.0" prefWidth="1205.0" style="-fx-background-color: Black;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoadingPage">
+   <children>
+      <Label layoutX="411.0" layoutY="138.0" prefHeight="174.0" prefWidth="383.0" text="WELCOME" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="436.0" AnchorPane.rightAnchor="411.0">
+         <cursor>
+            <Cursor fx:constant="E_RESIZE" />
+         </cursor>
+         <font>
+            <Font name="Impact" size="96.0" />
+         </font>
+      </Label>
+      <Label fx:id="loading" alignment="CENTER" layoutX="461.0" layoutY="341.0" prefHeight="99.0" prefWidth="266.0" text="Loading" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="33.0" />
+         </font>
+      </Label>
+      <Line fx:id="line1" endY="0.0" layoutX="90.0" layoutY="100.0" stroke="WHITE" strokeWidth="8.0" />
+
+      <Line fx:id="line4" endX="0.0" endY="0.0" layoutX="90.0" layoutY="600.0" startX="0.0" startY="0.0" stroke="WHITE" strokeWidth="8.0" />
+
+      <Line fx:id="line3" endX="0.0" endY="0.0" layoutX="1100.0" layoutY="600.0" startX="0.0" startY="0.0" stroke="WHITE" strokeWidth="8.0" />
+
+      <Line fx:id="line2" endX="0.0" endY="0.0" layoutX="1100.0" layoutY="100.0" startX="0.0" startY="0.0" stroke="WHITE" strokeWidth="8.0" />
+    </children>
+</AnchorPane>
