@@ -4,6 +4,9 @@ import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -101,14 +104,87 @@ public class second_page_controller {
     }
 
     public void csh_action(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/cashier_login.fxml"));
+            Parent root = loader.load();
+
+            // Get the current stage and close it
+            Stage currentStage = (Stage) cancel_btn.getScene().getWindow();
+            currentStage.close();
+
+            // Create a new stage for the cashier login screen
+            Stage newStage = new Stage();
+            Scene scene = new Scene(root);
+            newStage.setScene(scene);
+
+            newStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void data_btn(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/Data_entry_operator_login.fxml"));
+            Parent root = loader.load();
+
+            // Get the current stage and close it
+            Stage currentStage = (Stage) cancel_btn.getScene().getWindow();
+            currentStage.close();
+
+            // Create a new stage for the cashier login screen
+            Stage newStage = new Stage();
+            Scene scene = new Scene(root);
+            newStage.setScene(scene);
+
+            newStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void bm_action(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/branch_manager_login.fxml"));
+            Parent root = loader.load();
+
+            // Get the current stage and close it
+            Stage currentStage = (Stage) cancel_btn.getScene().getWindow();
+            currentStage.close();
+
+            // Create a new stage for the cashier login screen
+            Stage newStage = new Stage();
+            Scene scene = new Scene(root);
+            newStage.setScene(scene);
+
+            newStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void sa_action(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/super_admin_login.fxml"));
+            Parent root = loader.load();
+
+            // Get the current stage and close it
+            Stage currentStage = (Stage) cancel_btn.getScene().getWindow();
+            currentStage.close();
+
+            // Create a new stage for the cashier login screen
+            Stage newStage = new Stage();
+            Scene scene = new Scene(root);
+            newStage.setScene(scene);
+
+            newStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
