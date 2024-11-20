@@ -10,6 +10,7 @@ module com.example.project_pos {
     requires org.kordamp.bootstrapfx.core;
    // requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.sql;
 
     opens com.example.project_pos to javafx.fxml;
     exports com.example.project_pos;
