@@ -73,7 +73,7 @@
          </StackPane.margin></Separator>
       <ImageView fitHeight="59.0" fitWidth="67.0" layoutX="0.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_CENTER">
          <image>
-            <Image url="@icons/pos_icon.png" />
+            <Image url="@icons_and_images/pos_icon.png" />
          </image>
          <viewport>
             <Rectangle2D minX="10.0" />
@@ -119,7 +119,7 @@
             <Insets right="350.0" top="-220.0" />
          </StackPane.margin>
          <image>
-            <Image url="@icons/administrator-icon.png" />
+            <Image url="@icons_and_images/administrator-icon.png" />
          </image>
       </ImageView>
       <ImageView fx:id="BM_img" fitHeight="108.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
@@ -127,7 +127,7 @@
             <Insets right="-600.0" top="-220.0" />
          </StackPane.margin>
          <image>
-            <Image url="@icons/Manager-icon.png" />
+            <Image url="@icons_and_images/Manager-icon.png" />
          </image>
       </ImageView>
       <ImageView fx:id="data_img" fitHeight="108.0" fitWidth="142.0" layoutX="385.0" layoutY="208.0" pickOnBounds="true" preserveRatio="true">
@@ -135,7 +135,7 @@
             <Insets right="350.0" top="200.0" />
          </StackPane.margin>
          <image>
-            <Image url="@icons/images (1).png" />
+            <Image url="@icons_and_images/images (1).png" />
          </image>
       </ImageView>
       <ImageView fx:id="cash_img" fitHeight="108.0" fitWidth="142.0" layoutX="385.0" layoutY="418.0" pickOnBounds="true" preserveRatio="true">
@@ -143,7 +143,7 @@
             <Insets right="-600.0" top="190.0" />
          </StackPane.margin>
          <image>
-            <Image url="@icons/clerk.png" />
+            <Image url="@icons_and_images/clerk.png" />
          </image>
       </ImageView>
       <Button fx:id="cancel_btn" mnemonicParsing="false" onAction="#cance_action" prefHeight="53.0" prefWidth="127.0" text="Cancel">
