@@ -11,13 +11,13 @@ public class DBConnection {
     private DBConnection() {
         try {
 
-            System.out.println("Loading JDBC driver...");
+          //  System.out.println("Loading JDBC driver...");
             Class.forName("com.mysql.cj.jdbc.Driver");
 
 
             //System.out.println("Establishing connection...");
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/POS_DBASE?useSSL=false&serverTimezone=UTC",
+                    "jdbc:mysql://localhost:3306/pos_db?useSSL=false&serverTimezone=UTC",
                     "root",
                     ""
             );
