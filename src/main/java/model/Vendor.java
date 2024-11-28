@@ -6,15 +6,9 @@ public class Vendor {
     private String vendorId;
     private String name;
     private String contactInfo;
-    private List<String> productList;
+    private List<Product> productList;
 
-    public Vendor(String vendorId, String name, String contactInfo, List<String> productList) {
-        this.vendorId = vendorId;
-        this.name = name;
-        this.contactInfo = contactInfo;
-        this.productList = productList;
-    }
-
+    // Getters and Setters
     public String getVendorId() {
         return vendorId;
     }
@@ -39,11 +33,11 @@ public class Vendor {
         this.contactInfo = contactInfo;
     }
 
-    public List<String> getProductList() {
+    public List<Product> getProductList() {
         return productList;
     }
 
-    public void setProductList(List<String> productList) {
+    public void setProductList(List<Product> productList) {
         this.productList = productList;
     }
 }
