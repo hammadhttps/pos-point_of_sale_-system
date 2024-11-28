@@ -13,7 +13,6 @@ public class POS extends Application {
     public void start(Stage stage) throws IOException {
 
 
-
         FXMLLoader fxmlLoader = new FXMLLoader(POS.class.getResource("loadingPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Loading Page");
