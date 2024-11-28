@@ -1,53 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="742.0" prefWidth="1312.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Cashier">
-    <children>
-        <BorderPane layoutX="422.0" layoutY="-2.0" prefHeight="742.0" prefWidth="890.0">
-            <bottom>
-                <Pane prefHeight="245.0" prefWidth="890.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <Button fx:id="btnCancel" layoutX="30.0" layoutY="192.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="407.0" text="Cancel" />
-                        <Button fx:id="btnAddItem" layoutX="32.0" layoutY="7.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="839.0" text="Add Item " />
-                        <Button fx:id="btnCreateBill" layoutX="32.0" layoutY="138.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="841.0" text="Create Bill" />
-                        <Button fx:id="btnAddItem1" layoutX="33.0" layoutY="71.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="839.0" text="Add Discount" />
-                        <Button fx:id="btnCancel1" layoutX="460.0" layoutY="192.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="407.0" text="Delete Item" />
-                    </children>
-                </Pane>
-            </bottom>
-            <center>
-                <VBox BorderPane.alignment="CENTER">
-                    <Label style="-fx-font-size: 16px;" text="Selected Items">
-                        <font>
-                            <Font size="25.0" />
-                        </font>
-                    </Label>
-                    <ListView fx:id="selectedItemsList" prefHeight="469.0" prefWidth="890.0" />
-                </VBox>
-            </center>
-        </BorderPane>
+<AnchorPane prefHeight="742.0" stylesheets="@cashier.css" prefWidth="1312.0" xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Cashier">
+    <BorderPane layoutX="422.0" layoutY="-2.0" prefHeight="742.0" prefWidth="890.0">
+        <bottom>
+            <Pane prefHeight="245.0" prefWidth="890.0" BorderPane.alignment="CENTER">
+                <Button fx:id="btnCancel" layoutX="30.0" layoutY="192.0" mnemonicParsing="false" prefHeight="46.0"
+                        prefWidth="407.0" text="Cancel"/>
+                <Button fx:id="btnAddItem" layoutX="32.0" layoutY="7.0" mnemonicParsing="false" prefHeight="46.0"
+                        prefWidth="839.0" text="Add Item "/>
+                <Button fx:id="btnCreateBill" layoutX="32.0" layoutY="138.0" mnemonicParsing="false"
+                        prefHeight="46.0" prefWidth="841.0" text="Create Bill"/>
+                <Button fx:id="btnAddItem1" layoutX="33.0" layoutY="71.0" mnemonicParsing="false" prefHeight="46.0"
+                        prefWidth="839.0" text="Add Discount"/>
+                <Button fx:id="btnCancel1" layoutX="460.0" layoutY="192.0" mnemonicParsing="false" prefHeight="46.0"
+                        prefWidth="407.0" text="Delete Item"/>
+            </Pane>
+        </bottom>
+        <center>
+            <VBox BorderPane.alignment="CENTER">
+                <Label prefHeight="25.0" prefWidth="131.0" style="-fx-font-size: 16px;" text="Selected Items">
+                    <font>
+                        <Font size="25.0"/>
+                    </font>
+                </Label>
+                <ListView fx:id="selectedItemsList" prefHeight="79.0" prefWidth="890.0"/>
+                <TableView fx:id="selectedItemsListtable" prefHeight="544.0" prefWidth="890.0">
+                    <columns>
+                        <TableColumn fx:id="colProductName" prefWidth="300.0" text="Product Name"/>
+                        <TableColumn fx:id="colProductPrice" prefWidth="150.0" text="Price"/>
+                        <TableColumn fx:id="colProductCategory" prefWidth="200.0" text="Category"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </center>
+    </BorderPane>
 
-        <!-- Category Buttons -->
-        <HBox layoutX="14.0" layoutY="10.0" spacing="10.0" alignment="CENTER">
-            <children>
-                <Button fx:id="btnGrocery" text="Grocery" prefWidth="120.0" />
-                <Button fx:id="btnElectronics" text="Electronic Accessories" prefWidth="160.0" />
-                <Button fx:id="btnBakery" text="Bakery" prefWidth="120.0" />
-            </children>
-        </HBox>
+    <!-- Category Buttons -->
+    <HBox alignment="CENTER" layoutX="14.0" layoutY="10.0" spacing="10.0">
+        <Button fx:id="btnGrocery" prefHeight="25.0" prefWidth="88.0" text="Grocery"/>
+        <Button fx:id="btnElectronics" prefWidth="160.0" text="Electronic Accessories"/>
+        <Button fx:id="btnBakery" prefWidth="120.0" text="Bakery"/>
+    </HBox>
 
-        <!-- ScrollPane for Product Items -->
-        <ScrollPane fx:id="scrollPane" fitToWidth="true" layoutX="1.0" layoutY="60.0" prefHeight="682.0" prefWidth="417.0">
-            <content>
-                <VBox fx:id="vboxProductContainer" alignment="TOP_CENTER" spacing="10">
-                    <!-- Placeholder content; to be replaced dynamically -->
-                    <Label text="Select a category to view items" />
-                </VBox>
-            </content>
-        </ScrollPane>
-    </children>
+    <!-- ScrollPane for Product Items -->
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" layoutX="1.0" layoutY="42.0" prefHeight="700.0" prefWidth="417.0">
+        <VBox fx:id="vboxProductContainer" alignment="TOP_CENTER" spacing="10">
+            <!-- Placeholder content; to be replaced dynamically -->
+            <Label text="Select a category to view items"/>
+        </VBox>
+    </ScrollPane>
 </AnchorPane>

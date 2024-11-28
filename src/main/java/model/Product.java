@@ -10,6 +10,9 @@ public class Product {
     private double priceByCarton;
     private int quantity;
 
+    public Product(String number, String bread, String bakery, double v, double v1, double v2, double v3, int i, int i1) {
+    }
+
     // Getters and Setters
     public String getProductId() {
         return productId;
