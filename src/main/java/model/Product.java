@@ -10,7 +10,17 @@ public class Product {
     private double priceByCarton;
     private int quantity;
 
-    public Product(String number, String bread, String bakery, double v, double v1, double v2, double v3, int i, int i1) {
+    public Product(String number, String bread, String bakery, double v, double v1, double v2, double v3,int i1)
+    {
+        this.productId=number;
+        this.name=bread;
+        this.category=bakery;
+        this.originalPrice=v;
+        this.salePrice=v1;
+        this.priceByUnit=v2;
+        this.priceByCarton=v3;
+        this.quantity=i1;
+
     }
 
     // Getters and Setters
