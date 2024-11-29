@@ -39,7 +39,7 @@ public class cashierLogin {
             String sql = "SELECT * FROM Cashier WHERE username = ? AND password = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, username);
-            statement.setString(2, password); // In real scenarios, use hashed passwords for security
+            statement.setString(2, password);
 
             // Execute the query
             ResultSet resultSet = statement.executeQuery();
@@ -57,9 +57,21 @@ public class cashierLogin {
     // On login button click, authenticate user
     public void On_login(ActionEvent actionEvent) {
         if (authenticate(username.getText(), password.getText())) {
-            // Successful login: Replace the lock icon with the unlock icon
+
             _icon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/project_pos/icons_and_images/Lock-Unlock-icon.png"))));
-            System.out.println("Login successful!");
+
+            try {
+                // Load the second screen
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/cashier.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         } else {
             // Invalid login: Vibrate the login button
             shakeButton(loginButton);

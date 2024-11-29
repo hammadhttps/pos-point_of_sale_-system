@@ -1,5 +1,7 @@
 package controller;
-
+import services.SaleDAO;
+import model.Sale;
+import java.util.Date;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -10,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import model.Product;
 import services.ProductDAO;
@@ -18,13 +21,17 @@ import java.util.*;
 
 public class Cashier {
 
+    private final SaleDAO saleDAO = new SaleDAO();
+    public Pane bill;
     public Button btnCancel;
     public Button btnCreateBill;
     public Button btnAddItem1;
     public Button btnCancel1;
     public ListView selectedItemsList;
     public ScrollPane scrollPane;
-    //public TableColumn colProductquantity;
+    @FXML
+    private Button btnApplyDiscount;
+
     @FXML
     private Button btnGrocery, btnElectronics, btnfashion;
 
@@ -75,6 +82,103 @@ public class Cashier {
 
         // Set action for Cancel button
         btnCancel.setOnAction(event -> resetTable());
+        btnCreateBill.setOnAction(event -> createBill());
+        btnApplyDiscount.setOnAction(event -> applyDiscount());
+    }
+
+    private double discountPercentage = 0.0;
+
+    private void applyDiscount() {
+        TextInputDialog dialog = new TextInputDialog("0");
+        dialog.setTitle("Apply Discount");
+        dialog.setHeaderText("Enter Discount Percentage");
+        dialog.setContentText("Discount (%):");
+
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(discountInput -> {
+            try {
+                discountPercentage = Double.parseDouble(discountInput);
+                if (discountPercentage < 0 || discountPercentage > 100) {
+                    showAlert("Invalid Input", "Please enter a value between 0 and 100.");
+                } else {
+                    createBill(); // Recreate the bill with the updated discount
+                }
+            } catch (NumberFormatException e) {
+                showAlert("Invalid Input", "Please enter a valid number.");
+            }
+        });
+    }
+
+    private void createBill() {
+        if (selectedProducts.isEmpty()) {
+            showAlert("No Items", "No items selected to create a bill.");
+            return;
+        }
+
+        bill.getChildren().clear();
+        bill.setVisible(true);
+
+        VBox billLayout = new VBox(10); // 10px spacing
+        billLayout.setStyle("-fx-padding: 20; -fx-alignment: top-center; -fx-background-color: white;");
+
+        Label title = new Label("Bill Summary");
+        title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+
+        TableView<Product> billTable = new TableView<>();
+        billTable.setPrefWidth(750);
+        billTable.setPrefHeight(400);
+
+        TableColumn<Product, String> nameCol = new TableColumn<>("Product Name");
+        nameCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
+        nameCol.setPrefWidth(250);
+
+        TableColumn<Product, String> categoryCol = new TableColumn<>("Category");
+        categoryCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getCategory()));
+        categoryCol.setPrefWidth(150);
+
+        TableColumn<Product, Integer> quantityCol = new TableColumn<>("Quantity");
+        quantityCol.setCellValueFactory(data -> new SimpleIntegerProperty(productSelectionCount.getOrDefault(data.getValue(), 0)).asObject());
+        quantityCol.setPrefWidth(100);
+
+        TableColumn<Product, Double> priceCol = new TableColumn<>("Price");
+        priceCol.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getSalePrice()).asObject());
+        priceCol.setPrefWidth(150);
+
+        billTable.getColumns().addAll(nameCol, categoryCol, quantityCol, priceCol);
+        billTable.setItems(FXCollections.observableArrayList(selectedProducts));
+
+        // Calculate total and apply discount
+        double totalPrice = selectedProducts.stream()
+                .mapToDouble(product -> product.getSalePrice() * productSelectionCount.get(product))
+                .sum();
+        double discountAmount = totalPrice * (discountPercentage / 100);
+        double finalPrice = totalPrice - discountAmount;
+
+        Label totalLabel = new Label("Total: $" + String.format("%.2f", totalPrice));
+        Label discountLabel = new Label("Discount (" + discountPercentage + "%): -$" + String.format("%.2f", discountAmount));
+        Label finalTotalLabel = new Label("Final Total: $" + String.format("%.2f", finalPrice));
+
+        totalLabel.setStyle("-fx-font-size: 16px;");
+        discountLabel.setStyle("-fx-font-size: 16px;");
+        finalTotalLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+        Button closeButton = new Button("Close");
+        closeButton.setStyle("-fx-font-size: 14px; -fx-padding: 10;");
+        closeButton.setOnAction(event -> bill.setVisible(false));
+
+        billLayout.getChildren().addAll(title, billTable, totalLabel, discountLabel, finalTotalLabel, closeButton);
+        bill.getChildren().add(billLayout);
+
+        Sale sale = new Sale(generate4DigitNumber(), (List<Product>) selectedProducts, finalPrice,  new Date());
+        boolean isSaved = saleDAO.createSale(sale);
+
+        if (isSaved) {
+            showAlert("Success", "Sale saved successfully.");
+        } else {
+            showAlert("Error", "Failed to save the sale.");
+        }
+
+        resetTable(); // Clear the table after saving the b
     }
 
     private void loadProducts() {
@@ -144,7 +248,6 @@ public class Cashier {
         productBox.setStyle("-fx-alignment: center;");
 
         // Using a relative path for the image file (adjust path as needed)
-       // ImageView imageView = createImageView("C:\\Users\\city\\Desktop\\Project_pos\\src\\main\\resources\\com\\example\\project_pos\\products_icons\\milk.png");
         ImageView imageView = createImageView("C:\\Users\\city\\Desktop\\Project_pos\\src\\main\\resources\\com\\example\\project_pos\\products_icons\\"+product.getName()+".png");
         Label nameLabel = new Label(product.getName());
         Label priceLabel = new Label("$" + product.getSalePrice());
@@ -192,5 +295,15 @@ public class Cashier {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+    public static String generate4DigitNumber() {
+
+        long currentTimeMillis = System.currentTimeMillis();
+
+
+        int last4Digits = (int)(currentTimeMillis % 10000); // Get the last 4 digits
+
+
+        return String.format("%04d", last4Digits);
     }
 }
