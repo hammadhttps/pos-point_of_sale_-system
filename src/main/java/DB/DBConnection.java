@@ -5,17 +5,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    private static DBConnection dbConnection;
+    private static DBConnection dbConnection; // Singleton instance
     private Connection connection;
 
     private DBConnection() {
-        try {
+        connect(); // Initialize the connection when the instance is created
+    }
 
-          //  System.out.println("Loading JDBC driver...");
+    private void connect() {
+        try {
+            // Load MySQL JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-
-            //System.out.println("Establishing connection...");
+            // Establish the database connection
             connection = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/pos_db?useSSL=false&serverTimezone=UTC",
                     "root",
@@ -23,7 +25,7 @@ public class DBConnection {
             );
 
             if (connection != null) {
-                //System.out.println("Connection established successfully!");
+                System.out.println("Connection established successfully!");
             } else {
                 System.out.println("Connection failed!");
             }
@@ -38,37 +40,36 @@ public class DBConnection {
     }
 
     public static DBConnection getInstance() {
-        return (dbConnection == null) ? dbConnection = new DBConnection() : dbConnection;
+        // Create a new instance only if it doesn't exist
+        if (dbConnection == null) {
+            dbConnection = new DBConnection();
+        }
+        return dbConnection;
     }
 
     public Connection getConnection() {
+        try {
+            // Check if the connection is valid; reconnect if needed
+            if (connection == null || connection.isClosed() || !connection.isValid(5)) {
+                System.out.println("Re-establishing connection...");
+                connect();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error while validating connection.");
+            e.printStackTrace();
+        }
         return connection;
     }
 
-//    public static void main(String[] args) {
-//
-//        System.out.println("Starting DBConnection...");
-//        DBConnection dbConnection = DBConnection.getInstance();
-//
-//
-//        Connection connection = dbConnection.getConnection();
-//
-//
-//        if (connection != null) {
-//            System.out.println("Connection established successfully!");
-//        } else {
-//            System.out.println("Failed to establish connection.");
-//        }
-//
-//
-//        try {
-//            if (connection != null) {
-//                connection.close();
-//                System.out.println("Connection closed.");
-//            }
-//        } catch (SQLException e) {
-//            System.out.println("Error closing connection.");
-//            e.printStackTrace();
-//        }
-//    }
+    public void closeConnection() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+                System.out.println("Connection closed successfully.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error closing connection.");
+            e.printStackTrace();
+        }
+    }
 }

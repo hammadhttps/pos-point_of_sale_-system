@@ -23,6 +23,13 @@ public class Product {
 
     }
 
+    public Product(String productId, String productName, int quantity)
+    {
+        this.productId=productId;
+        this.name=productName;
+        this.quantity=quantity;
+    }
+
     // Getters and Setters
     public String getProductId() {
         return productId;

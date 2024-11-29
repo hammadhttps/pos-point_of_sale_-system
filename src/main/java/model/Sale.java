@@ -7,7 +7,14 @@ public class Sale {
     private String saleId;
     private List<Product> products;
     private double totalAmount;
-    private Date date;
+    private Date date; // Use Date object instead of String
+
+    public Sale(String id, List<Product> products, double totalAmount, Date date) {
+        this.products = products;
+        this.saleId = id;
+        this.totalAmount = totalAmount;
+        this.date = date;
+    }
 
     // Getters and Setters
     public String getSaleId() {
