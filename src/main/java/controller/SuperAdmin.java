@@ -1,4 +1,6 @@
 package controller;
+import DB.DBConnection;
+import DB.DBHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 public class SuperAdmin {
     // ADD THESE FIRST 6 ATTRIBUTES TO DB IN THE FUNCTION ILLUSTRATED BELOW.
@@ -17,7 +20,7 @@ public class SuperAdmin {
     String branch_address;
     String branch_city;
     int employee_count;
-    String isActive;
+    boolean isActive;
     @FXML
     RadioButton yes,no;
     @FXML
@@ -39,6 +42,19 @@ public class SuperAdmin {
     TextField addressLabel;
     @FXML
     TextField countLabel;
+    @FXML
+    TextField nameLabel2;
+    @FXML
+    TextField emailLabel2;
+    @FXML
+    TextField passwordLabel2;
+    @FXML
+    TextField branchidLabel2;
+    @FXML
+    TextField manageridLabel2;
+    @FXML
+      Button createButton2;
+
 
 
     public void createBranch(ActionEvent e) throws IOException {
@@ -121,11 +137,11 @@ public class SuperAdmin {
             }
             if(yes.isSelected())
             {
-                isActive="Active";
+                isActive=true;
             }
             else if(no.isSelected())
             {
-                isActive="Not Active";
+                isActive=false;
             }
             else {
 
@@ -138,13 +154,69 @@ public class SuperAdmin {
             alert.setContentText("Do you want to continue?");
             if(alert.showAndWait().get()== ButtonType.OK)
             {
-                //WRITE DATABASE CODE HERE FOR ADDING BRANCH DATA.
+                Connection connection = DBConnection.getInstance().getConnection();
+                DBHelper setter=new DBHelper(connection);
+                setter.InsertBranch(branch_id,branch_name,branch_address,branch_city,isActive,employee_count);
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                alert1.setHeaderText("Branch added succesfully.");
+                alert1.show();
+                root= FXMLLoader.load(getClass().getResource("/com/example/project_pos/SuperAdmin_UI.fxml"));
+                stage =(Stage)((Node)event.getSource()).getScene().getWindow();
+                scene=new Scene(root);
+                stage.setScene(scene);
+                stage.show();
             }
         }
         catch (Exception e) {
             throw new RuntimeException(e);
         }
 
+    }
+    public void branchManagersubmission(ActionEvent e) throws IOException {
+        String name = nameLabel2.getText();
+        String email = emailLabel2.getText();
+        String password = passwordLabel2.getText();
+        String branchId = branchidLabel2.getText();
+        String managerId = manageridLabel2.getText();
+        if (name.isEmpty()) {
+            showAlert("Please enter name of branch manager!");
+            return;
+        } else if (email.isEmpty()) {
+            showAlert("Please enter email of branch manager!");
+            return;
+        } else if (password.isEmpty()) {
+            showAlert("Please enter password of branch manager!");
+            return;
+        } else if (branchId.isEmpty()) {
+            showAlert("Please enter branch id!");
+            return;
+        } else if (managerId.isEmpty()) {
+            showAlert("Please enter id of branch manager!");
+            return;
+        }
+        Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+        alert1.setHeaderText("Would you like to continue ? ");
+        if (alert1.showAndWait().get() == ButtonType.OK)
+        {
+          Connection connection=DBConnection.getInstance().getConnection();
+          DBHelper helper=new DBHelper(connection);
+          helper.InsertBranchManager(name,email,password,branchId,managerId);
+            Alert alert3=new Alert(Alert.AlertType.INFORMATION);
+            alert3.setHeaderText("Branch Manager Added Succesfully");
+            alert3.show();
+            root= FXMLLoader.load(getClass().getResource("/com/example/project_pos/SuperAdmin_UI.fxml"));
+            stage =(Stage)((Node)e.getSource()).getScene().getWindow();
+            scene=new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+    }
+    public  void branch_back(ActionEvent e) throws IOException {
+        root= FXMLLoader.load(getClass().getResource("/com/example/project_pos/SuperAdmin_UI.fxml"));
+        stage =(Stage)((Node)e.getSource()).getScene().getWindow();
+        scene=new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

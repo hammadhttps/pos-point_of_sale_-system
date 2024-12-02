@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="681.0" prefWidth="929.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" prefHeight="681.0" prefWidth="929.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SuperAdmin">
     <children>
         <Label layoutX="301.0" layoutY="46.0" prefHeight="68.0" prefWidth="282.0" text="Branch Creation" textFill="#00e700">
             <font>
@@ -39,26 +39,26 @@
                 <Font name="Cooper Black" size="28.0" />
             </font>
         </Text>
-        <TextField layoutX="236.0" layoutY="187.0" />
-        <TextField layoutX="236.0" layoutY="248.0" />
-        <TextField layoutX="236.0" layoutY="328.0" />
-        <TextField layoutX="236.0" layoutY="383.0" prefHeight="26.0" prefWidth="409.0" />
+        <TextField fx:id="nameLabel" layoutX="236.0" layoutY="187.0" />
+        <TextField fx:id="idLabel" layoutX="236.0" layoutY="248.0" />
+        <TextField fx:id="cityLabel" layoutX="236.0" layoutY="328.0" />
+        <TextField fx:id="addressLabel" layoutX="236.0" layoutY="383.0" prefHeight="26.0" prefWidth="409.0" />
         <Text fill="RED" layoutX="80.0" layoutY="466.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Active?" wrappingWidth="139.73675537109375">
             <font>
                 <Font name="Cooper Black" size="28.0" />
             </font>
         </Text>
-        <RadioButton layoutX="258.0" layoutY="448.0" mnemonicParsing="false" text="Yes" textFill="#0cf20c">
+        <RadioButton fx:id="yes" layoutX="258.0" layoutY="448.0" mnemonicParsing="false" text="Yes" textFill="#0cf20c">
             <font>
                 <Font name="Cooper Black" size="18.0" />
             </font>
         </RadioButton>
-        <RadioButton layoutX="420.0" layoutY="448.0" mnemonicParsing="false" text="No" textFill="LIME">
+        <RadioButton fx:id="no" layoutX="420.0" layoutY="448.0" mnemonicParsing="false" text="No" textFill="LIME">
             <font>
                 <Font name="Cooper Black" size="18.0" />
             </font>
         </RadioButton>
-        <Button layoutX="341.0" layoutY="511.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="198.0" style="-fx-background-color: blue;" text="CREATE" textFill="RED">
+        <Button fx:id="createButton" layoutX="341.0" layoutY="511.0" mnemonicParsing="false" onAction="#branchsubmission" prefHeight="59.0" prefWidth="198.0" style="-fx-background-color: blue;" text="CREATE" textFill="RED">
          <font>
             <Font name="Cooper Black" size="24.0" />
          </font></Button>
@@ -72,6 +72,11 @@
             <Font name="Cooper Black" size="28.0" />
          </font>
       </Text>
-      <TextField layoutX="713.0" layoutY="187.0" prefHeight="26.0" prefWidth="116.0" />
+      <TextField fx:id="countLabel" layoutX="713.0" layoutY="187.0" prefHeight="26.0" prefWidth="116.0" />
+      <Button layoutX="58.0" layoutY="65.0" mnemonicParsing="false" onAction="#go_back" prefHeight="59.0" prefWidth="150.0" text="BACK">
+         <font>
+            <Font name="Cooper Black" size="24.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

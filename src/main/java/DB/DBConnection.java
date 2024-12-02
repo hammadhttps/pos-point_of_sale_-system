@@ -47,7 +47,7 @@ public class DBConnection {
         return dbConnection;
     }
 
-    public Connection getConnection() {
+    public  Connection getConnection() {
         try {
             // Check if the connection is valid; reconnect if needed
             if (connection == null || connection.isClosed() || !connection.isValid(5)) {
