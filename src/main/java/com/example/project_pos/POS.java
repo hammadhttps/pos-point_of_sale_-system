@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
-
+// mo
 public class POS extends Application {
     @Override
 

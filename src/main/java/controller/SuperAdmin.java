@@ -210,6 +210,7 @@ public class SuperAdmin {
             stage.setScene(scene);
             stage.show();
         }
+        // hello.
     }
     public  void branch_back(ActionEvent e) throws IOException {
         root= FXMLLoader.load(getClass().getResource("/com/example/project_pos/SuperAdmin_UI.fxml"));
