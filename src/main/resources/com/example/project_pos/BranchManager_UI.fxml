@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="681.0" prefWidth="929.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SuperAdmin">
+<AnchorPane fx:id="anchorPane" prefHeight="681.0" prefWidth="929.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BranchManager">
     <children>
         <Label layoutX="297.0" layoutY="26.0" prefHeight="68.0" prefWidth="333.0" text="Branch Manager" textFill="WHITE">
             <font>
@@ -17,7 +17,7 @@
             </font>
         </Label>
         <ButtonBar layoutX="118.0" layoutY="270.0" prefHeight="40.0" prefWidth="200.0" />
-        <Button fx:id="button2" layoutX="291.0" layoutY="320.0" mnemonicParsing="false" onAction="#createBranchManager" prefHeight="94.0" prefWidth="366.0" text="Add Data Entry Operator" textFill="RED">
+        <Button fx:id="button2" layoutX="291.0" layoutY="320.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="366.0" text="Add Data Entry Operator" textFill="RED">
             <font>
                 <Font name="Cooper Black" size="24.0" />
             </font>
@@ -33,7 +33,7 @@
                 <Image url="@../../../../../../../manager.png" />
             </image>
         </ImageView>
-        <Button fx:id="button21" layoutX="291.0" layoutY="454.0" mnemonicParsing="false" onAction="#createBranchManager" prefHeight="94.0" prefWidth="366.0" text="Edit Employee Credentials" textFill="RED">
+        <Button fx:id="button21" layoutX="291.0" layoutY="454.0" mnemonicParsing="false" onAction="#go_forward" prefHeight="94.0" prefWidth="366.0" text="Edit Employee Credentials" textFill="RED">
             <font>
                 <Font name="Cooper Black" size="24.0" />
             </font>
@@ -43,7 +43,7 @@
                 <Image url="@../../../../../../../report2.png" />
             </image>
         </ImageView>
-      <Button fx:id="button22" layoutX="288.0" layoutY="190.0" mnemonicParsing="false" onAction="#createBranchManager" prefHeight="94.0" prefWidth="366.0" text="Add Cashier" textFill="RED">
+      <Button fx:id="button22" layoutX="288.0" layoutY="190.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="366.0" text="Add Cashier" textFill="RED">
          <font>
             <Font name="Cooper Black" size="24.0" />
          </font>

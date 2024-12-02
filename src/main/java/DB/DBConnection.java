@@ -12,6 +12,7 @@ public class DBConnection {
         connect(); // Initialize the connection when the instance is created
     }
 
+
     private void connect() {
         try {
             // Load MySQL JDBC driver

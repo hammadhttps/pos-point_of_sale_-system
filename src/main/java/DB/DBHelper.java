@@ -2,6 +2,7 @@ package DB;
 
 
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 
 import java.sql.Connection;
@@ -17,6 +18,35 @@ public class DBHelper {
     {
         connection=conn;
     }
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("INFORMATION");
+        alert.setHeaderText(null); // No header
+        alert.setContentText(message); // The error message
+        alert.showAndWait(); // Show the alert and wait for user to close it
+    }
+    public void changeBranchName(String id, String name) {
+        String query = "UPDATE branch SET name=? WHERE branchId=?";
+        try {
+            PreparedStatement ppt = connection.prepareStatement(query);
+            ppt.setString(1, name);  // Set the new branch name
+            ppt.setString(2, id);    // Set the branch ID
+
+            int rowsAffected = ppt.executeUpdate(); // Use executeUpdate() for UPDATE queries
+
+            if (rowsAffected > 0) {
+                showAlert("Name has been updated.");
+            } else {
+                showAlert("Weren't able to update the name.");
+            }
+
+            ppt.close(); // Close the PreparedStatement
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void InsertBranch(String id,String name, String address, String city,boolean isActive, int count) throws SQLException {
    String query="INSERT INTO branch(branchId,name,address,city,isActive,employeeCount)VALUES " +
            "(?,?,?,?,?,?)";
@@ -54,8 +84,7 @@ public class DBHelper {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setHeaderText("Branch ID does not exist.");
                 alert.show();
-            }
-// wow
+            }// wow
             // Close ResultSet and PreparedStatement
             rs.close();
             ppt.close();
@@ -64,5 +93,28 @@ public class DBHelper {
             e.printStackTrace();
         }
     }
+    public void changePassword(String id, String password)
+    {
+        String query="";
+    }
+    public void employeeCount(String id, int count) throws SQLException {
+        String query = "UPDATE branch SET employeeCount=? WHERE branchId=?";
+        try (PreparedStatement ppt = connection.prepareStatement(query)) {  // Use try-with-resources to auto-close the PreparedStatement
+            ppt.setInt(1, count);  // Set the employee count
+            ppt.setString(2, id);  // Set the branch ID
+
+            int rowsAffected = ppt.executeUpdate(); // Use executeUpdate() for UPDATE queries
+
+            if (rowsAffected > 0) {
+                showAlert("Employee Count Updated Successfully.");
+            } else {
+                showAlert("Employee Count could not be updated.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;  // Re-throw the exception after logging it
+        }
+    }
+
 
 }
