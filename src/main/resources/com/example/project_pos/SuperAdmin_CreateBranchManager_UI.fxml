@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="681.0" prefWidth="929.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" prefHeight="681.0" prefWidth="929.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SuperAdmin">
     <children>
         <Label layoutX="266.0" layoutY="46.0" prefHeight="68.0" prefWidth="397.0" text="Branch Manager Creation" textFill="#00e700">
             <font>
@@ -38,16 +38,16 @@
                 <Font name="Cooper Black" size="28.0" />
             </font>
         </Text>
-        <TextField layoutX="236.0" layoutY="187.0" prefHeight="26.0" prefWidth="182.0" />
-        <TextField layoutX="236.0" layoutY="248.0" prefHeight="26.0" prefWidth="294.0" />
-        <TextField layoutX="236.0" layoutY="316.0" prefHeight="26.0" prefWidth="182.0" />
-        <TextField layoutX="236.0" layoutY="383.0" prefHeight="26.0" prefWidth="239.0" />
+        <TextField fx:id="nameLabel2" layoutX="236.0" layoutY="187.0" prefHeight="26.0" prefWidth="182.0" />
+        <TextField fx:id="emailLabel2" layoutX="236.0" layoutY="248.0" prefHeight="26.0" prefWidth="294.0" />
+        <TextField fx:id="passwordLabel2" layoutX="236.0" layoutY="316.0" prefHeight="26.0" prefWidth="182.0" />
+        <TextField fx:id="branchidLabel2" layoutX="236.0" layoutY="383.0" prefHeight="26.0" prefWidth="239.0" />
         <Text fill="RED" layoutX="46.0" layoutY="469.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manager Id :" wrappingWidth="174.13677978515625">
             <font>
                 <Font name="Cooper Black" size="28.0" />
             </font>
         </Text>
-        <Button layoutX="341.0" layoutY="511.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="198.0" style="-fx-background-color: blue;" text="CREATE" textFill="RED">
+        <Button fx:id="createButton2" layoutX="341.0" layoutY="511.0" mnemonicParsing="false" onAction="#branchManagersubmission" prefHeight="59.0" prefWidth="198.0" style="-fx-background-color: blue;" text="CREATE" textFill="RED">
             <font>
                 <Font name="Cooper Black" size="24.0" />
             </font></Button>
@@ -56,6 +56,11 @@
                 <Image url="@icons_and_images/Manager-icon.png" />
             </image>
         </ImageView>
-      <TextField layoutX="236.0" layoutY="446.0" prefHeight="26.0" prefWidth="182.0" />
+      <TextField fx:id="manageridLabel2" layoutX="236.0" layoutY="446.0" prefHeight="26.0" prefWidth="182.0" />
+      <Button layoutX="57.0" layoutY="46.0" mnemonicParsing="false" onAction="#branch_back" prefHeight="59.0" prefWidth="149.0" text="BACK">
+         <font>
+            <Font name="Cooper Black" size="24.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

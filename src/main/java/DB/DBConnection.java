@@ -12,6 +12,7 @@ public class DBConnection {
         connect(); 
     }
 
+
     private void connect() {
         try {
             // Load MySQL JDBC driver
@@ -47,7 +48,7 @@ public class DBConnection {
         return dbConnection;
     }
 
-    public Connection getConnection() {
+    public  Connection getConnection() {
         try {
             // Check if the connection is valid; reconnect if needed
             if (connection == null || connection.isClosed() || !connection.isValid(5)) {
@@ -60,7 +61,7 @@ public class DBConnection {
         }
         return connection;
     }
-
+    // hey
     public void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {

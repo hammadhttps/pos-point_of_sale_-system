@@ -1,3 +1,4 @@
+/*
 package services;
 
 import model.Product;
@@ -23,7 +24,7 @@ public class InventoryDAO {
         String query = "SELECT * FROM products";
         try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
-                Product product = new Product();
+              Product product = new Product();
                 product.setProductId(rs.getString("product_id"));
                 product.setName(rs.getString("name"));
                 product.setCategory(rs.getString("category"));
@@ -112,3 +113,4 @@ public class InventoryDAO {
         return false;
     }
 }
+*/

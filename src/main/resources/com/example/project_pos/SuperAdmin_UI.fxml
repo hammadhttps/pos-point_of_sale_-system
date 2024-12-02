@@ -35,7 +35,7 @@
       <Line endX="166.5999755859375" layoutX="419.0" layoutY="114.0" startX="-108.0" stroke="#ff0000fa" strokeWidth="20.0" />
       <ImageView fx:id="branchicon1" fitHeight="115.0" fitWidth="103.0" layoutX="185.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../manager.png" />
+            <Image url="@icons_and_images/manager.png" />
          </image>
       </ImageView>
       <Button fx:id="button21" layoutX="303.0" layoutY="454.0" mnemonicParsing="false" onAction="#createBranchManager" prefHeight="94.0" prefWidth="322.0" text="Generate Report" textFill="RED">
@@ -45,7 +45,7 @@
       </Button>
       <ImageView fx:id="branchicon11" fitHeight="94.0" fitWidth="92.0" layoutX="197.0" layoutY="454.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../report2.png" />
+            <Image url="@icons_and_images/report2.png" />
          </image>
       </ImageView>
     </children>

@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="681.0" prefWidth="929.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SuperAdmin">
+<AnchorPane fx:id="anchorPane" prefHeight="681.0" prefWidth="929.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BranchManager">
     <children>
         <Label layoutX="297.0" layoutY="26.0" prefHeight="68.0" prefWidth="333.0" text="Branch Manager" textFill="WHITE">
             <font>
@@ -37,14 +37,19 @@
                 <Font name="Cooper Black" size="24.0" />
             </font>
         </Label>
-        <TextField layoutX="404.0" layoutY="277.0" prefHeight="26.0" prefWidth="175.0" />
-        <TextField layoutX="406.0" layoutY="347.0" prefHeight="26.0" prefWidth="208.0" />
+        <TextField fx:id="branchLabel" layoutX="404.0" layoutY="277.0" prefHeight="26.0" prefWidth="175.0" />
+        <TextField fx:id="countLabel" layoutX="406.0" layoutY="347.0" prefHeight="26.0" prefWidth="208.0" />
 
         <!-- Button with Green Background and Cooper Black Font -->
-        <Button layoutX="380.0" layoutY="436.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="162.0" style="-fx-background-color: green;" text="Change" textFill="white">
+        <Button layoutX="380.0" layoutY="436.0" mnemonicParsing="false" onAction="#changeEmployeeCount" prefHeight="68.0" prefWidth="162.0" style="-fx-background-color: green;" text="Change" textFill="white">
             <font>
                 <Font name="Cooper Black" size="18.0" />
             </font>
         </Button>
+      <Button layoutX="59.0" layoutY="54.0" mnemonicParsing="false" onAction="#go_back" prefHeight="54.0" prefWidth="143.0" text="BACK">
+         <font>
+            <Font name="Cooper Black" size="24.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>
