@@ -9,7 +9,7 @@ public class DBConnection {
     private Connection connection;
 
     private DBConnection() {
-        connect(); // Initialize the connection when the instance is created
+        connect(); 
     }
 
     private void connect() {
@@ -25,16 +25,16 @@ public class DBConnection {
             );
 
             if (connection != null) {
-                System.out.println("Connection established successfully!");
+              //  System.out.println("Connection established successfully!");
             } else {
-                System.out.println("Connection failed!");
+                //System.out.println("Connection failed!");
             }
 
         } catch (ClassNotFoundException e) {
-            System.out.println("JDBC Driver not found!");
+          //  System.out.println("JDBC Driver not found!");
             e.printStackTrace();
         } catch (SQLException e) {
-            System.out.println("SQL Exception occurred while establishing connection.");
+          //  System.out.println("SQL Exception occurred while establishing connection.");
             e.printStackTrace();
         }
     }
@@ -51,11 +51,11 @@ public class DBConnection {
         try {
             // Check if the connection is valid; reconnect if needed
             if (connection == null || connection.isClosed() || !connection.isValid(5)) {
-                System.out.println("Re-establishing connection...");
+            //    System.out.println("Re-establishing connection...");
                 connect();
             }
         } catch (SQLException e) {
-            System.out.println("Error while validating connection.");
+         //   System.out.println("Error while validating connection.");
             e.printStackTrace();
         }
         return connection;
@@ -65,10 +65,10 @@ public class DBConnection {
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
-                System.out.println("Connection closed successfully.");
+             //   System.out.println("Connection closed successfully.");
             }
         } catch (SQLException e) {
-            System.out.println("Error closing connection.");
+           // System.out.println("Error closing connection.");
             e.printStackTrace();
         }
     }
