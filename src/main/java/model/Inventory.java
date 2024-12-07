@@ -1,6 +1,5 @@
 package model;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,6 +96,27 @@ public class Inventory {
             }
         } else {
             System.out.println("Product not found in inventory.");
+        }
+    }
+
+    // Setter for quantity of a certain product by its ID
+    public void setProductQuantity(String productId, int quantity) {
+        if (products.containsKey(productId)) {
+            Product product = products.get(productId);
+            product.setQuantity(quantity);
+            System.out.println("Set quantity of product ID: " + productId + " to " + quantity);
+        } else {
+            System.out.println("Product not found in inventory.");
+        }
+    }
+
+    // Getter for quantity of a certain product by its ID
+    public int getProductQuantity(String productId) {
+        if (products.containsKey(productId)) {
+            return products.get(productId).getQuantity();
+        } else {
+            System.out.println("Product not found in inventory.");
+            return -1; // Return -1 or another value to indicate the product was not found
         }
     }
 }
