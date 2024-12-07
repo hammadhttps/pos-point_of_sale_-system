@@ -11,7 +11,7 @@ public class DataEntryOperatorDAO {
 
     // Method to add a new Data Entry Operator
     public boolean addDataEntryOperator(DataEntryOperator operator) {
-        String query = "INSERT INTO data_entry_operators (username, name, email, password, role, branch_code, salary) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO dataentryoperator (username, name, email, password, role, branch_code, salary) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
@@ -32,7 +32,7 @@ public class DataEntryOperatorDAO {
 
     // Method to update an existing Data Entry Operator
     public boolean updateDataEntryOperator(DataEntryOperator operator) {
-        String query = "UPDATE data_entry_operators SET name = ?, email = ?, password = ?, role = ?, branch_code = ?, salary = ? WHERE username = ?";
+        String query = "UPDATE dataentryoperator SET name = ?, email = ?, password = ?, role = ?, branch_code = ?, salary = ? WHERE username = ?";
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
@@ -53,7 +53,7 @@ public class DataEntryOperatorDAO {
 
     // Method to delete a Data Entry Operator by username
     public boolean deleteDataEntryOperator(String username) {
-        String query = "DELETE FROM data_entry_operators WHERE username = ?";
+        String query = "DELETE FROM dataentryoperator WHERE username = ?";
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
@@ -67,7 +67,7 @@ public class DataEntryOperatorDAO {
 
     // Method to fetch a Data Entry Operator by username
     public DataEntryOperator getDataEntryOperator(String username) {
-        String query = "SELECT * FROM data_entry_operators WHERE username = ?";
+        String query = "SELECT * FROM dataentryoperator WHERE username = ?";
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
@@ -95,7 +95,7 @@ public class DataEntryOperatorDAO {
     // Method to fetch all Data Entry Operators
     public List<DataEntryOperator> getAllDataEntryOperators() {
         List<DataEntryOperator> operators = new ArrayList<>();
-        String query = "SELECT * FROM data_entry_operators";
+        String query = "SELECT * FROM dataentryoperator";
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {
@@ -107,7 +107,7 @@ public class DataEntryOperatorDAO {
                 operator.setEmail(rs.getString("email"));
                 operator.setPassword(rs.getString("password"));
                 operator.setRole(rs.getString("role"));
-                operator.setBranchCode(rs.getString("branch_code"));
+                operator.setBranchCode(rs.getString("branchcode"));
                 operator.setSalary(rs.getDouble("salary"));
 
                 operators.add(operator);

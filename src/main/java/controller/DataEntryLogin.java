@@ -57,13 +57,18 @@ public class DataEntryLogin {
     }
 
     // On login button click, authenticate the user
-    public void On_login(ActionEvent actionEvent) {
+    public void On_login(ActionEvent actionEvent) throws IOException {
         if (authenticate(username.getText(), password.getText())) {
             // Successful login: Replace the lock icon with the unlock icon
             _icon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/project_pos/icons_and_images/Lock-Unlock-icon.png"))));
-            System.out.println("Login successful!");  // You can replace this with a redirection to a new screen
+            FXMLLoader loader=new FXMLLoader(getClass().getResource("/com/example/project_pos/data_entry_operator.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         } else {
-            // Invalid login: Vibrate the login button
+
             shakeButton(loginButton);
             loginButton.setText("Invalid");
         }

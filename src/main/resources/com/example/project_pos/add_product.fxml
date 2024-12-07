@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="addProductPane" prefHeight="486.0" prefWidth="666.0" stylesheets="@style4.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddProduct">
+    <children>
+        <Label layoutX="242.0" layoutY="14.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Add New Product" />
+        <GridPane hgap="20.0" layoutX="50.0" layoutY="80.0" vgap="10.0">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" prefWidth="150.0" />
+                <ColumnConstraints prefWidth="300.0" />
+            </columnConstraints>
+            <children>
+                <Label text="Product ID:" />
+                <TextField fx:id="productIdField" GridPane.columnIndex="1" />
+
+                <Label text="Product Name:" GridPane.rowIndex="1" />
+                <TextField fx:id="productNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Category:" GridPane.rowIndex="2" />
+                <!-- Replacing TextField with ComboBox -->
+                <ComboBox fx:id="categoryField" promptText="Select a category" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Fashion" />
+                            <String fx:value="Electronic Accessories" />
+                            <String fx:value="Grocery" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+
+                <Label text="Original Price:" GridPane.rowIndex="3" />
+                <TextField fx:id="originalPriceField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <Label text="Sale Price:" GridPane.rowIndex="4" />
+                <TextField fx:id="salePriceField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                <Label text="Price by Unit:" GridPane.rowIndex="5" />
+                <TextField fx:id="priceByUnitField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                <Label text="Price by Carton:" GridPane.rowIndex="6" />
+                <TextField fx:id="priceByCartonField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+                <Label text="Quantity:" GridPane.rowIndex="7" />
+                <TextField fx:id="quantityField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            </children>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+
+        <Button layoutX="295.0" layoutY="474.0" onAction="#addProduct" text="Add Product" />
+    </children>
+</AnchorPane>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="mainAnchorPane" prefHeight="686.0" prefWidth="1171.0" style="-fx-background-color: #EEDC2;" stylesheets="@style3.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Data_entry_operator">
+   <children>
+      <AnchorPane fx:id="innerAnchorPane" layoutX="93.0" layoutY="40.0" prefHeight="576.0" prefWidth="1000.0" styleClass="inner-anchor-pane">
+         <children>
+            <Label fx:id="welcome_label" alignment="CENTER" contentDisplay="CENTER" layoutX="300.0" layoutY="21.0" prefHeight="65.0" prefWidth="390.0" text="WELCOME">
+               <font>
+                  <Font size="56.0" />
+               </font>
+            </Label>
+
+            <VBox alignment="CENTER" layoutX="128.0" layoutY="240.0" spacing="10">
+               <ImageView fx:id="vendorsIcon" fitHeight="120.0" fitWidth="130.0" onMouseClicked="#show_vendors" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@icons_and_images/vendors.png" />
+                  </image>
+               </ImageView>
+               <Label styleClass="sub-label" text="Vendors" />
+            </VBox>
+
+            <VBox alignment="CENTER" layoutX="400.0" layoutY="200.0" spacing="10">
+               <ImageView fx:id="addProductIcon" fitHeight="120.0" fitWidth="130.0" onMouseClicked="#add_new_product" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@icons_and_images/add-to-cart.png" />
+                  </image>
+               </ImageView>
+               <Label styleClass="sub-label" text="Add New Product" />
+            </VBox>
+
+            <VBox alignment="CENTER" layoutX="700.0" layoutY="200.0" spacing="10">
+               <ImageView fx:id="addVendorIcon" fitHeight="120.0" fitWidth="130.0" onMouseClicked="#add_new_vendor" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@icons_and_images/add_new_vendor.png" />
+                  </image>
+               </ImageView>
+               <Label styleClass="sub-label" text="Add New Vendor" />
+            </VBox>
+
+            <Button layoutX="820.0" layoutY="512.0" mnemonicParsing="false" onAction="#cancel" prefHeight="37.0" prefWidth="108.0" text="Cancel" textFill="#4a1010">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <ImageView fitHeight="31.0" fitWidth="44.0" layoutX="9.0" layoutY="6.0" onMouseClicked="#goToHomeScreen" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons_and_images/left-arrow_5344941.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

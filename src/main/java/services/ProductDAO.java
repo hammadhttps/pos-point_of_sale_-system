@@ -10,7 +10,54 @@ import java.util.Map;
 
 public class ProductDAO {
 
-    // Fetch all products from the database
+
+    public String addProduct(Product product) {
+        String checkQuery = "SELECT COUNT(*) FROM product WHERE productId = ?";
+        String insertQuery = "INSERT INTO product (productId, name, category, originalPrice, salePrice, priceByUnit, priceByCarton, quantity) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        boolean isAdded = false;
+
+        try (Connection connection = DBConnection.getInstance().getConnection()) {
+            // Check if the product already exists
+            try (PreparedStatement checkStatement = connection.prepareStatement(checkQuery)) {
+                checkStatement.setString(1, product.getProductId());
+                ResultSet resultSet = checkStatement.executeQuery();
+
+                if (resultSet.next() && resultSet.getInt(1) > 0) {
+                    System.out.println("Product already exists in the database.");
+                    return "Product already exists, so do not add";
+                }
+            }
+
+            // Add the product if it does not exist
+            try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
+                insertStatement.setString(1, product.getProductId());
+                insertStatement.setString(2, product.getName());
+                insertStatement.setString(3, product.getCategory());
+                insertStatement.setDouble(4, product.getOriginalPrice());
+                insertStatement.setDouble(5, product.getSalePrice());
+                insertStatement.setDouble(6, product.getPriceByUnit());
+                insertStatement.setDouble(7, product.getPriceByCarton());
+                insertStatement.setInt(8, product.getQuantity());
+
+                int rowsAffected = insertStatement.executeUpdate();
+                isAdded = rowsAffected > 0;
+
+                if (isAdded) {
+                    System.out.println("Product added successfully!");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return "Successfully Added in the Inventroy";
+    }
+
+
+
+
     public List<Product> getAllProducts() {
         List<Product> products = new ArrayList<>();
         String query = "SELECT productId, name, category, originalPrice, salePrice, priceByUnit, priceByCarton, quantity FROM product";

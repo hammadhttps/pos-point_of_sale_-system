@@ -2,7 +2,7 @@ package services;
 
 import DB.DBConnection;
 import model.Vendor;
-import model.Product;
+import model.vendor_product;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class VendorDAO {
 
-    // Fetch all vendors from the database
+
     public List<Vendor> getAllVendors() {
         List<Vendor> vendors = new ArrayList<>();
         String query = "SELECT vendorId, name, contactInfo FROM vendor";
@@ -26,7 +26,7 @@ public class VendorDAO {
                 vendor.setContactInfo(resultSet.getString("contactInfo"));
 
                 // Fetch the products for this vendor
-                List<Product> products = getProductsByVendorId(vendor.getVendorId());
+                List<vendor_product> products = getProductsByVendorId(vendor.getVendorId());
                 vendor.setProductList(products);
 
                 vendors.add(vendor);
@@ -57,7 +57,7 @@ public class VendorDAO {
                 vendor.setContactInfo(resultSet.getString("contactInfo"));
 
                 // Fetch the products for this vendor
-                List<Product> products = getProductsByVendorId(vendor.getVendorId());
+                List<vendor_product> products = getProductsByVendorId(vendor.getVendorId());
                 vendor.setProductList(products);
             }
 
@@ -129,11 +129,11 @@ public class VendorDAO {
         return false;
     }
 
-    // Helper method to fetch products by vendor ID
-    private List<Product> getProductsByVendorId(String vendorId) {
-        List<Product> products = new ArrayList<>();
+    // Helper method to fetch vendor_product by vendor ID
+    private List<vendor_product> getProductsByVendorId(String vendorId) {
+        List<vendor_product> products = new ArrayList<>();
         String query = "SELECT productId, name, category, originalPrice, salePrice, priceByUnit, priceByCarton, quantity " +
-                       "FROM product WHERE vendorId = ?";
+                "FROM vendor_product WHERE vendorId = ?";
 
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -142,7 +142,7 @@ public class VendorDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                Product product = new Product(
+                vendor_product product = new vendor_product(
                         resultSet.getString("productId"),
                         resultSet.getString("name"),
                         resultSet.getString("category"),
@@ -160,5 +160,33 @@ public class VendorDAO {
         }
 
         return products;
+    }
+
+    // Add a product to a vendor's product list
+    public boolean addProductToVendor(vendor_product product, String vendorId) {
+        String query = "INSERT INTO vendor_product (productId, name, category, originalPrice, salePrice, priceByUnit, priceByCarton, quantity, vendorId) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, product.getProductId());
+            preparedStatement.setString(2, product.getName());
+            preparedStatement.setString(3, product.getCategory());
+            preparedStatement.setDouble(4, product.getOriginalPrice());
+            preparedStatement.setDouble(5, product.getSalePrice());
+            preparedStatement.setDouble(6, product.getPriceByUnit());
+            preparedStatement.setDouble(7, product.getPriceByCarton());
+            preparedStatement.setInt(8, product.getQuantity());
+            preparedStatement.setString(9, vendorId);
+
+            int rowsInserted = preparedStatement.executeUpdate();
+            return rowsInserted > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

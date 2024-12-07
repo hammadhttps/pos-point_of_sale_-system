@@ -1,0 +1,119 @@
+ /* AnchorPane Background */
+ #addProductPane {
+     -fx-background-color: linear-gradient(to bottom right, #2C3E50, #34495E); /* Deep midnight blue gradient */
+     -fx-padding: 30px;
+     -fx-border-color: #3498DB; /* Bright blue border */
+     -fx-border-width: 5px;
+     -fx-border-radius: 15px;
+     -fx-background-radius: 15px;
+ }
+
+ /* Labels Styling */
+ .label {
+     -fx-font-family: 'Roboto', sans-serif;
+     -fx-font-size: 16px;
+     -fx-text-fill: #ECF0F1; /* Light silver text */
+     -fx-font-weight: bold;
+     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 4, 0.5, 1, 1);
+ }
+
+ /* TextField Styling */
+ .text-field {
+     -fx-background-color: linear-gradient(to bottom, #FFFFFF, #F1F3F4); /* Light soft gradient */
+     -fx-border-color: #3498DB; /* Bright blue border */
+     -fx-border-radius: 10px;
+     -fx-background-radius: 10px;
+     -fx-border-width: 2px;
+     -fx-padding: 8px;
+     -fx-font-size: 14px;
+     -fx-text-fill: #2C3E50; /* Dark blue-gray text */
+     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0.5, 1, 1);
+ }
+
+ /* ComboBox Styling */
+ .combo-box {
+     -fx-background-color: #34495E; /* Dark blue-gray background */
+     -fx-border-color: #3498DB; /* Bright blue border */
+     -fx-border-radius: 10px;
+     -fx-background-radius: 10px;
+     -fx-border-width: 2px;
+     -fx-font-size: 14px;
+     -fx-text-fill: #ECF0F1; /* Light silver text */
+ }
+
+ .combo-box .arrow {
+     -fx-background-color: #3498DB; /* Bright blue arrow */
+     -fx-padding: 5px;
+     -fx-shape: "M 0 0 L 4 4 L 8 0 Z"; /* Custom arrow */
+ }
+
+ /* ComboBox Popup Styling */
+ .combo-box .list-cell {
+     -fx-background-color: #2C3E50; /* Deep midnight blue background */
+     -fx-text-fill: #ECF0F1; /* Light silver text */
+     -fx-font-size: 14px;
+ }
+
+ /* Button Styling */
+ .button {
+     -fx-background-color: linear-gradient(to bottom, #3498DB, #2980B9); /* Blue gradient */
+     -fx-text-fill: #FFFFFF; /* White text */
+     -fx-font-weight: bold;
+     -fx-font-size: 16px;
+     -fx-border-color: #2C3E50; /* Dark blue border */
+     -fx-border-width: 3px;
+     -fx-border-radius: 12px;
+     -fx-background-radius: 12px;
+     -fx-padding: 10px 20px;
+     -fx-cursor: hand;
+     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0.5, 2, 2);
+ }
+
+ /* Button Hover Effect */
+ .button:hover {
+     -fx-background-color: linear-gradient(to bottom, #2980B9, #27AE60); /* Blue to green gradient */
+     -fx-text-fill: #FFFFFF; /* White text */
+     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 4, 0.5, 2, 2);
+ }
+
+ /* Button Pressed Effect */
+ .button:pressed {
+     -fx-background-color: #27AE60; /* Green */
+     -fx-text-fill: #FFFFFF; /* White text */
+     -fx-effect: none;
+ }
+
+ /* Tooltip Styling */
+ .tooltip {
+     -fx-background-color: #3498DB; /* Bright blue background */
+     -fx-text-fill: #FFFFFF; /* White text */
+     -fx-font-size: 12px;
+     -fx-font-family: 'Roboto', sans-serif;
+     -fx-border-color: #2C3E50; /* Dark blue border */
+     -fx-border-width: 2px;
+ }
+
+ /* ScrollBar Styling */
+ .scroll-bar {
+     -fx-background-color: #34495E;
+ }
+
+ .scroll-bar .thumb {
+     -fx-background-color: #3498DB;
+     -fx-background-radius: 10px;
+ }
+
+ /* CheckBox Styling */
+ .check-box {
+     -fx-text-fill: #ECF0F1;
+ }
+
+ .check-box .box {
+     -fx-background-color: #34495E;
+     -fx-border-color: #3498DB;
+     -fx-border-radius: 4px;
+ }
+
+ .check-box:selected .mark {
+     -fx-background-color: #3498DB;
+ }

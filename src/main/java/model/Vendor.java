@@ -6,7 +6,7 @@ public class Vendor {
     private String vendorId;
     private String name;
     private String contactInfo;
-    private List<Product> productList;
+    private List<vendor_product> productList;
 
     // Getters and Setters
     public String getVendorId() {
@@ -33,11 +33,11 @@ public class Vendor {
         this.contactInfo = contactInfo;
     }
 
-    public List<Product> getProductList() {
+    public List<vendor_product> getProductList() {
         return productList;
     }
 
-    public void setProductList(List<Product> productList) {
+    public void setProductList(List<vendor_product> productList) {
         this.productList = productList;
     }
 }
