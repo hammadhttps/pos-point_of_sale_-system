@@ -4,7 +4,6 @@ import DB.DBConnection;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,7 +11,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -22,13 +24,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
-public class DataEntryLogin {
+public class DataEntryOperator_controller {
+
 
     public ImageView _icon;
     public TextField username;
     public PasswordField password;
     public Button loginButton;
     int count = 0;
+
 
     // Method to authenticate using data from the database
     private boolean authenticate(String username, String password) {
@@ -97,5 +101,52 @@ public class DataEntryLogin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void cancel(ActionEvent event) {
+        Platform.exit();  // Close the application
+    }
+
+    // Method to handle the Back button click (Switch to Home screen)
+    public void goToHomeScreen(MouseEvent event) throws IOException {
+        // Load the second screen FXML
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/second_screen.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void add_new_vendor(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/add_new_vendor.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Add New Product");
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    }
+
+    public void add_new_product(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/add_product.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Add New Product");
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    }
+
+    public void show_vendors(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/vendors.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Add New Product");
+        stage.setScene(new Scene(root));
+        stage.show();
+
+
     }
 }

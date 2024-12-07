@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      spacing="10"
+      alignment="CENTER"
+      styleClass="vendor-details-container">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Vendor Details Section -->
+    <VBox spacing="5" alignment="CENTER_LEFT">
+        <Label fx:id="vendorNameLabel" styleClass="vendor-name-title"/>
+        <Label fx:id="vendorIdLabel" styleClass="vendor-id-subtitle"/>
+        <Label fx:id="contactInfoLabel" styleClass="vendor-contact-info"/>
+    </VBox>
+
+    <!-- Products Table -->
+    <TableView fx:id="productsTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="productIdCol" text="Product ID" />
+            <TableColumn fx:id="nameCol" text="Name" />
+            <TableColumn fx:id="categoryCol" text="Category" />
+            <TableColumn fx:id="originalPriceCol" text="Original Price" />
+            <TableColumn fx:id="salePriceCol" text="Sale Price" />
+            <TableColumn fx:id="quantityCol" text="Quantity" />
+        </columns>
+    </TableView>
+</VBox>

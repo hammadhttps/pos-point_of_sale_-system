@@ -1,0 +1,96 @@
+/* Vendors View Stylesheet */
+
+.root-container {
+    -fx-background-color: #f4f4f4;
+    -fx-padding: 20px;
+}
+
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 0 0 15px 0;
+}
+
+.vendors-container {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+}
+
+.vendor-box {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+    -fx-padding: 15px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 10px;
+}
+
+.vendor-name {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2980b9;
+}
+
+.vendor-id {
+    -fx-font-size: 14px;
+    -fx-text-fill: #7f8c8d;
+}
+
+.vendor-contact {
+    -fx-font-size: 14px;
+    -fx-text-fill: #34495e;
+}
+
+.products-table {
+    -fx-background-color: transparent;
+}
+
+.products-table .table-view {
+    -fx-background-color: transparent;
+}
+
+.products-table .table-row-cell {
+    -fx-background-color: transparent;
+}
+
+.products-table .table-column {
+    -fx-background-color: #f1f3f4;
+    -fx-font-weight: bold;
+}
+
+.products-table .table-row-cell:hover {
+    -fx-background-color: rgba(41, 128, 185, 0.1);
+}
+
+/* Scrollbar styling */
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0.5em;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0.5em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #bdc3c7;
+    -fx-background-radius: 0.5em;
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #95a5a6;
+}

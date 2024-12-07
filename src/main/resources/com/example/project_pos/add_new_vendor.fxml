@@ -1,14 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.AddNewVendor"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane id="addProductPane" prefHeight="455.0" prefWidth="662.0" styleClass="root-pane" stylesheets="@styles5.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddNewVendor">
 
+    <VBox layoutX="50" layoutY="50" prefWidth="600" spacing="20" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Add New Vendor" />
+
+        <GridPane hgap="15" vgap="15">
+            <Label text="Vendor ID:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="vendorIdField" promptText="Enter Vendor ID" GridPane.columnIndex="1" GridPane.rowIndex="0" HBox.hgrow="ALWAYS" />
+
+            <Label text="Vendor Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="nameField" promptText="Enter Vendor Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <Label text="Contact Information:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <TextField fx:id="contactInfoField" promptText="Enter Contact Details" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+        </GridPane>
+
+        <HBox alignment="CENTER_RIGHT" spacing="15" />
+    </VBox>
+      <Button layoutX="195.0" layoutY="284.0" onAction="#handleAddVendor" text="Add Vendor">
+          <tooltip>
+              <Tooltip text="Click to add a new vendor to the system" />
+          </tooltip>
+      </Button>
+
+      <Button layoutX="554.0" layoutY="394.0" onAction="#handleCancel" styleClass="secondary-button" text="Cancel">
+          <tooltip>
+              <Tooltip text="Cancel and return to previous screen" />
+          </tooltip>
+      </Button>
 </AnchorPane>

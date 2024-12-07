@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.showVendors"
+      spacing="10"
+      styleClass="root-container" stylesheets="@style6.css">
+
+    <Label text="Vendors and Their Products" styleClass="title-label"/>
+
+    <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true">
+        <VBox fx:id="vendorsContainer" spacing="15" styleClass="vendors-container">
+            <!-- Vendors will be dynamically added here -->
+        </VBox>
+    </ScrollPane>
+</VBox>

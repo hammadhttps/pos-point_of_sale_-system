@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="mainAnchorPane" prefHeight="686.0" prefWidth="1171.0" style="-fx-background-color: #EEDC2;" stylesheets="@style3.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Data_entry_operator">
+<AnchorPane fx:id="mainAnchorPane" prefHeight="686.0" prefWidth="1171.0" style="-fx-background-color: #EEDC2;" stylesheets="@style3.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DataEntryOperator_controller">
    <children>
       <AnchorPane fx:id="innerAnchorPane" layoutX="93.0" layoutY="40.0" prefHeight="576.0" prefWidth="1000.0" styleClass="inner-anchor-pane">
          <children>

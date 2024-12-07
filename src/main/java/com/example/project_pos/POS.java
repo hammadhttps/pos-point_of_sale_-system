@@ -12,7 +12,7 @@ public class POS extends Application {
     @Override
 
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(POS.class.getResource("/com/example/project_pos/data_entry_operator.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(POS.class.getResource("/com/example/project_pos/vendors.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Loading Page");
         stage.setScene(scene);

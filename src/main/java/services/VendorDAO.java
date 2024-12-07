@@ -6,27 +6,51 @@ import model.vendor_product;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VendorDAO {
 
 
     public List<Vendor> getAllVendors() {
         List<Vendor> vendors = new ArrayList<>();
-        String query = "SELECT vendorId, name, contactInfo FROM vendor";
+        String vendorQuery = "SELECT vendorId, name, contactInfo FROM vendor";
+        String productQuery = "SELECT productId, name, category, originalPrice, salePrice, priceByUnit, priceByCarton, quantity, vendorId FROM vendor_product";
 
         try (Connection connection = DBConnection.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+             PreparedStatement vendorStatement = connection.prepareStatement(vendorQuery);
+             PreparedStatement productStatement = connection.prepareStatement(productQuery);
+             ResultSet vendorResultSet = vendorStatement.executeQuery();
+             ResultSet productResultSet = productStatement.executeQuery()) {
 
-            while (resultSet.next()) {
+            // Group products by vendorId
+            Map<String, List<vendor_product>> productMap = new HashMap<>();
+            while (productResultSet.next()) {
+                vendor_product product = new vendor_product(
+                        productResultSet.getString("productId"),
+                        productResultSet.getString("name"),
+                        productResultSet.getString("category"),
+                        productResultSet.getDouble("originalPrice"),
+                        productResultSet.getDouble("salePrice"),
+                        productResultSet.getDouble("priceByUnit"),
+                        productResultSet.getDouble("priceByCarton"),
+                        productResultSet.getInt("quantity")
+                );
+
+                String vendorId = productResultSet.getString("vendorId");
+                productMap.computeIfAbsent(vendorId, k -> new ArrayList<>()).add(product);
+            }
+
+            // Build vendor objects
+            while (vendorResultSet.next()) {
                 Vendor vendor = new Vendor();
-                vendor.setVendorId(resultSet.getString("vendorId"));
-                vendor.setName(resultSet.getString("name"));
-                vendor.setContactInfo(resultSet.getString("contactInfo"));
+                vendor.setVendorId(vendorResultSet.getString("vendorId"));
+                vendor.setName(vendorResultSet.getString("name"));
+                vendor.setContactInfo(vendorResultSet.getString("contactInfo"));
 
-                // Fetch the products for this vendor
-                List<vendor_product> products = getProductsByVendorId(vendor.getVendorId());
+                // Assign the product list for this vendor
+                List<vendor_product> products = productMap.getOrDefault(vendor.getVendorId(), new ArrayList<>());
                 vendor.setProductList(products);
 
                 vendors.add(vendor);
@@ -38,6 +62,7 @@ public class VendorDAO {
 
         return vendors;
     }
+
 
     // Fetch a single vendor by ID
     public Vendor getVendorById(String vendorId) {

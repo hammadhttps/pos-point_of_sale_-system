@@ -8,6 +8,19 @@ public class Vendor {
     private String contactInfo;
     private List<vendor_product> productList;
 
+    public Vendor(String vendorId,String name,String contactInfo)
+    {
+        this.contactInfo=contactInfo;
+        this.vendorId=vendorId;
+        this.name=name;
+    }
+    public  Vendor()
+    {
+
+    }
+
+
+
     // Getters and Setters
     public String getVendorId() {
         return vendorId;
