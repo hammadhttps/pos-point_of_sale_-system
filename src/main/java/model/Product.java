@@ -30,6 +30,10 @@ public class Product {
         this.quantity=quantity;
     }
 
+    public Product() {
+
+    }
+
     // Getters and Setters
     public String getProductId() {
         return productId;

@@ -7,14 +7,27 @@ public class Sale {
     private String saleId;
     private List<Product> products;
     private double totalAmount;
-    private Date date; // Use Date object instead of String
+    private Date date;// Use Date object instead of String
+    private String branchCode;
 
-    public Sale(String id, List<Product> products, double totalAmount, Date date) {
+    public Sale(String id, List<Product> products, double totalAmount, Date date,String branchCode1) {
         this.products = products;
         this.saleId = id;
         this.totalAmount = totalAmount;
         this.date = date;
+        this.branchCode=branchCode1;
     }
+
+    public void setBranchCode(String branchCode1)
+    {
+        this.branchCode=branchCode1;
+    }
+    public String getBranchCode()
+    {
+        return branchCode;
+    }
+
+
 
     // Getters and Setters
     public String getSaleId() {

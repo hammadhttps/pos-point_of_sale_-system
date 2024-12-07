@@ -1,4 +1,6 @@
 package controller;
+import model.Cashier;
+import services.CashierDAO;
 import services.SaleDAO;
 import model.Sale;
 import java.util.Date;
@@ -19,9 +21,11 @@ import services.ProductDAO;
 
 import java.util.*;
 
-public class Cashier {
+public class Cashier_controller {
 
     private final SaleDAO saleDAO = new SaleDAO();
+    private Cashier cashier=new Cashier();
+    private final CashierDAO cashierDAO=new CashierDAO();
     public Pane bill;
     public Button btnCancel;
     public Button btnCreateBill;
@@ -85,6 +89,14 @@ public class Cashier {
         btnCreateBill.setOnAction(event -> createBill());
         btnApplyDiscount.setOnAction(event -> applyDiscount());
     }
+
+    public void get_cashier_detail(String username)
+    {
+        cashier=cashierDAO.getCashier(username);
+    }
+
+
+
 
     private double discountPercentage = 0.0;
 
@@ -169,7 +181,7 @@ public class Cashier {
         billLayout.getChildren().addAll(title, billTable, totalLabel, discountLabel, finalTotalLabel, closeButton);
         bill.getChildren().add(billLayout);
 
-        Sale sale = new Sale(generate4DigitNumber(), (List<Product>) selectedProducts, finalPrice,  new Date());
+        Sale sale = new Sale(generate4DigitNumber(), (List<Product>) selectedProducts, finalPrice,  new Date(),cashier.getBranchCode());
         boolean isSaved = saleDAO.createSale(sale);
 
         if (isSaved) {

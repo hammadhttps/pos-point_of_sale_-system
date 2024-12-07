@@ -12,46 +12,91 @@ public class SaleDAO {
 
     // Create a new sale
     public boolean createSale(Sale sale) {
-        String insertSaleQuery = "INSERT INTO Sale (SaleID, TotalAmount, SaleDate) VALUES (?, ?, ?)";
-        String insertSaleProductQuery = "INSERT INTO SaleProduct (SaleID, ProductID, Quantity) VALUES (?, ?, ?)";
+        String insertSaleQuery = "INSERT INTO Sale (SaleID, TotalAmount, SaleDate, branchcode) VALUES (?, ?, ?, ?)";
+        String insertSaleProductQuery = "INSERT INTO SaleProduct (SaleID, ProductID, Quantity, branchcode) VALUES (?, ?, ?, ?)";
 
-        Connection conn = DBConnection.getInstance().getConnection();
+        try (Connection conn = DBConnection.getInstance().getConnection()) {
+            conn.setAutoCommit(false);
 
-        try {
-            conn.setAutoCommit(false); // Start transaction
+            try (PreparedStatement saleStmt = conn.prepareStatement(insertSaleQuery);
+                 PreparedStatement saleProductStmt = conn.prepareStatement(insertSaleProductQuery)) {
 
-            // Insert into Sale table
-            try (PreparedStatement saleStmt = conn.prepareStatement(insertSaleQuery)) {
+                // Insert into Sale table
                 saleStmt.setString(1, sale.getSaleId());
                 saleStmt.setDouble(2, sale.getTotalAmount());
-                saleStmt.setDate(3, new Date(sale.getDate().getTime())); // Fixed
+                saleStmt.setDate(3, new Date(sale.getDate().getTime()));
+                saleStmt.setString(4, sale.getBranchCode());
                 saleStmt.executeUpdate();
-            }
 
-            // Insert into SaleProduct table
-            try (PreparedStatement saleProductStmt = conn.prepareStatement(insertSaleProductQuery)) {
+                // Insert into SaleProduct table
                 for (Product product : sale.getProducts()) {
                     saleProductStmt.setString(1, sale.getSaleId());
                     saleProductStmt.setString(2, product.getProductId());
                     saleProductStmt.setInt(3, product.getQuantity());
+                    saleProductStmt.setString(4, sale.getBranchCode());
                     saleProductStmt.addBatch();
                 }
                 saleProductStmt.executeBatch();
+
+                conn.commit();
+                return true;
+            } catch (SQLException e) {
+                conn.rollback();
+                throw e; // Propagate exception
+            } finally {
+                conn.setAutoCommit(true);
             }
-
-            conn.commit(); // Commit transaction
-            return true;
-
         } catch (SQLException e) {
             e.printStackTrace();
-            try {
-                conn.rollback(); // Rollback transaction on failure
-            } catch (SQLException rollbackEx) {
-                rollbackEx.printStackTrace();
-            }
             return false;
         }
     }
+    // Get sales by branch code
+    public List<Sale> getSalesByBranchCode(String branchCode) {
+        String saleQuery = "SELECT * FROM Sale WHERE branchcode = ?";
+        String saleProductQuery = "SELECT p.ProductID, p.ProductName, sp.Quantity FROM SaleProduct sp " +
+                "JOIN Product p ON sp.ProductID = p.ProductID WHERE sp.SaleID = ? AND sp.branchcode = ?";
+        List<Sale> sales = new ArrayList<>();
+
+        Connection conn = DBConnection.getInstance().getConnection();
+
+        try {
+            // Fetch sales for the given branch code
+            try (PreparedStatement saleStmt = conn.prepareStatement(saleQuery)) {
+                saleStmt.setString(1, branchCode);
+                ResultSet saleRs = saleStmt.executeQuery();
+
+                while (saleRs.next()) {
+                    String saleId = saleRs.getString("SaleID");
+                    double totalAmount = saleRs.getDouble("TotalAmount");
+                    Date date = saleRs.getDate("SaleDate");
+                    String bc = saleRs.getString("branchcode");
+
+                    // Fetch products associated with each sale
+                    List<Product> products = new ArrayList<>();
+                    try (PreparedStatement saleProductStmt = conn.prepareStatement(saleProductQuery)) {
+                        saleProductStmt.setString(1, saleId);
+                        saleProductStmt.setString(2, branchCode); // Ensure branch-specific products are fetched
+                        ResultSet productRs = saleProductStmt.executeQuery();
+                        while (productRs.next()) {
+                            String productId = productRs.getString("ProductID");
+                            String productName = productRs.getString("ProductName");
+                            int quantity = productRs.getInt("Quantity");
+                            products.add(new Product(productId, productName, quantity)); // Adjust Product constructor
+                        }
+                    }
+
+                    // Add the sale to the list
+                    sales.add(new Sale(saleId, products, totalAmount, date, bc));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sales;
+    }
+
+
 
     // Get a sale by SaleID
     public Sale getSaleById(String saleId) {
@@ -71,6 +116,7 @@ public class SaleDAO {
                     String id = saleRs.getString("SaleID");
                     double totalAmount = saleRs.getDouble("TotalAmount");
                     Date date = saleRs.getDate("SaleDate");
+                    String bc=saleRs.getString("branchode");
 
                     // Fetch products associated with this sale
                     List<Product> products = new ArrayList<>();
@@ -85,7 +131,7 @@ public class SaleDAO {
                         }
                     }
 
-                    return new Sale(id, products, totalAmount, date);
+                    return new Sale(id, products, totalAmount, date,bc);
                 }
             }
         } catch (SQLException e) {
@@ -138,8 +184,9 @@ public class SaleDAO {
                 String saleId = rs.getString("SaleID");
                 double totalAmount = rs.getDouble("TotalAmount");
                 Date date = rs.getDate("SaleDate");
+                String bc=rs.getString("branchcode");
 
-                sales.add(new Sale(saleId, null, totalAmount,date)); // Add products later if required
+                sales.add(new Sale(saleId, null, totalAmount,date,bc)); // Add products later if required
             }
         } catch (SQLException e) {
             e.printStackTrace();
