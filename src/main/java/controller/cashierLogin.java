@@ -64,6 +64,10 @@ public class cashierLogin {
                 // Load the second screen
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/cashier.fxml"));
                 Parent root = loader.load();
+
+                Cashier_controller csh=loader.getController();
+                csh.get_cashier_detail(username.getText());
+
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 Scene scene = new Scene(root);
                 stage.setScene(scene);

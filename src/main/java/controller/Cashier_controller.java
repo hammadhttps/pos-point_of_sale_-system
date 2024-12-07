@@ -24,7 +24,7 @@ import java.util.*;
 public class Cashier_controller {
 
     private final SaleDAO saleDAO = new SaleDAO();
-    private Cashier cashier=new Cashier();
+    private Cashier cashier=null;
     private final CashierDAO cashierDAO=new CashierDAO();
     public Pane bill;
     public Button btnCancel;
@@ -60,6 +60,8 @@ public class Cashier_controller {
     private Map<String, List<Product>> productsByCategory = new HashMap<>();
     private final Map<Product, Integer> productSelectionCount = new HashMap<>();
 
+    private  int quantity;
+
     @FXML
     public void initialize() {
 
@@ -90,9 +92,9 @@ public class Cashier_controller {
         btnApplyDiscount.setOnAction(event -> applyDiscount());
     }
 
-    public void get_cashier_detail(String username)
+    public void get_cashier_detail(String username1)
     {
-        cashier=cashierDAO.getCashier(username);
+        cashier=cashierDAO.getCashier(username1);
     }
 
 
@@ -130,11 +132,16 @@ public class Cashier_controller {
         bill.getChildren().clear();
         bill.setVisible(true);
 
-        VBox billLayout = new VBox(10); // 10px spacing
+        VBox billLayout = new VBox(10);
         billLayout.setStyle("-fx-padding: 20; -fx-alignment: top-center; -fx-background-color: white;");
 
         Label title = new Label("Bill Summary");
         title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+
+        Label cashierLabel = new Label("Cashier: " + cashier.getName());
+        Label branchCodeLabel = new Label("Branch Code: " + cashier.getBranchCode());
+        cashierLabel.setStyle("-fx-font-size: 14px;");
+        branchCodeLabel.setStyle("-fx-font-size: 14px;");
 
         TableView<Product> billTable = new TableView<>();
         billTable.setPrefWidth(750);
@@ -159,7 +166,6 @@ public class Cashier_controller {
         billTable.getColumns().addAll(nameCol, categoryCol, quantityCol, priceCol);
         billTable.setItems(FXCollections.observableArrayList(selectedProducts));
 
-        // Calculate total and apply discount
         double totalPrice = selectedProducts.stream()
                 .mapToDouble(product -> product.getSalePrice() * productSelectionCount.get(product))
                 .sum();
@@ -178,20 +184,47 @@ public class Cashier_controller {
         closeButton.setStyle("-fx-font-size: 14px; -fx-padding: 10;");
         closeButton.setOnAction(event -> bill.setVisible(false));
 
-        billLayout.getChildren().addAll(title, billTable, totalLabel, discountLabel, finalTotalLabel, closeButton);
+        billLayout.getChildren().addAll(
+                title,
+                cashierLabel,
+                branchCodeLabel,
+                billTable,
+                totalLabel,
+                discountLabel,
+                finalTotalLabel,
+                closeButton
+        );
         bill.getChildren().add(billLayout);
 
-        Sale sale = new Sale(generate4DigitNumber(), (List<Product>) selectedProducts, finalPrice,  new Date(),cashier.getBranchCode());
+        // Save the sale in the database
+        Sale sale = new Sale(
+                generate4DigitNumber(),
+                new ArrayList<>(selectedProducts),
+                finalPrice,
+                new Date(),
+                cashier.getBranchCode()
+        );
+
         boolean isSaved = saleDAO.createSale(sale);
 
         if (isSaved) {
-            showAlert("Success", "Sale saved successfully.");
+            // Update product quantities in the database
+            ProductDAO productDAO = new ProductDAO();
+            boolean isQuantityUpdated = productDAO.updateProductQuantities(productSelectionCount);
+
+            if (isQuantityUpdated) {
+                showAlert("Success", "Sale completed and inventory updated.");
+            } else {
+                showAlert("Error", "Sale saved, but inventory update failed.");
+            }
         } else {
             showAlert("Error", "Failed to save the sale.");
         }
 
-        resetTable(); // Clear the table after saving the b
+        resetTable(); // Clear the table after saving the bill
     }
+
+
 
     private void loadProducts() {
         ProductDAO productDAO = new ProductDAO();
@@ -238,11 +271,19 @@ public class Cashier_controller {
                 productSelectionCount.remove(selectedProduct); // Remove from map
                 selectedProducts.remove(selectedProduct); // Remove from TableView
             }
-            selectedItemsListtable.refresh();
+
+            // Decrement the sold quantity of the product
+            if (selectedProduct.get_sold_quantity() > 0) {
+                selectedProduct.setQuantity(selectedProduct.getQuantity()+1);
+                selectedProduct.set_sold_quantity(selectedProduct.get_sold_quantity() - 1);
+            }
+
+            selectedItemsListtable.refresh(); // Refresh the table to show updated counts
         } else {
             showAlert("No Selection", "Please select an item to delete.");
         }
     }
+
 
 
     private void resetTable() {
@@ -288,6 +329,7 @@ public class Cashier_controller {
         imageView.setPreserveRatio(true);
         return imageView;
     }
+
     private void addProductToSelectedList(Product product) {
         if (productSelectionCount.containsKey(product)) {
             int currentCount = productSelectionCount.get(product);
@@ -296,6 +338,10 @@ public class Cashier_controller {
             productSelectionCount.put(product, 1); // Add with initial count of 1
             selectedProducts.add(product); // Add to observable list for the TableView
         }
+
+        // Increment the sold quantity of the product
+        product.set_sold_quantity(product.get_sold_quantity() + 1);
+        product.setQuantity(product.getQuantity()-1);
 
         selectedItemsListtable.refresh(); // Refresh the table to show updated counts
     }

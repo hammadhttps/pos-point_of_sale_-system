@@ -67,7 +67,7 @@ public class CashierDAO {
 
     // Method to fetch a Cashier by username
     public Cashier getCashier(String username) {
-        String query = "SELECT * FROM cashiers WHERE username = ?";
+        String query = "SELECT * FROM cashier WHERE username = ?";
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
@@ -81,7 +81,7 @@ public class CashierDAO {
                 cashier.setEmail(rs.getString("email"));
                 cashier.setPassword(rs.getString("password"));
                 cashier.setRole(rs.getString("role"));
-                cashier.setBranchCode(rs.getString("branch_code"));
+                cashier.setBranchCode(rs.getString("branchcode"));
                 cashier.setSalary(rs.getDouble("salary"));
 
                 return cashier;

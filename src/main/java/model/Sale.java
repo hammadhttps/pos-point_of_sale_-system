@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 import java.util.Date;
+import java.util.Queue;
 
 public class Sale {
     private String saleId;
@@ -9,7 +10,16 @@ public class Sale {
     private double totalAmount;
     private Date date;// Use Date object instead of String
     private String branchCode;
+    private int quantity;
 
+    public Sale(String id, List<Product> products,int Quantity, double totalAmount, Date date,String branchCode1) {
+        this.products = products;
+        this.saleId = id;
+        this.totalAmount = totalAmount;
+        this.date = date;
+        this.branchCode=branchCode1;
+        this.quantity=Quantity;
+    }
     public Sale(String id, List<Product> products, double totalAmount, Date date,String branchCode1) {
         this.products = products;
         this.saleId = id;
@@ -17,6 +27,16 @@ public class Sale {
         this.date = date;
         this.branchCode=branchCode1;
     }
+    public void setQuantity(int q)
+    {
+        this.quantity=q;
+    }
+    int getQuantity()
+    {
+        return this.quantity;
+    }
+
+
 
     public void setBranchCode(String branchCode1)
     {

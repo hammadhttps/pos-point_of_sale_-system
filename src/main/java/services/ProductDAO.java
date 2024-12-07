@@ -6,6 +6,7 @@ import model.Product;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ProductDAO {
 
@@ -38,29 +39,41 @@ public class ProductDAO {
 
         return products;
     }
-//    public static void main(String[] args) {
-//        // Create an instance of ProductDAO
-//        ProductDAO productDAO = new ProductDAO();
-//
-//        // Fetch all products from the database
-//        List<Product> products = productDAO.getAllProducts();
-//
-//        // Display all the products
-//        if (products.isEmpty()) {
-//            System.out.println("No products found in the database.");
-//        } else {
-//            System.out.println("List of products from the database:");
-//            for (Product product : products) {
-//                System.out.println("Product ID: " + product.getProductId());
-//                System.out.println("Name: " + product.getName());
-//                System.out.println("Category: " + product.getCategory());
-//                System.out.println("Original Price: $" + product.getOriginalPrice());
-//                System.out.println("Sale Price: $" + product.getSalePrice());
-//                System.out.println("Price by Unit: $" + product.getPriceByUnit());
-//                System.out.println("Price by Carton: $" + product.getPriceByCarton());
-//                System.out.println("Quantity: " + product.getQuantity());
-//                System.out.println("-------------------------------------------------");
-//            }
-//        }
-//    }
+
+    public boolean updateProductQuantities(Map<Product, Integer> soldProducts) {
+        String query = "UPDATE product SET quantity = quantity - ? WHERE productId = ?";
+        boolean isUpdated = true;
+
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            for (Map.Entry<Product, Integer> entry : soldProducts.entrySet()) {
+                Product product = entry.getKey();
+                int soldQuantity = entry.getValue();
+
+                preparedStatement.setInt(1, soldQuantity); // Decrease the quantity
+                preparedStatement.setString(2, product.getProductId()); // Match by productId
+                preparedStatement.addBatch(); // Add to batch for execution
+            }
+
+            // Execute batch update
+            int[] updateCounts = preparedStatement.executeBatch();
+
+            // Check if all updates were successful
+            for (int count : updateCounts) {
+                if (count <= 0) {
+                    isUpdated = false;
+                    break;
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            isUpdated = false;
+        }
+
+        return isUpdated;
+    }
 }
+
+

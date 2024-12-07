@@ -32,7 +32,7 @@ public class SaleDAO {
                 for (Product product : sale.getProducts()) {
                     saleProductStmt.setString(1, sale.getSaleId());
                     saleProductStmt.setString(2, product.getProductId());
-                    saleProductStmt.setInt(3, product.getQuantity());
+                    saleProductStmt.setInt(3, product.get_sold_quantity());
                     saleProductStmt.setString(4, sale.getBranchCode());
                     saleProductStmt.addBatch();
                 }
@@ -51,51 +51,6 @@ public class SaleDAO {
             return false;
         }
     }
-    // Get sales by branch code
-    public List<Sale> getSalesByBranchCode(String branchCode) {
-        String saleQuery = "SELECT * FROM Sale WHERE branchcode = ?";
-        String saleProductQuery = "SELECT p.ProductID, p.ProductName, sp.Quantity FROM SaleProduct sp " +
-                "JOIN Product p ON sp.ProductID = p.ProductID WHERE sp.SaleID = ? AND sp.branchcode = ?";
-        List<Sale> sales = new ArrayList<>();
-
-        Connection conn = DBConnection.getInstance().getConnection();
-
-        try {
-            // Fetch sales for the given branch code
-            try (PreparedStatement saleStmt = conn.prepareStatement(saleQuery)) {
-                saleStmt.setString(1, branchCode);
-                ResultSet saleRs = saleStmt.executeQuery();
-
-                while (saleRs.next()) {
-                    String saleId = saleRs.getString("SaleID");
-                    double totalAmount = saleRs.getDouble("TotalAmount");
-                    Date date = saleRs.getDate("SaleDate");
-                    String bc = saleRs.getString("branchcode");
-
-                    // Fetch products associated with each sale
-                    List<Product> products = new ArrayList<>();
-                    try (PreparedStatement saleProductStmt = conn.prepareStatement(saleProductQuery)) {
-                        saleProductStmt.setString(1, saleId);
-                        saleProductStmt.setString(2, branchCode); // Ensure branch-specific products are fetched
-                        ResultSet productRs = saleProductStmt.executeQuery();
-                        while (productRs.next()) {
-                            String productId = productRs.getString("ProductID");
-                            String productName = productRs.getString("ProductName");
-                            int quantity = productRs.getInt("Quantity");
-                            products.add(new Product(productId, productName, quantity)); // Adjust Product constructor
-                        }
-                    }
-
-                    // Add the sale to the list
-                    sales.add(new Sale(saleId, products, totalAmount, date, bc));
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return sales;
-    }
-
 
 
     // Get a sale by SaleID
@@ -184,7 +139,7 @@ public class SaleDAO {
                 String saleId = rs.getString("SaleID");
                 double totalAmount = rs.getDouble("TotalAmount");
                 Date date = rs.getDate("SaleDate");
-                String bc=rs.getString("branchcode");
+                String bc=rs.getString("branhcode");
 
                 sales.add(new Sale(saleId, null, totalAmount,date,bc)); // Add products later if required
             }

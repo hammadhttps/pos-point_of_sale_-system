@@ -9,6 +9,7 @@ public class Product {
     private double priceByUnit;
     private double priceByCarton;
     private int quantity;
+    private int sell_quantity=0;
 
     public Product(String number, String bread, String bakery, double v, double v1, double v2, double v3,int i1)
     {
@@ -33,6 +34,17 @@ public class Product {
     public Product() {
 
     }
+
+    public void set_sold_quantity(int sellquantity1)
+    {
+        this.sell_quantity=sellquantity1;
+    }
+    public int get_sold_quantity()
+    {
+        return this.sell_quantity;
+    }
+
+
 
     // Getters and Setters
     public String getProductId() {
