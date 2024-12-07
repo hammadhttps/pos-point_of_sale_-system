@@ -17,7 +17,7 @@ A multi-branch Point of Sale system with role-based access and offline functiona
 
  **Inventory System** 
   - Product management
-  - model.Vendor tracking
+  - Vendor tracking
   - Stock monitoring
 
  **Reporting** 
