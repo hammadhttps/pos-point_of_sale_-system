@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.NewBranch"
+            prefHeight="400.0" prefWidth="600.0"
+            style="-fx-background-color: #f9f9f9;">
+
+    <children>
+        <Label layoutX="180.0" layoutY="20.0" text="Create New Branch"
+               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+
+        <GridPane layoutX="50.0" layoutY="80.0" hgap="15.0" vgap="10.0">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" minWidth="150" />
+                <ColumnConstraints halignment="LEFT" minWidth="300" />
+            </columnConstraints>
+            <children>
+                <!-- Name -->
+                <Label text="Name:" />
+                <TextField fx:id="nameField" GridPane.columnIndex="1" />
+
+                <!-- City -->
+                <Label text="City:" GridPane.rowIndex="1" />
+                <TextField fx:id="cityField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <!-- Address -->
+                <Label text="Address:" GridPane.rowIndex="2" />
+                <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <!-- Phone -->
+                <Label text="Phone:" GridPane.rowIndex="3" />
+                <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <!-- Is Active -->
+                <Label text="Is Active:" GridPane.rowIndex="4" />
+                <CheckBox fx:id="isActiveField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                <!-- Employee Count -->
+                <Label text="Employee Count:" GridPane.rowIndex="5" />
+                <TextField fx:id="employeeCountField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                <!-- Branch Code -->
+                <Label text="Branch Code:" GridPane.rowIndex="6" />
+                <TextField fx:id="branchCodeField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            </children>
+        </GridPane>
+
+        <Button layoutX="250.0" layoutY="350.0" text="Add Branch" fx:id="addBranchButton"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-background-radius: 5px;"
+                onAction="#addBranchAction" />
+    </children>
+</AnchorPane>

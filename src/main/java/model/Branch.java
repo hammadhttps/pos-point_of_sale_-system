@@ -1,22 +1,15 @@
 package model;
 
 public class Branch {
-    private String branchId;
     private String name;
     private String city;
     private String address;
     private String phone;
     private boolean isActive;
     private int employeeCount;
+    private String branchcode;
 
-    // Getters and Setters
-    public String getBranchId() {
-        return branchId;
-    }
 
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
 
     public String getName() {
         return name;
@@ -64,5 +57,13 @@ public class Branch {
 
     public void setEmployeeCount(int employeeCount) {
         this.employeeCount = employeeCount;
+    }
+
+    public String getBranchcode() {
+        return branchcode;
+    }
+
+    public void setBranchcode(String branchcode) {
+        this.branchcode = branchcode;
     }
 }

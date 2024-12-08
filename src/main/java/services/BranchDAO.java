@@ -12,7 +12,7 @@ public class BranchDAO {
     // Fetch all branches from the database
     public List<Branch> getAllBranches() {
         List<Branch> branches = new ArrayList<>();
-        String query = "SELECT branchId, name, city, address, phone, isActive, employeeCount FROM branch";
+        String query = "SELECT name, city, address, phone, isActive, employeeCount, branchcode FROM branch";
 
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -20,13 +20,13 @@ public class BranchDAO {
 
             while (resultSet.next()) {
                 Branch branch = new Branch();
-                branch.setBranchId(resultSet.getString("branchId"));
                 branch.setName(resultSet.getString("name"));
                 branch.setCity(resultSet.getString("city"));
                 branch.setAddress(resultSet.getString("address"));
                 branch.setPhone(resultSet.getString("phone"));
                 branch.setActive(resultSet.getBoolean("isActive"));
                 branch.setEmployeeCount(resultSet.getInt("employeeCount"));
+                branch.setBranchcode(resultSet.getString("branchcode"));
                 branches.add(branch);
             }
 
@@ -37,25 +37,25 @@ public class BranchDAO {
         return branches;
     }
 
-    // Fetch a branch by its ID
-    public Branch getBranchById(String branchId) {
+    // Fetch a branch by its branchcode
+    public Branch getBranchByCode(String branchcode) {
         Branch branch = null;
-        String query = "SELECT branchId, name, city, address, phone, isActive, employeeCount FROM branch WHERE branchId = ?";
+        String query = "SELECT name, city, address, phone, isActive, employeeCount, branchcode FROM branch WHERE branchcode = ?";
 
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, branchId);
+            preparedStatement.setString(1, branchcode);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     branch = new Branch();
-                    branch.setBranchId(resultSet.getString("branchId"));
                     branch.setName(resultSet.getString("name"));
                     branch.setCity(resultSet.getString("city"));
                     branch.setAddress(resultSet.getString("address"));
                     branch.setPhone(resultSet.getString("phone"));
                     branch.setActive(resultSet.getBoolean("isActive"));
                     branch.setEmployeeCount(resultSet.getInt("employeeCount"));
+                    branch.setBranchcode(resultSet.getString("branchcode"));
                 }
             }
 
@@ -68,18 +68,18 @@ public class BranchDAO {
 
     // Add a new branch to the database
     public boolean addBranch(Branch branch) {
-        String query = "INSERT INTO branch (branchId, name, city, address, phone, isActive, employeeCount) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO branch (name, city, address, phone, isActive, employeeCount, branchcode) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, branch.getBranchId());
-            preparedStatement.setString(2, branch.getName());
-            preparedStatement.setString(3, branch.getCity());
-            preparedStatement.setString(4, branch.getAddress());
-            preparedStatement.setString(5, branch.getPhone());
-            preparedStatement.setBoolean(6, branch.isActive());
-            preparedStatement.setInt(7, branch.getEmployeeCount());
+            preparedStatement.setString(1, branch.getName());
+            preparedStatement.setString(2, branch.getCity());
+            preparedStatement.setString(3, branch.getAddress());
+            preparedStatement.setString(4, branch.getPhone());
+            preparedStatement.setBoolean(5, branch.isActive());
+            preparedStatement.setInt(6, branch.getEmployeeCount());
+            preparedStatement.setString(7, branch.getBranchcode());
 
             int rowsInserted = preparedStatement.executeUpdate();
             return rowsInserted > 0;
@@ -93,7 +93,7 @@ public class BranchDAO {
 
     // Update an existing branch
     public boolean updateBranch(Branch branch) {
-        String query = "UPDATE branch SET name = ?, city = ?, address = ?, phone = ?, isActive = ?, employeeCount = ? WHERE branchId = ?";
+        String query = "UPDATE branch SET name = ?, city = ?, address = ?, phone = ?, isActive = ?, employeeCount = ? WHERE branchcode = ?";
 
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -104,7 +104,7 @@ public class BranchDAO {
             preparedStatement.setString(4, branch.getPhone());
             preparedStatement.setBoolean(5, branch.isActive());
             preparedStatement.setInt(6, branch.getEmployeeCount());
-            preparedStatement.setString(7, branch.getBranchId());
+            preparedStatement.setString(7, branch.getBranchcode());
 
             int rowsUpdated = preparedStatement.executeUpdate();
             return rowsUpdated > 0;
@@ -116,14 +116,14 @@ public class BranchDAO {
         return false;
     }
 
-    // Delete a branch by its ID
-    public boolean deleteBranch(String branchId) {
-        String query = "DELETE FROM branch WHERE branchId = ?";
+    // Delete a branch by its branchcode
+    public boolean deleteBranch(String branchcode) {
+        String query = "DELETE FROM branch WHERE branchcode = ?";
 
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, branchId);
+            preparedStatement.setString(1, branchcode);
             int rowsDeleted = preparedStatement.executeUpdate();
             return rowsDeleted > 0;
 
