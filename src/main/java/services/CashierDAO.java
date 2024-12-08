@@ -11,7 +11,7 @@ public class CashierDAO {
 
     // Method to add a new Cashier
     public boolean addCashier(Cashier cashier) {
-        String query = "INSERT INTO cashiers (username, name, email, password, role, branch_code, salary) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO cashier (username, name, email, password, role, branchcode, salary) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 

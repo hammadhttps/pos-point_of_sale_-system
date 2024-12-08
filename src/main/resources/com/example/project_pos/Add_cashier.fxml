@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="433.0" stylesheets="@style9.css" prefWidth="655.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCashier">
+
+    <children>
+        <!-- Big Label for Add Cashier -->
+        <Label layoutX="245.0" layoutY="30.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #3A3A3A;" text="Add Cashier" />
+
+        <!-- Username -->
+        <Label layoutX="89.0" layoutY="108.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #3A3A3A;" text="Username:" />
+        <TextField fx:id="usernameField" layoutX="200.0" layoutY="100.0" prefWidth="250.0" style="-fx-font-size: 14px; -fx-padding: 8px;" />
+
+        <!-- Name -->
+        <Label layoutX="101.0" layoutY="158.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #3A3A3A;" text="Name:" />
+        <TextField fx:id="nameField" layoutX="200.0" layoutY="150.0" prefWidth="250.0" style="-fx-font-size: 14px; -fx-padding: 8px;" />
+
+        <!-- Email -->
+        <Label layoutX="103.0" layoutY="208.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #3A3A3A;" text="Email:" />
+        <TextField fx:id="emailField" layoutX="200.0" layoutY="200.0" prefWidth="250.0" style="-fx-font-size: 14px; -fx-padding: 8px;" />
+
+        <!-- Password -->
+        <Label layoutX="90.0" layoutY="258.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #3A3A3A;" text="Password:" />
+        <PasswordField fx:id="passwordField" layoutX="200.0" layoutY="250.0" prefWidth="250.0" style="-fx-font-size: 14px; -fx-padding: 8px;" />
+
+        <!-- Salary -->
+        <Label layoutX="102.0" layoutY="308.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #3A3A3A;" text="Salary:" />
+        <TextField fx:id="salaryField" layoutX="200.0" layoutY="300.0" prefWidth="250.0" style="-fx-font-size: 14px; -fx-padding: 8px;" />
+
+        <!-- Add Cashier Button -->
+        <Button layoutX="197.0" layoutY="350.0" onAction="#handleAddCashier" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 16px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Add Cashier" />
+
+    </children>
+
+
+
+</AnchorPane>

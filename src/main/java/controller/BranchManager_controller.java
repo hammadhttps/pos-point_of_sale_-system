@@ -36,6 +36,7 @@ public class BranchManager_controller {
     public Button loginButton;
     int count = 0;
     public static String uname;
+    public  static String bc;
 
 
     // Method to authenticate using data from the database
@@ -139,12 +140,33 @@ public class BranchManager_controller {
 
     }
 
-    public void add_data_entry_operator(MouseEvent mouseEvent)
+    public void add_data_entry_operator(MouseEvent mouseEvent) throws IOException {
 
-    {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/Add_data_entry_operator.fxml"));
+        Parent root = loader.load();
+        AddDataEntryOperator controller = loader.getController();
+        branchManager=branchManagerDAO.getBranchManager(uname);
+        bc=branchManager.getBranchCode();
+        AddDataEntryOperator.setBranchcode(bc);
+        Stage stage = new Stage();
+        stage.setTitle("Add Data Entry Operator");
+        stage.setScene(new Scene(root));
+        stage.show();
+
+
     }
 
-    public void add_cashier(MouseEvent mouseEvent)
-    {
+    public void add_cashier(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/Add_cashier.fxml"));
+        Parent root = loader.load();
+        AddCashier controller = loader.getController();
+        branchManager=branchManagerDAO.getBranchManager(uname);
+        bc=branchManager.getBranchCode();
+        AddCashier.setBranchcode(bc);
+        Stage stage = new Stage();
+        stage.setTitle("Add Cashier");
+        stage.setScene(new Scene(root));
+        stage.show();
+
     }
 }
