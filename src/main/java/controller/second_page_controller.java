@@ -28,17 +28,17 @@ public class second_page_controller {
     @FXML
     private AnchorPane anchorPane;
 
-    // Continuous fade-in and fade-out for images
+
     private void fadeInAndOutImages() {
-        // Fade-in and fade-out for Super Admin image
+
         FadeTransition fadeSupAdmin = new FadeTransition(Duration.seconds(2), supadmin_img);
         fadeSupAdmin.setFromValue(0);
         fadeSupAdmin.setToValue(1);
         fadeSupAdmin.setCycleCount(FadeTransition.INDEFINITE);
-        fadeSupAdmin.setAutoReverse(true);  // Auto-reverse to fade in and out
+        fadeSupAdmin.setAutoReverse(true);
         fadeSupAdmin.play();
 
-        // Fade-in and fade-out for Branch Manager image
+
         FadeTransition fadeBM = new FadeTransition(Duration.seconds(2), BM_img);
         fadeBM.setFromValue(0);
         fadeBM.setToValue(1);
@@ -46,7 +46,7 @@ public class second_page_controller {
         fadeBM.setAutoReverse(true);
         fadeBM.play();
 
-        // Fade-in and fade-out for Data Entry image
+
         FadeTransition fadeData = new FadeTransition(Duration.seconds(2), data_img);
         fadeData.setFromValue(0);
         fadeData.setToValue(1);
@@ -54,7 +54,7 @@ public class second_page_controller {
         fadeData.setAutoReverse(true);
         fadeData.play();
 
-        // Fade-in and fade-out for Cashier image
+
         FadeTransition fadeCash = new FadeTransition(Duration.seconds(2), cash_img);
         fadeCash.setFromValue(0);
         fadeCash.setToValue(1);
@@ -63,26 +63,26 @@ public class second_page_controller {
         fadeCash.play();
     }
 
-    // Drop transition for the text labels
+
     private void dropText() {
         TranslateTransition translateSup = new TranslateTransition(Duration.seconds(1), sup_text);
         translateSup.setByY(100); // Move down by 100 units
-        translateSup.setDelay(Duration.seconds(0.5)); // Delay for sequential drop
+        translateSup.setDelay(Duration.seconds(0.5));
         translateSup.play();
 
         TranslateTransition translateBM = new TranslateTransition(Duration.seconds(1), bm_text);
         translateBM.setByY(100);
-        translateBM.setDelay(Duration.seconds(1)); // Delay for sequential drop
+        translateBM.setDelay(Duration.seconds(1));
         translateBM.play();
 
         TranslateTransition translateCsh = new TranslateTransition(Duration.seconds(1), csh_text);
         translateCsh.setByY(100);
-        translateCsh.setDelay(Duration.seconds(1.5)); // Delay for sequential drop
+        translateCsh.setDelay(Duration.seconds(1.5));
         translateCsh.play();
 
         TranslateTransition translateDt = new TranslateTransition(Duration.seconds(1), dt_text);
         translateDt.setByY(100);
-        translateDt.setDelay(Duration.seconds(2)); // Delay for sequential drop
+        translateDt.setDelay(Duration.seconds(2));
         translateDt.play();
     }
 
@@ -109,11 +109,11 @@ public class second_page_controller {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/cashier_login.fxml"));
             Parent root = loader.load();
 
-            // Get the current stage and close it
+
             Stage currentStage = (Stage) cancel_btn.getScene().getWindow();
             currentStage.close();
 
-            // Create a new stage for the cashier login screen
+
             Stage newStage = new Stage();
             Scene scene = new Scene(root);
             newStage.setScene(scene);
@@ -131,11 +131,11 @@ public class second_page_controller {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/Data_entry_operator_login.fxml"));
             Parent root = loader.load();
 
-            // Get the current stage and close it
+
             Stage currentStage = (Stage) cancel_btn.getScene().getWindow();
             currentStage.close();
 
-            // Create a new stage for the cashier login screen
+
             Stage newStage = new Stage();
             Scene scene = new Scene(root);
             newStage.setScene(scene);
@@ -152,11 +152,11 @@ public class second_page_controller {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/branch_manager_login.fxml"));
             Parent root = loader.load();
 
-            // Get the current stage and close it
+
             Stage currentStage = (Stage) cancel_btn.getScene().getWindow();
             currentStage.close();
 
-            // Create a new stage for the cashier login screen
+
             Stage newStage = new Stage();
             Scene scene = new Scene(root);
             newStage.setScene(scene);
@@ -173,11 +173,11 @@ public class second_page_controller {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/super_admin_login.fxml"));
             Parent root = loader.load();
 
-            // Get the current stage and close it
+
             Stage currentStage = (Stage) cancel_btn.getScene().getWindow();
             currentStage.close();
 
-            // Create a new stage for the cashier login screen
+
             Stage newStage = new Stage();
             Scene scene = new Scene(root);
             newStage.setScene(scene);

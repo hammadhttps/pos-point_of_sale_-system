@@ -53,19 +53,19 @@ public class LoadingPage {
             }
         });
 
-        // Add all keyframes in sequence
+
         lineAnimation.getKeyFrames().addAll(line1Animation, line2Animation, line3Animation, line4Animation);
-        lineAnimation.setCycleCount(1); // Run the animation once
+        lineAnimation.setCycleCount(1);
         lineAnimation.setRate(2);
 
-        // After animation completes, switch to the second screen
+
         lineAnimation.setOnFinished(event -> {
             showSecondScreen();
         });
 
         lineAnimation.play();
 
-        // Fade-in, fade-out effect for the "loading" text
+
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), loading);
         fadeTransition.setFromValue(1.0);
         fadeTransition.setToValue(0.0);

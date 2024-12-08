@@ -9,7 +9,7 @@ public class InternetConnectionChecker {
     public InternetConnectionChecker(){}
     public boolean isInternetAvailable() {
         try {
-            // Try to connect to a reliable website
+            // Try to connect to a  website
             URL url = new URL("https://www.google.com");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("HEAD");

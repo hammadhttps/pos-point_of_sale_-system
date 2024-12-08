@@ -34,23 +34,23 @@ public class DataEntryOperator_controller {
     int count = 0;
 
 
-    // Method to authenticate using data from the database
+
     private boolean authenticate(String username, String password) {
         Connection connection = DBConnection.getInstance().getConnection();
 
         try {
-            // Prepare the SQL query to fetch the username and password from the database
+
             String sql = "SELECT * FROM DataEntryOperator WHERE username = ? AND password = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, username);  // Set the username parameter
-            statement.setString(2, password);  // Set the password parameter (In real-world, passwords should be hashed)
+            statement.setString(1, username);
+            statement.setString(2, password);
 
             // Execute the query
             ResultSet resultSet = statement.executeQuery();
 
-            // If a record is returned, authentication is successful
+
             if (resultSet.next()) {
-                return true;  // Successful login
+                return true;
             }
 
         } catch (SQLException e) {
@@ -60,10 +60,10 @@ public class DataEntryOperator_controller {
         return false;  // Authentication failed
     }
 
-    // On login button click, authenticate the user
+    // On login button click
     public void On_login(ActionEvent actionEvent) throws IOException {
         if (authenticate(username.getText(), password.getText())) {
-            // Successful login: Replace the lock icon with the unlock icon
+
             _icon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/project_pos/icons_and_images/Lock-Unlock-icon.png"))));
             FXMLLoader loader=new FXMLLoader(getClass().getResource("/com/example/project_pos/data_entry_operator.fxml"));
             Parent root = loader.load();
@@ -79,7 +79,7 @@ public class DataEntryOperator_controller {
         loginButton.setText("Login");
     }
 
-    // Method to shake the login button if the login is invalid
+
     private void shakeButton(Button button) {
         TranslateTransition transition = new TranslateTransition(Duration.millis(100), button);
         transition.setByX(10);
@@ -88,10 +88,10 @@ public class DataEntryOperator_controller {
         transition.play();
     }
 
-    // On home button press, navigate to another screen (second screen)
+
     public void home_pressed(ActionEvent actionEvent) {
         try {
-            // Load the second screen
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/second_screen.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -105,10 +105,10 @@ public class DataEntryOperator_controller {
 
 
     public void cancel(ActionEvent event) {
-        Platform.exit();  // Close the application
+        Platform.exit();
     }
 
-    // Method to handle the Back button click (Switch to Home screen)
+    // (Switch to Home screen)
     public void goToHomeScreen(MouseEvent event) throws IOException {
         // Load the second screen FXML
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/second_screen.fxml"));

@@ -44,7 +44,7 @@ public class AddProduct {
     private TextField quantityField;
 
     @FXML
-    private Button uploadOfflineDataButton; // Add this button in your FXML
+    private Button uploadOfflineDataButton;
 
     @FXML
     public void initialize() {
@@ -63,7 +63,7 @@ public class AddProduct {
         String priceByCarton = priceByCartonField.getText();
         String quantity = quantityField.getText();
 
-        // Validation: Check if any field is empty
+        //  Check if any field is empty
         if (productId.isEmpty() || productName.isEmpty() || category == null ||
                 originalPrice.isEmpty() || salePrice.isEmpty() ||
                 priceByUnit.isEmpty() || priceByCarton.isEmpty() || quantity.isEmpty()) {
@@ -95,7 +95,7 @@ public class AddProduct {
 
     private void saveProductOffline(Product product) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(OFFLINE_DATA_FILE, true))) {
-            writer.write(product.toString()); // Ensure `Product.toString()` formats data correctly
+            writer.write(product.toString());
             writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();

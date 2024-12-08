@@ -53,7 +53,7 @@ public class ReportsWindow {
         sales = saleDAO.getSalesByBranchCode(bc);
     }
 
-    // Display a line chart for sales graph
+
     public void sales_graph(ActionEvent event) {
         productTable.setVisible(false);
         LineChart<String, Number> lineChart = createSalesLineChart();
@@ -61,7 +61,7 @@ public class ReportsWindow {
         displayPane.getChildren().add(lineChart);
     }
 
-    // Display a bar chart for sales chart
+
     public void sales_chart(ActionEvent event)
     {
         productTable.setVisible(false);
@@ -75,33 +75,33 @@ public class ReportsWindow {
         // Fetch the list of products from the ProductDAO
         product = productDAO.getAllProducts();
 
-        // Product ID
+
         productIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProductId()));
 
-        // Product Name
+
         productNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
 
-        // Category
+
         categoryColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCategory()));
 
-        // Quantity
+
         quantityColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
 
-        // Sale Price
+
         salePriceColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getSalePrice()).asObject());
 
-        // Price by Carton
+
         priceByCartonColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPriceByCarton()).asObject());
 
-        // Price by Unit
+
         priceByUnitColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPriceByUnit()).asObject());
 
-        // Set the items in the TableView
+
         productTable.setItems(javafx.collections.FXCollections.observableArrayList(product));
     }
 
 
-    // Create a LineChart to show total sales over time
+
     private LineChart<String, Number> createSalesLineChart() {
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
@@ -137,19 +137,19 @@ public class ReportsWindow {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Products Sold");
 
-        // Aggregate sales data per product
+
         Map<String, Integer> productSalesMap = new HashMap<>();
         for (Sale sale : sales) {
             for (Product product : sale.getProducts()) {
-                String productId = product.getProductId(); // Or use product.getProductName() if necessary
+                String productId = product.getProductId();
                 int quantitySold = product.getQuantity();
 
-                // Add product sales to the map, aggregating quantities
+
                 productSalesMap.put(productId, productSalesMap.getOrDefault(productId, 0) + quantitySold);
             }
         }
 
-        // Add aggregated product sales data to the series
+
         for (Map.Entry<String, Integer> entry : productSalesMap.entrySet()) {
             series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
         }

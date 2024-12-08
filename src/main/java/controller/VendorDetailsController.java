@@ -57,7 +57,7 @@ public class VendorDetailsController implements Initializable {
         vendorIdLabel.setText("Vendor ID: " + vendor.getVendorId());
         contactInfoLabel.setText("Contact: " + vendor.getContactInfo());
 
-        // Configure table columns
+
         productIdCol.setCellValueFactory(cellData ->
                 new javafx.beans.property.SimpleStringProperty(cellData.getValue().getProductId())
         );

@@ -24,7 +24,7 @@ public class AddNewVendor {
     private void handleAddVendor() {
         // Validate input fields
         if (validateInputs()) {
-            // Create vendor object or save to database
+
             String vendorId = vendorIdField.getText().trim();
             String name = nameField.getText().trim();
             String contactInfo = contactInfoField.getText().trim();
@@ -42,7 +42,7 @@ public class AddNewVendor {
 
     @FXML
     private void handleCancel() {
-        // Simply close the window
+
         closeWindow();
     }
 
@@ -76,7 +76,7 @@ public class AddNewVendor {
     }
 
     private void closeWindow() {
-        // Get the stage (window) and close it
+
         Stage stage = (Stage) vendorIdField.getScene().getWindow();
         stage.close();
     }

@@ -42,7 +42,7 @@ public class showVendors implements Initializable {
     }
 
     private VBox createVendorBox(Vendor vendor) {
-        // Vendor Details Box
+
         VBox vendorDetailsBox = new VBox(10);
         vendorDetailsBox.getStyleClass().add("vendor-box");
 
@@ -75,17 +75,16 @@ public class showVendors implements Initializable {
 
     private void openVendorDetailsPage(Vendor vendor) {
         try {
-            // Load the vendor details FXML
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/vendor_details.fxml"));
 
-            // Create the controller and set the vendor
             VendorDetailsController detailsController = new VendorDetailsController(vendor);
             loader.setController(detailsController);
 
             // Load the parent
             Parent root = loader.load();
 
-            // Create a new stage
+
             Stage vendorDetailsStage = new Stage();
             vendorDetailsStage.setTitle("Vendor Details - " + vendor.getName());
             vendorDetailsStage.setScene(new Scene(root));
@@ -94,7 +93,7 @@ public class showVendors implements Initializable {
             vendorDetailsStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Optionally show an error dialog
+
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load vendor details page", ButtonType.OK);
             alert.show();
         }

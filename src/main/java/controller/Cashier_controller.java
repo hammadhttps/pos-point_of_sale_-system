@@ -77,18 +77,18 @@ public class Cashier_controller {
 
     private final ObservableList<Product> selectedProducts = FXCollections.observableArrayList();
 
-    // Map to store products by category
+
     private Map<String, List<Product>> productsByCategory = new HashMap<>();
     private final Map<Product, Integer> productSelectionCount = new HashMap<>();
 
     private  int quantity;
 
-    // Method to authenticate using database
+
     private boolean authenticate(String username, String password) {
-        // Get connection instance from DBConnection
+
         Connection connection = DBConnection.getInstance().getConnection();
         try {
-            // Prepare SQL query to check for username and password
+
             String sql = "SELECT * FROM Cashier WHERE username = ? AND password = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, username);
@@ -104,17 +104,17 @@ public class Cashier_controller {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;  // Authentication failed
+        return false;
     }
 
-    // On login button click, authenticate user
+    // On login button click
     public void On_login(ActionEvent actionEvent) {
         if (authenticate(username.getText(), password.getText())) {
 
             _icon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/project_pos/icons_and_images/Lock-Unlock-icon.png"))));
 
             try {
-                // Load the second screen
+
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/cashier.fxml"));
                 Parent root = loader.load();
 
@@ -130,14 +130,14 @@ public class Cashier_controller {
             }
 
         } else {
-            // Invalid login: Vibrate the login button
+            // Invalid login
             shakeButton(loginButton);
             loginButton.setText("Invalid");
         }
         loginButton.setText("Login");
     }
 
-    // Method to shake the login button if login is invalid
+
     private void shakeButton(Button button) {
         TranslateTransition transition = new TranslateTransition(Duration.millis(100), button);
         transition.setByX(10);
@@ -146,10 +146,9 @@ public class Cashier_controller {
         transition.play();
     }
 
-    // On home button press, navigate to second screen
     public void home_pressed(ActionEvent actionEvent) {
         try {
-            // Load the second screen
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/second_screen.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -165,7 +164,7 @@ public class Cashier_controller {
     @FXML
     public void initialize() {
 
-        // Initialize table columns
+        //  table columns
         colProductName.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
         colProductCategory.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getCategory()));
         colProductPrice.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getSalePrice()).asObject());
@@ -174,10 +173,10 @@ public class Cashier_controller {
         );
 
 
-        // Bind selected products to the table
+
         selectedItemsListtable.setItems(selectedProducts);
 
-        // Load products once from the database
+
         loadProducts();
 
         // Button actions
@@ -387,20 +386,20 @@ public class Cashier_controller {
 
 
     private void resetTable() {
-        selectedProducts.clear(); // Clear all selected products from the list
+        selectedProducts.clear();
     }
 
     private HBox createRow(VBox... products) {
-        HBox row = new HBox(15); // 15px spacing between products
+        HBox row = new HBox(15);
         row.getChildren().addAll(products);
         return row;
     }
 
     private VBox createProductBox(Product product) {
-        VBox productBox = new VBox(5); // 5px spacing inside each product box
+        VBox productBox = new VBox(5);
         productBox.setStyle("-fx-alignment: center;");
 
-        // Using a relative path for the image file (adjust path as needed)
+
         ImageView imageView = createImageView("C:\\Users\\city\\Desktop\\Project_pos\\src\\main\\resources\\com\\example\\project_pos\\products_icons\\"+product.getName()+".png");
         Label nameLabel = new Label(product.getName());
         Label priceLabel = new Label("$" + product.getSalePrice());
@@ -436,14 +435,14 @@ public class Cashier_controller {
             productSelectionCount.put(product, currentCount + 1); // Increment count
         } else {
             productSelectionCount.put(product, 1); // Add with initial count of 1
-            selectedProducts.add(product); // Add to observable list for the TableView
+            selectedProducts.add(product);
         }
 
         // Increment the sold quantity of the product
         product.set_sold_quantity(product.get_sold_quantity() + 1);
         product.setQuantity(product.getQuantity()-1);
 
-        selectedItemsListtable.refresh(); // Refresh the table to show updated counts
+        selectedItemsListtable.refresh();
     }
 
 

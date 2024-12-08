@@ -39,12 +39,11 @@ public class BranchManager_controller {
     public  static String bc;
 
 
-    // Method to authenticate using data from the database
+
     private boolean authenticate(String username, String password) {
         Connection connection = DBConnection.getInstance().getConnection();
 
         try {
-            // Prepare the SQL query to fetch the username and password from the database
             String sql = "SELECT * FROM branchmanager WHERE username = ? AND password = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, username);
@@ -62,14 +61,13 @@ public class BranchManager_controller {
             e.printStackTrace();
         }
 
-        return false;  // Authentication failed
+        return false;
     }
 
-    // On login button click, authenticate the user
+
     public void On_login(ActionEvent actionEvent) throws IOException {
 
         if (authenticate(username.getText(), password.getText())) {
-            // Successful login: Replace the lock icon with the unlock icon
             uname=username.getText();
             _icon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/project_pos/icons_and_images/Lock-Unlock-icon.png"))));
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/Branch_manager.fxml"));
@@ -79,14 +77,14 @@ public class BranchManager_controller {
             stage.setScene(scene);
             stage.show();
         } else {
-            // Invalid login: Vibrate the login button
+            // Invalid login
             shakeButton(loginButton);
             loginButton.setText("Invalid");
         }
         loginButton.setText("Login");
     }
 
-    // Method to shake the login button if the login is invalid
+
     private void shakeButton(Button button) {
         TranslateTransition transition = new TranslateTransition(Duration.millis(100), button);
         transition.setByX(10);
@@ -95,10 +93,10 @@ public class BranchManager_controller {
         transition.play();
     }
 
-    // On home button press, navigate to another screen (second screen)
+
     public void home_pressed(ActionEvent actionEvent) {
         try {
-            // Load the second screen
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/second_screen.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -126,14 +124,14 @@ public class BranchManager_controller {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/reports_window.fxml"));
             Parent root = loader.load();
-            ReportsWindow controller = loader.getController();// Retrieve the controller
+            ReportsWindow controller = loader.getController();
             branchManager=branchManagerDAO.getBranchManager(uname);
             controller.setBranchcode(branchManager.getBranchCode());
 
             Stage stage = new Stage();
             stage.setTitle("Report Window");
             stage.setScene(new Scene(root));
-            stage.show(); // Display the new stage
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

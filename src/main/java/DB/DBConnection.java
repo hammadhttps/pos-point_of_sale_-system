@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    private static DBConnection dbConnection; // Singleton instance
+    private static DBConnection dbConnection;
     private Connection connection;
 
     private DBConnection() {
@@ -61,7 +61,6 @@ public class DBConnection {
         }
         return connection;
     }
-    // hey
     public void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {
