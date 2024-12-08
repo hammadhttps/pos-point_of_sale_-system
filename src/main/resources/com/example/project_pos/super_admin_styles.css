@@ -1,0 +1,20 @@
+
+.hover-image {
+
+    -fx-transition: all 0.3s ease;
+}
+
+.hover-image:hover {
+
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+
+
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+
+
+    -fx-opacity: 0.9;
+
+
+    -fx-cursor: hand;
+}
