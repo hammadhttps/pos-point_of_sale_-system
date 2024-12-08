@@ -39,6 +39,10 @@ public class AddCashier {
         String salary = salaryField.getText();
         String role = "Cashier";
         String bc = branchcode;
+        if(salary.isEmpty()||username.isEmpty()||password.isEmpty())
+        {
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to add cashier. Please try again.");
+        }
 
         Cashier cashier = new Cashier();
         cashier.setusername(username);

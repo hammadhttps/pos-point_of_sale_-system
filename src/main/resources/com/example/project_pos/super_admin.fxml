@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="745.0" prefWidth="1242.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SuperAdminController">
+   <children>
+      <Label alignment="CENTER" layoutX="470.0" layoutY="25.0" text="Super Admin">
+         <font>
+            <Font name="System Bold" size="45.0" />
+         </font>
+      </Label>
+      <Pane layoutX="24.0" layoutY="97.0" prefHeight="621.0" prefWidth="1180.0">
+         <children>
+            <ImageView fitHeight="254.0" fitWidth="200.0" layoutX="128.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons_and_images/add_new_vendor.png" />
+               </image></ImageView>
+            <ImageView fitHeight="183.0" fitWidth="184.0" layoutX="393.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons_and_images/square_14034302.png" />
+               </image></ImageView>
+            <ImageView fitHeight="191.0" fitWidth="194.0" layoutX="628.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons_and_images/reports.png" />
+               </image></ImageView>
+            <ImageView fitHeight="57.0" fitWidth="47.0" layoutX="1113.0" layoutY="553.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons_and_images/square_14034319.png" />
+               </image></ImageView>
+            <Label layoutX="120.0" layoutY="331.0" text="Create Branch Manager">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font></Label>
+            <Label alignment="CENTER" layoutX="416.0" layoutY="330.0" prefHeight="28.0" prefWidth="140.0" text="Create Branch">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="684.0" layoutY="329.0" text="Reports">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font></Label>
+            <ImageView fitHeight="183.0" fitWidth="183.0" layoutX="879.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons_and_images/iconfinder-settings-4341324_120534.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="881.0" layoutY="333.0" text="Edit Branch Details">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

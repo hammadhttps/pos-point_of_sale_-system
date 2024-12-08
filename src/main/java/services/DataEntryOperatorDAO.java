@@ -11,7 +11,7 @@ public class DataEntryOperatorDAO {
 
     // Method to add a new Data Entry Operator
     public boolean addDataEntryOperator(DataEntryOperator operator) {
-        String query = "INSERT INTO dataentryoperator (username, name, email, password, role, branch_code, salary) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO dataentryoperator (username, name, email, password, role, branchcode, salary) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 

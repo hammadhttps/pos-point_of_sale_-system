@@ -25,18 +25,24 @@ public class SuperAdminLogin {
     public Button loginButton;
     int count=0;
 
-    // Simulated authentication check
+
     private boolean authenticate(String username, String password) {
-        return "admin".equals(username) && "1234".equals(password); // Replace with your authentication logic
+        return "admin".equals(username) && "1234".equals(password);
     }
 
-    public void  On_login(ActionEvent actionEvent) {
+    public void  On_login(ActionEvent actionEvent) throws IOException {
         if (authenticate(username.getText(), password.getText())) {
 
-            // Successful login: Replace the lock icon with the unlock icon
+
             _icon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/project_pos/icons_and_images/Lock-Unlock-icon.png"))));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/second_screen.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         } else {
-            // Invalid login: Vibrate the login button
+
             shakeButton(loginButton);
             loginButton.setText("Invalid");
         }
@@ -55,10 +61,9 @@ public class SuperAdminLogin {
 
     public void home_pressed(ActionEvent actionEvent) {
         try {
-            // Load the second screen
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/second_screen.fxml"));
             Parent root = loader.load();
-            //Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("src/main/resources/com/example/project_pos/second_screen.fxml")));
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
