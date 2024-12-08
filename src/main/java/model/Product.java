@@ -23,6 +23,10 @@ public class Product {
         this.quantity=i1;
 
     }
+    public Product(String productId, int quantity) {
+        this.productId = productId;
+        this.quantity = quantity;
+    }
 
     public Product(String productId, String productName, int quantity)
     {

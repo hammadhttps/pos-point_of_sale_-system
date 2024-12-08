@@ -10,6 +10,7 @@ public class BranchManager {
     private double salary;
     private int employeeCount;
 
+    public  BranchManager(){}
     // Getters and Setters
     public String getusername() {
         return username;

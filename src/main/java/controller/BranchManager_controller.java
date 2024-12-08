@@ -12,8 +12,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.BranchManager;
+import services.BranchManagerDAO;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -22,13 +25,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
-public class BranchManagerLogin {
+public class BranchManager_controller {
 
+
+    private final BranchManagerDAO branchManagerDAO=new BranchManagerDAO();
+    private BranchManager branchManager=null;
     public ImageView _icon;
     public TextField username;
     public PasswordField password;
     public Button loginButton;
     int count = 0;
+    public static String uname;
+
 
     // Method to authenticate using data from the database
     private boolean authenticate(String username, String password) {
@@ -36,17 +44,17 @@ public class BranchManagerLogin {
 
         try {
             // Prepare the SQL query to fetch the username and password from the database
-            String sql = "SELECT * FROM BranchManager WHERE username = ? AND password = ?";
+            String sql = "SELECT * FROM branchmanager WHERE username = ? AND password = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, username);  // Set the username parameter
-            statement.setString(2, password);  // Set the password parameter (In real-world, passwords should be hashed)
+            statement.setString(1, username);
+            statement.setString(2, password);
 
             // Execute the query
             ResultSet resultSet = statement.executeQuery();
 
             // If a record is returned, authentication is successful
             if (resultSet.next()) {
-                return true;  // Successful login
+                return true;
             }
 
         } catch (SQLException e) {
@@ -57,11 +65,18 @@ public class BranchManagerLogin {
     }
 
     // On login button click, authenticate the user
-    public void On_login(ActionEvent actionEvent) {
+    public void On_login(ActionEvent actionEvent) throws IOException {
+
         if (authenticate(username.getText(), password.getText())) {
             // Successful login: Replace the lock icon with the unlock icon
+            uname=username.getText();
             _icon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/project_pos/icons_and_images/Lock-Unlock-icon.png"))));
-            System.out.println("Login successful!");  // You can replace this with a redirection to a new screen
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/Branch_manager.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         } else {
             // Invalid login: Vibrate the login button
             shakeButton(loginButton);
@@ -92,5 +107,44 @@ public class BranchManagerLogin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void manage_passwords(MouseEvent mouseEvent) {
+
+    }
+
+    public void exit(MouseEvent mouseEvent) {
+
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
+    public void generate_reports(MouseEvent mouseEvent)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/reports_window.fxml"));
+            Parent root = loader.load();
+            ReportsWindow controller = loader.getController();// Retrieve the controller
+            branchManager=branchManagerDAO.getBranchManager(uname);
+            controller.setBranchcode(branchManager.getBranchCode());
+
+            Stage stage = new Stage();
+            stage.setTitle("Report Window");
+            stage.setScene(new Scene(root));
+            stage.show(); // Display the new stage
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void add_data_entry_operator(MouseEvent mouseEvent)
+
+    {
+    }
+
+    public void add_cashier(MouseEvent mouseEvent)
+    {
     }
 }

@@ -69,7 +69,7 @@ public class BranchManagerDAO {
 
     // Method to fetch a Branch Manager by username
     public BranchManager getBranchManager(String username) {
-        String query = "SELECT * FROM branch_managers WHERE username = ?";
+        String query = "SELECT * FROM branchmanager WHERE username = ?";
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
@@ -83,9 +83,9 @@ public class BranchManagerDAO {
                 manager.setEmail(rs.getString("email"));
                 manager.setPassword(rs.getString("password"));
                 manager.setRole(rs.getString("role"));
-                manager.setBranchCode(rs.getString("branch_code"));
+                manager.setBranchCode(rs.getString("branchCode"));
                 manager.setSalary(rs.getDouble("salary"));
-                manager.setEmployeeCount(rs.getInt("employee_count"));
+                manager.setEmployeeCount(rs.getInt("employeeCount"));
 
                 return manager;
             }
@@ -98,7 +98,7 @@ public class BranchManagerDAO {
     // Method to fetch all Branch Managers
     public List<BranchManager> getAllBranchManagers() {
         List<BranchManager> managers = new ArrayList<>();
-        String query = "SELECT * FROM branch_managers";
+        String query = "SELECT * FROM branchmanager";
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {

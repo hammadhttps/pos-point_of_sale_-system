@@ -1,0 +1,55 @@
+
+ /* Global Background */
+ .root {
+     -fx-background-color: #f4f6f7;
+ }
+
+ .anchor-pane {
+     -fx-background-color: rgba(44, 62, 80, 0.05);
+ }
+
+ /* Label Styles */
+ .branch-manager-title {
+     -fx-text-fill: #2c3e50;
+     -fx-font-weight: bold;
+     -fx-letter-spacing: 1px;
+ }
+
+ .action-label {
+     -fx-text-fill: #34495e;
+     -fx-font-weight: bold;
+     -fx-background-color: transparent;
+     -fx-padding: 5px;
+     -fx-background-radius: 5px;
+     -fx-transition: -fx-background-color 0.3s ease;
+ }
+
+ .action-label:hover {
+     -fx-text-fill: #2980b9;
+     -fx-background-color: rgba(41, 128, 185, 0.1);
+ }
+
+ /* Image Hover Effects */
+ .action-image {
+     -fx-cursor: hand;
+     -fx-effect: null;
+     -fx-transition: -fx-effect 0.3s ease;
+ }
+
+ .action-image:hover {
+     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+     -fx-scale-x: 1.05;
+     -fx-scale-y: 1.05;
+ }
+
+ /* Exit Image Specific Style */
+ .exit-image {
+     -fx-cursor: hand;
+     -fx-opacity: 0.8;
+     -fx-transition: -fx-opacity 0.3s ease;
+ }
+
+ .exit-image:hover {
+     -fx-opacity: 1;
+     -fx-effect: dropshadow(three-pass-box, rgba(231, 76, 60, 0.5), 10, 0, 0, 0);
+ }

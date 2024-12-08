@@ -52,6 +52,45 @@ public class SaleDAO {
         }
     }
 
+    public List<Sale> getSalesByBranchCode(String branchCode) {
+        String salesByBranchQuery = "SELECT * FROM Sale WHERE branchcode = ?";
+        String saleProductQuery = "SELECT sp.ProductID, sp.Quantity FROM SaleProduct sp WHERE sp.SaleID = ?";
+
+        List<Sale> sales = new ArrayList<>();
+        Connection conn = DBConnection.getInstance().getConnection();
+
+        try (PreparedStatement salesStmt = conn.prepareStatement(salesByBranchQuery)) {
+            salesStmt.setString(1, branchCode);
+            ResultSet salesRs = salesStmt.executeQuery();
+
+            while (salesRs.next()) {
+                String saleId = salesRs.getString("SaleID");
+                double totalAmount = salesRs.getDouble("TotalAmount");
+                Date date = salesRs.getDate("SaleDate");
+
+                // Fetch products associated with this sale (no ProductName anymore)
+                List<Product> products = new ArrayList<>();
+                try (PreparedStatement saleProductStmt = conn.prepareStatement(saleProductQuery)) {
+                    saleProductStmt.setString(1, saleId);
+                    ResultSet productRs = saleProductStmt.executeQuery();
+                    while (productRs.next()) {
+                        String productId = productRs.getString("ProductID");
+                        int quantity = productRs.getInt("Quantity");
+                        products.add(new Product(productId, quantity));  // Adjusted constructor to exclude product name
+                    }
+                }
+
+                // Add the sale with associated products to the list
+                sales.add(new Sale(saleId, products, totalAmount, date, branchCode));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sales;
+    }
+
+
+
 
     // Get a sale by SaleID
     public Sale getSaleById(String saleId) {

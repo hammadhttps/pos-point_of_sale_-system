@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="743.0" prefWidth="1268.0" stylesheets="@style7.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BranchManager_controller">
+   <children>
+      <Label alignment="CENTER" layoutX="431.0" layoutY="53.0" prefHeight="66.0" prefWidth="416.0" styleClass="branch-manager-title" text="Branch Manager">
+         <font>
+            <Font size="45.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="232.0" fitWidth="200.0" layoutX="155.0" layoutY="214.0" onMouseClicked="#add_cashier" pickOnBounds="true" preserveRatio="true" styleClass="action-image">
+         <image>
+            <Image url="@icons_and_images/plus_1828821.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="232.0" fitWidth="200.0" layoutX="400.0" layoutY="214.0" onMouseClicked="#add_data_entry_operator" pickOnBounds="true" preserveRatio="true" styleClass="action-image">
+         <image>
+            <Image url="@icons_and_images/square_14034302.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="196.0" layoutX="846.0" layoutY="225.0" onMouseClicked="#generate_reports" pickOnBounds="true" preserveRatio="true" styleClass="action-image">
+         <image>
+            <Image url="@icons_and_images/reports.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="61.0" fitWidth="73.0" layoutX="1144.0" layoutY="629.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true" styleClass="exit-image">
+         <image>
+            <Image url="@icons_and_images/exit.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="206.0" layoutY="421.0" prefHeight="38.0" prefWidth="105.0" styleClass="action-label" text="Cashier">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="394.0" layoutY="421.0" prefHeight="38.0" prefWidth="196.0" styleClass="action-label" text="Data Entry Operator">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="919.0" layoutY="421.0" styleClass="action-label" text="Report">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="200.0" fitWidth="196.0" layoutX="651.0" layoutY="219.0" onMouseClicked="#manage_passwords" pickOnBounds="true" preserveRatio="true" styleClass="action-image">
+         <image>
+            <Image url="@icons_and_images/ManageNameExt_30180.png" />
+         </image>
+      </ImageView>
+      <Label alignment="TOP_LEFT" layoutX="659.0" layoutY="421.0" styleClass="action-label" text="Manage Passwords">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
