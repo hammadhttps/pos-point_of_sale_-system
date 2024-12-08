@@ -3,12 +3,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="749.0" prefWidth="1243.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportsWindow">
+<AnchorPane prefHeight="749.0" prefWidth="1243.0" stylesheets="@style8.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportsWindow">
    <children>
       <Button layoutX="130.0" layoutY="40.0" mnemonicParsing="false" onAction="#sales_chart" prefHeight="63.0" prefWidth="226.0" text="Sales Chart" />
       <Button layoutX="509.0" layoutY="40.0" mnemonicParsing="false" onAction="#sales_graph" prefHeight="63.0" prefWidth="226.0" text="Sales Graph" />
       <Button layoutX="933.0" layoutY="40.0" mnemonicParsing="false" onAction="#inventory" prefHeight="63.0" prefWidth="226.0" text="Inventoty" />
       <Pane fx:id="displayPane" layoutX="30.0" layoutY="126.0" prefHeight="602.0" prefWidth="1192.0" />
+      <TableView fx:id="productTable" layoutX="30.0" layoutY="126.0" prefHeight="602.0" prefWidth="1192.0" visible="false">
+         <columns>
+            <TableColumn fx:id="productIdColumn" prefWidth="150.0" text="Product ID" />
+            <TableColumn fx:id="productNameColumn" prefWidth="250.0" text="Product Name" />
+            <TableColumn fx:id="categoryColumn" prefWidth="150.0" text="Category" />
+            <TableColumn fx:id="quantityColumn" prefWidth="100.0" text="Quantity" />
+            <TableColumn fx:id="salePriceColumn" prefWidth="150.0" text="Sale Price" />
+            <TableColumn fx:id="priceByCartonColumn" prefWidth="150.0" text="Price by Carton" />
+            <TableColumn fx:id="priceByUnitColumn" prefWidth="150.0" text="Price by Unit" />
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>

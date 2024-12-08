@@ -1,0 +1,38 @@
+
+.anchor-pane {
+    -fx-background-color: #f0f0f0; /* Light grey background */
+}
+
+/* Style the buttons */
+.button {
+    -fx-background-color: #4CAF50; /* Green background */
+    -fx-text-fill: white; /* White text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px; /* Padding around the text */
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0, 0, 2); /* Drop shadow */
+}
+
+/* Change the background color of the buttons when hovered */
+.button:hover {
+    -fx-background-color: #45a049; /* Darker green when hovered */
+}
+
+/* Style for the buttons when they are clicked */
+.button:pressed {
+    -fx-background-color: #387f39; /* Even darker green when pressed */
+}
+
+/* Style for the inventory button specifically */
+#inventory {
+    -fx-background-color: #ff9800; /* Orange background */
+}
+
+
+#displayPane {
+    -fx-background-color: white; /* White background for the pane */
+    -fx-border-color: #cccccc; /* Light grey border around the pane */
+    -fx-border-width: 1;
+}
