@@ -114,4 +114,42 @@ public class Product {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+    // Static method to parse a Product from a string
+    public static Product parse(String line) {
+        try {
+
+            String[] parts = line.split(",");
+
+            if (parts.length != 8) {
+                throw new IllegalArgumentException("Invalid product data format.");
+            }
+
+            // Parse and construct the Product
+            String productId = parts[0].trim();
+            String name = parts[1].trim();
+            String category = parts[2].trim();
+            double originalPrice = Double.parseDouble(parts[3].trim());
+            double salePrice = Double.parseDouble(parts[4].trim());
+            double priceByUnit = Double.parseDouble(parts[5].trim());
+            double priceByCarton = Double.parseDouble(parts[6].trim());
+            int quantity = Integer.parseInt(parts[7].trim());
+
+            return new Product(productId, name, category, originalPrice, salePrice, priceByUnit, priceByCarton, quantity);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Failed to parse product: " + line, e);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return String.join(",",
+                productId,
+                name,
+                category,
+                String.valueOf(originalPrice),
+                String.valueOf(salePrice),
+                String.valueOf(priceByUnit),
+                String.valueOf(priceByCarton),
+                String.valueOf(quantity));
+    }
 }
