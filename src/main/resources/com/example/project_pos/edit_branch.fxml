@@ -67,6 +67,14 @@
                         style="-fx-background-color: #48bb78; -fx-text-fill: white; -fx-font-weight: bold;" />
             </VBox>
 
+            <!-- Branch Manager Details -->
+            <VBox spacing="10">
+                <Label
+                        fx:id="branchManagerLabel"
+                        text="Branch Manager: Not Assigned"
+                        style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #4a5568;" />
+            </VBox>
+
             <!-- Employee Details -->
             <VBox spacing="10">
                 <Label

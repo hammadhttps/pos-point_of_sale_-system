@@ -1,0 +1,60 @@
+/* Global Styles */
+.root {
+    -fx-background-color: #f4f4f9; /* Light background color for the page */
+    -fx-font-family: "Arial", sans-serif;
+}
+
+/* Styling for TextField */
+#branchCodeField {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+/* Styling for Buttons */
+.button {
+    -fx-background-color: #4CAF50;  /* Green */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #45a049;  /* Darker Green for hover effect */
+}
+
+.button:pressed {
+    -fx-background-color: #388e3c; /* Even darker green on button press */
+}
+
+/* Styling for the Display Pane */
+#displayPane {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+}
+
+/* Optional: Styling the table and columns */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+}
+
+.table-column {
+    -fx-font-size: 14px;
+}
+
+/* Alternate row colors in the table */
+.table-row-cell:filled:odd {
+    -fx-background-color: #f9f9f9;
+}
+
+.table-row-cell:filled:even {
+    -fx-background-color: #ffffff;
+}

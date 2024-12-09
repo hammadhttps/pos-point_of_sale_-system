@@ -121,4 +121,30 @@ public class BranchManagerDAO {
         }
         return managers;
     }
+    public BranchManager getBranchManagerByBranchCode(String branchCode) {
+        String query = "SELECT * FROM branchmanager WHERE branchcode = ?";
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(query)) {
+
+            pstmt.setString(1, branchCode);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                BranchManager manager = new BranchManager();
+                manager.setusername(rs.getString("username"));
+                manager.setName(rs.getString("name"));
+                manager.setEmail(rs.getString("email"));
+                manager.setPassword(rs.getString("password"));
+                manager.setRole(rs.getString("role"));
+                manager.setBranchCode(rs.getString("branchcode"));
+                manager.setSalary(rs.getDouble("salary"));
+                manager.setEmployeeCount(rs.getInt("employeeCount"));
+
+                return manager;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

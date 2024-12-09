@@ -36,8 +36,14 @@ public class SuperAdminController
 
     }
 
-    public void reports(MouseEvent mouseEvent)
-    {
+    public void reports(MouseEvent mouseEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/branch_reports.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Add New Branch Manager");
+        stage.setScene(new Scene(root));
+        stage.show();
 
 
 

@@ -3,10 +3,7 @@ package controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import model.Branch;
 import model.BranchManager;
 import model.Cashier;
@@ -28,6 +25,8 @@ public class EditBranch {
     private ListView<String> cashiersList;
     @FXML
     private ListView<String> dataEntryOperatorsList;
+    @FXML
+    private Label branchManagerLabel;
 
     @FXML
     private Button activateButton, deactivateButton, increaseEmpCountButton;
@@ -35,6 +34,7 @@ public class EditBranch {
     private final BranchDAO branchDAO = new BranchDAO();
     private final CashierDAO cashierDAO = new CashierDAO();
     private final DataEntryOperatorDAO dataEntryOperatorDAO = new DataEntryOperatorDAO();
+    private final BranchManagerDAO branchManagerDAO = new BranchManagerDAO();
 
     private final ObservableList<Branch> activeBranches = FXCollections.observableArrayList();
     private final ObservableList<Branch> inactiveBranches = FXCollections.observableArrayList();
@@ -42,7 +42,7 @@ public class EditBranch {
     public void initialize() {
         loadBranches();
 
-        // Set custom cell factory to display branch names
+
         activeBranchList.setCellFactory(listView -> new ListCell<>() {
             @Override
             protected void updateItem(Branch branch, boolean empty) {
@@ -67,7 +67,6 @@ public class EditBranch {
         activeBranchList.setOnMouseClicked(event -> showBranchDetails(activeBranchList.getSelectionModel().getSelectedItem()));
         inactiveBranchList.setOnMouseClicked(event -> showBranchDetails(inactiveBranchList.getSelectionModel().getSelectedItem()));
     }
-
 
     private void loadBranches() {
         List<Branch> branches = branchDAO.getAllBranches();
@@ -125,6 +124,15 @@ public class EditBranch {
 
     private void showBranchDetails(Branch branch) {
         if (branch != null) {
+            // Fetch branch manager for the branch
+            BranchManager manager = branchManagerDAO.getBranchManagerByBranchCode(branch.getBranchcode());
+
+            if (manager != null) {
+                branchManagerLabel.setText("Branch Manager: " + manager.getName() + " (" + manager.getEmail() + ")");
+            } else {
+                branchManagerLabel.setText("Branch Manager: Not Assigned");
+            }
+
             // Fetch cashiers and data entry operators for the branch
             List<Cashier> cashiers = cashierDAO.getAllCashiersByBranchCode(branch.getBranchcode());
             List<DataEntryOperator> dataEntryOperators = dataEntryOperatorDAO.getDataEntryOperatorsByBranchCode(branch.getBranchcode());
