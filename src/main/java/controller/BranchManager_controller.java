@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -15,7 +16,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.Branch;
 import model.BranchManager;
+import services.BranchDAO;
 import services.BranchManagerDAO;
 
 import java.io.IOException;
@@ -37,7 +40,8 @@ public class BranchManager_controller {
     int count = 0;
     public static String uname;
     public  static String bc;
-
+    Branch branch=new Branch();
+    BranchDAO branchDAO=new BranchDAO();
 
 
     private boolean authenticate(String username, String password) {
@@ -109,7 +113,29 @@ public class BranchManager_controller {
     }
 
 
-    public void manage_passwords(MouseEvent mouseEvent) {
+    public void manage_passwords(MouseEvent mouseEvent) throws IOException {
+
+        branchManager=branchManagerDAO.getBranchManager(uname);
+        bc=branchManager.getBranchCode();
+        branch=branchDAO.getBranchByCode(bc);
+
+        if(branch.isActive()) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/manage_passwords.fxml"));
+            Parent root = loader.load();
+            ManagePasswords controller=loader.getController();
+            controller.setBranchcode(bc);
+            Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } else
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Inactive Branch");
+            alert.setHeaderText(null);
+            alert.setContentText("This branch is not active yet. Please contact your administrator.");
+            alert.showAndWait();
+        }
 
     }
 
@@ -127,11 +153,22 @@ public class BranchManager_controller {
             ReportsWindow controller = loader.getController();
             branchManager=branchManagerDAO.getBranchManager(uname);
             controller.setBranchcode(branchManager.getBranchCode());
+            branch=branchDAO.getBranchByCode(branchManager.getBranchCode());
 
-            Stage stage = new Stage();
-            stage.setTitle("Report Window");
-            stage.setScene(new Scene(root));
-            stage.show();
+            if (branch.isActive()) {
+                Stage stage = new Stage();
+                stage.setTitle("Report Window");
+                stage.setScene(new Scene(root));
+                stage.show();
+            }
+            else
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Inactive Branch");
+                alert.setHeaderText(null);
+                alert.setContentText("This branch is not active yet. Please contact your administrator.");
+                alert.showAndWait();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -145,11 +182,24 @@ public class BranchManager_controller {
         AddDataEntryOperator controller = loader.getController();
         branchManager=branchManagerDAO.getBranchManager(uname);
         bc=branchManager.getBranchCode();
-        AddDataEntryOperator.setBranchcode(bc);
-        Stage stage = new Stage();
-        stage.setTitle("Add Data Entry Operator");
-        stage.setScene(new Scene(root));
-        stage.show();
+        branch=branchDAO.getBranchByCode(bc);
+
+        if(branch.isActive()) {
+            AddDataEntryOperator.setBranchcode(bc);
+            Stage stage = new Stage();
+            stage.setTitle("Add Data Entry Operator");
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Inactive Branch");
+            alert.setHeaderText(null);
+            alert.setContentText("This branch is not active yet. Please contact your administrator.");
+            alert.showAndWait();
+
+        }
 
 
     }
@@ -160,11 +210,24 @@ public class BranchManager_controller {
         AddCashier controller = loader.getController();
         branchManager=branchManagerDAO.getBranchManager(uname);
         bc=branchManager.getBranchCode();
-        AddCashier.setBranchcode(bc);
-        Stage stage = new Stage();
-        stage.setTitle("Add Cashier");
-        stage.setScene(new Scene(root));
-        stage.show();
+        branch=branchDAO.getBranchByCode(bc);
 
+        if(branch.isActive()) {
+
+
+            AddCashier.setBranchcode(bc);
+            Stage stage = new Stage();
+            stage.setTitle("Add Cashier");
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Inactive Branch");
+            alert.setHeaderText(null);
+            alert.setContentText("This branch is not active yet. Please contact your administrator.");
+            alert.showAndWait();
+        }
     }
 }

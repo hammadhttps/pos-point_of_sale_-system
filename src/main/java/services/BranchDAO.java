@@ -9,7 +9,7 @@ import java.util.List;
 
 public class BranchDAO {
 
-    // Fetch all branches from the database
+
     public List<Branch> getAllBranches() {
         List<Branch> branches = new ArrayList<>();
         String query = "SELECT name, city, address, phone, isActive, employeeCount, branchcode FROM branch";

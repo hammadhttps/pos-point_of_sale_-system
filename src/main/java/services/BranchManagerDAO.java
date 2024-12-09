@@ -11,7 +11,7 @@ public class BranchManagerDAO {
 
     // Method to add a new Branch Manager
     public boolean addBranchManager(BranchManager manager) {
-        String query = "INSERT INTO branch_managers (username, name, email, password, role, branch_code, salary, employee_count) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO branchmanager (username, name, email, password, role, branchcode, salary, employeeCount) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
@@ -110,7 +110,7 @@ public class BranchManagerDAO {
                 manager.setEmail(rs.getString("email"));
                 manager.setPassword(rs.getString("password"));
                 manager.setRole(rs.getString("role"));
-                manager.setBranchCode(rs.getString("branch_code"));
+                manager.setBranchCode(rs.getString("branchcode"));
                 manager.setSalary(rs.getDouble("salary"));
                 manager.setEmployeeCount(rs.getInt("employee_count"));
 

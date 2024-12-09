@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
-// mo
+
 public class POS extends Application {
     @Override
 
@@ -16,6 +16,7 @@ public class POS extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Loading Page");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 

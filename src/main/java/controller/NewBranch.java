@@ -25,6 +25,10 @@ public class NewBranch {
     @FXML
     public void addBranchAction(ActionEvent event) {
 
+        if (nameField.getText().isEmpty() || cityField.getText().isEmpty() || addressField.getText().isEmpty() || phoneField.getText().isEmpty() || branchCodeField.getText().isEmpty() || employeeCountField.getText().isEmpty()) {
+            showAlert(AlertType.WARNING, "Form Incomplete", "Please fill in all fields.");
+            return;
+        }
         String name = nameField.getText();
         String city = cityField.getText();
         String address = addressField.getText();
@@ -34,10 +38,7 @@ public class NewBranch {
         String branchCode = branchCodeField.getText();
 
         // Validate the fields before adding
-        if (name.isEmpty() || city.isEmpty() || address.isEmpty() || phone.isEmpty() || branchCode.isEmpty() || employeeCountField.getText().isEmpty()) {
-            showAlert(AlertType.WARNING, "Form Incomplete", "Please fill in all fields.");
-            return;
-        }
+
 
         // Set values to branch object
         branch.setName(name);

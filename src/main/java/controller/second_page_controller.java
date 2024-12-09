@@ -117,7 +117,7 @@ public class second_page_controller {
             Stage newStage = new Stage();
             Scene scene = new Scene(root);
             newStage.setScene(scene);
-
+             newStage.setResizable(false);
             newStage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,7 +139,7 @@ public class second_page_controller {
             Stage newStage = new Stage();
             Scene scene = new Scene(root);
             newStage.setScene(scene);
-
+             newStage.setResizable(false);
             newStage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,7 +160,7 @@ public class second_page_controller {
             Stage newStage = new Stage();
             Scene scene = new Scene(root);
             newStage.setScene(scene);
-
+           newStage.setResizable(false);
             newStage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -181,7 +181,7 @@ public class second_page_controller {
             Stage newStage = new Stage();
             Scene scene = new Scene(root);
             newStage.setScene(scene);
-
+            newStage.setResizable(false);
             newStage.show();
         } catch (Exception e) {
             e.printStackTrace();

@@ -32,7 +32,7 @@ public class DataEntryOperatorDAO {
 
     // Method to update an existing Data Entry Operator
     public boolean updateDataEntryOperator(DataEntryOperator operator) {
-        String query = "UPDATE dataentryoperator SET name = ?, email = ?, password = ?, role = ?, branch_code = ?, salary = ? WHERE username = ?";
+        String query = "UPDATE dataentryoperator SET name = ?, email = ?, password = ?, role = ?, branchcode = ?, salary = ? WHERE username = ?";
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
@@ -81,7 +81,7 @@ public class DataEntryOperatorDAO {
                 operator.setEmail(rs.getString("email"));
                 operator.setPassword(rs.getString("password"));
                 operator.setRole(rs.getString("role"));
-                operator.setBranchCode(rs.getString("branch_code"));
+                operator.setBranchCode(rs.getString("branchcode"));
                 operator.setSalary(rs.getDouble("salary"));
 
                 return operator;
@@ -117,4 +117,32 @@ public class DataEntryOperatorDAO {
         }
         return operators;
     }
+
+    public List<DataEntryOperator> getDataEntryOperatorsByBranchCode(String branchCode) {
+        List<DataEntryOperator> operators = new ArrayList<>();
+        String query = "SELECT * FROM dataentryoperator WHERE branchcode = ?";
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(query)) {
+
+            pstmt.setString(1, branchCode);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                DataEntryOperator operator = new DataEntryOperator();
+                operator.setusername(rs.getString("username"));
+                operator.setName(rs.getString("name"));
+                operator.setEmail(rs.getString("email"));
+                operator.setPassword(rs.getString("password"));
+                operator.setRole(rs.getString("role"));
+                operator.setBranchCode(rs.getString("branchcode"));
+                operator.setSalary(rs.getDouble("salary"));
+
+                operators.add(operator);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return operators;
+    }
+
 }

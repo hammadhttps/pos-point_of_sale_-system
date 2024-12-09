@@ -32,7 +32,7 @@ public class CashierDAO {
 
     // Method to update an existing Cashier
     public boolean updateCashier(Cashier cashier) {
-        String query = "UPDATE cashiers SET name = ?, email = ?, password = ?, role = ?, branch_code = ?, salary = ? WHERE username = ?";
+        String query = "UPDATE cashier SET name = ?, email = ?, password = ?, role = ?, branchcode = ?, salary = ? WHERE username = ?";
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
@@ -107,7 +107,34 @@ public class CashierDAO {
                 cashier.setEmail(rs.getString("email"));
                 cashier.setPassword(rs.getString("password"));
                 cashier.setRole(rs.getString("role"));
-                cashier.setBranchCode(rs.getString("branch_code"));
+                cashier.setBranchCode(rs.getString("branchcode"));
+                cashier.setSalary(rs.getDouble("salary"));
+
+                cashiers.add(cashier);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cashiers;
+    }
+
+    public List<Cashier> getAllCashiersByBranchCode(String branchCode) {
+        List<Cashier> cashiers = new ArrayList<>();
+        String query = "SELECT * FROM cashier WHERE branchcode = ?";
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(query)) {
+
+            pstmt.setString(1, branchCode);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Cashier cashier = new Cashier();
+                cashier.setusername(rs.getString("username"));
+                cashier.setName(rs.getString("name"));
+                cashier.setEmail(rs.getString("email"));
+                cashier.setPassword(rs.getString("password"));
+                cashier.setRole(rs.getString("role"));
+                cashier.setBranchCode(rs.getString("branchcode"));
                 cashier.setSalary(rs.getDouble("salary"));
 
                 cashiers.add(cashier);
@@ -118,3 +145,5 @@ public class CashierDAO {
         return cashiers;
     }
 }
+
+

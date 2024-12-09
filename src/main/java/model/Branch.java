@@ -66,4 +66,9 @@ public class Branch {
     public void setBranchcode(String branchcode) {
         this.branchcode = branchcode;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

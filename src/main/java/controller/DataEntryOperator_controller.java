@@ -7,15 +7,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.util.Duration;
+import model.DataEntryOperator;
+import services.DataEntryOperatorDAO;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -31,8 +35,13 @@ public class DataEntryOperator_controller {
     public TextField username;
     public PasswordField password;
     public Button loginButton;
+    public AnchorPane mainAnchorPane;
+    public AnchorPane innerAnchorPane;
+    public Label welcome_label;
+    public ImageView vendorsIcon;
+    public ImageView addVendorIcon;
+    public ImageView addProductIcon;
     int count = 0;
-
 
 
     private boolean authenticate(String username, String password) {
@@ -70,6 +79,7 @@ public class DataEntryOperator_controller {
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
         } else {
 
@@ -97,6 +107,7 @@ public class DataEntryOperator_controller {
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -116,6 +127,7 @@ public class DataEntryOperator_controller {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -125,6 +137,7 @@ public class DataEntryOperator_controller {
         Stage stage = new Stage();
         stage.setTitle("Add New Product");
         stage.setScene(new Scene(root));
+        stage.setResizable(false);
         stage.show();
 
     }
@@ -135,6 +148,7 @@ public class DataEntryOperator_controller {
         Stage stage = new Stage();
         stage.setTitle("Add New Product");
         stage.setScene(new Scene(root));
+        stage.setResizable(false);
         stage.show();
 
     }
@@ -145,6 +159,7 @@ public class DataEntryOperator_controller {
         Stage stage = new Stage();
         stage.setTitle("Add New Product");
         stage.setScene(new Scene(root));
+        stage.setResizable(false);
         stage.show();
 
 
