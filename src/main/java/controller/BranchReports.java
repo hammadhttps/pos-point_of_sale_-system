@@ -23,6 +23,7 @@ public class BranchReports {
     @FXML
     private Pane displayPane;
 
+
     private SaleDAO saleDAO = new SaleDAO();
     private ProductDAO productDAO = new ProductDAO();
 
