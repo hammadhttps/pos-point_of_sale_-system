@@ -31,6 +31,31 @@ A multi-branch Point of Sale system with role-based access and offline functiona
   - Auto-sync when online
   - Notification system
 
+
+
+![Login Page] ![Screenshot 2024-12-13 003352](https://github.com/user-attachments/assets/505dd917-ee6f-47ef-a022-ff3115d3f69b)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Installation 💻
 
 ```bash
