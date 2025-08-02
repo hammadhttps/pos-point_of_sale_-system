@@ -138,17 +138,22 @@ public class CashierModernController {
 
     private void setupEventHandlers() {
         // Category buttons
-        btnGrocery.setOnAction(event -> showProductsByCategory("Grocery"));
-        });
+        btnGrocery.setOnAction(event -> {
+            showProductsByCategory("Grocery");
             resetCategoryButtons();
-            resetCategoryButtons();
-            btnElectronics.getStyleClass().add("category-btn:selected");
             btnGrocery.getStyleClass().add("category-btn:selected");
         });
-        btnElectronics.setOnAction(event -> showProductsByCategory("Electronic Accessories"));
+        
+        btnElectronics.setOnAction(event -> {
+            showProductsByCategory("Electronic Accessories");
+            resetCategoryButtons();
+            btnElectronics.getStyleClass().add("category-btn:selected");
+        });
+        
+        btnfashion.setOnAction(event -> {
+            showProductsByCategory("Fashion");
             resetCategoryButtons();
             btnfashion.getStyleClass().add("category-btn:selected");
-        btnfashion.setOnAction(event -> showProductsByCategory("Fashion"));
         });
         
         // Action buttons
@@ -567,6 +572,12 @@ public class CashierModernController {
 
     public void handleLogout(javafx.scene.input.MouseEvent event) {
         handleLogout(new javafx.event.ActionEvent());
+    }
+
+    private void showSearchDialog() {
+        // For now, just focus on the search field
+        searchField.requestFocus();
+        searchField.selectAll();
     }
 
     public void cleanup() {

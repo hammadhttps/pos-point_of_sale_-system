@@ -27,19 +27,39 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
+import javafx.fxml.FXML;
 
 public class DataEntryOperator_controller {
 
 
+    @FXML
     public ImageView _icon;
+    
+    @FXML
     public TextField username;
+    
+    @FXML
     public PasswordField password;
+    
+    @FXML
     public Button loginButton;
+    
+    @FXML
     public AnchorPane mainAnchorPane;
+    
+    @FXML
     public AnchorPane innerAnchorPane;
+    
+    @FXML
     public Label welcome_label;
+    
+    @FXML
     public ImageView vendorsIcon;
+    
+    @FXML
     public ImageView addVendorIcon;
+    
+    @FXML
     public ImageView addProductIcon;
     int count = 0;
 

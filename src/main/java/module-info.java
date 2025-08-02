@@ -8,13 +8,23 @@ module com.example.project_pos {
     requires net.synedra.validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
-   // requires eu.hansolo.tilesfx;
+    // requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
-    //requires mysql.connector.j;
+    requires mysql.connector.j;
 
     opens com.example.project_pos to javafx.fxml;
+
     exports com.example.project_pos;
     exports controller;
+
     opens controller to javafx.fxml;
+
+    exports model;
+
+    opens model;
+
+    exports services;
+
+    opens services;
 }

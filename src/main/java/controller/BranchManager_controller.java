@@ -27,22 +27,28 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
+import javafx.fxml.FXML;
 
 public class BranchManager_controller {
 
-
-    private final BranchManagerDAO branchManagerDAO=new BranchManagerDAO();
-    private BranchManager branchManager=null;
+    private final BranchManagerDAO branchManagerDAO = new BranchManagerDAO();
+    private BranchManager branchManager = null;
+    @FXML
     public ImageView _icon;
+
+    @FXML
     public TextField username;
+
+    @FXML
     public PasswordField password;
+
+    @FXML
     public Button loginButton;
     int count = 0;
     public static String uname;
-    public  static String bc;
-    Branch branch=new Branch();
-    BranchDAO branchDAO=new BranchDAO();
-
+    public static String bc;
+    Branch branch = new Branch();
+    BranchDAO branchDAO = new BranchDAO();
 
     private boolean authenticate(String username, String password) {
         Connection connection = DBConnection.getInstance().getConnection();
@@ -68,12 +74,12 @@ public class BranchManager_controller {
         return false;
     }
 
-
     public void On_login(ActionEvent actionEvent) throws IOException {
 
         if (authenticate(username.getText(), password.getText())) {
-            uname=username.getText();
-            _icon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/project_pos/icons_and_images/Lock-Unlock-icon.png"))));
+            uname = username.getText();
+            _icon.setImage(new Image(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/com/example/project_pos/icons_and_images/Lock-Unlock-icon.png"))));
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/Branch_manager.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -88,7 +94,6 @@ public class BranchManager_controller {
         loginButton.setText("Login");
     }
 
-
     private void shakeButton(Button button) {
         TranslateTransition transition = new TranslateTransition(Duration.millis(100), button);
         transition.setByX(10);
@@ -96,7 +101,6 @@ public class BranchManager_controller {
         transition.setAutoReverse(true);
         transition.play();
     }
-
 
     public void home_pressed(ActionEvent actionEvent) {
         try {
@@ -112,24 +116,23 @@ public class BranchManager_controller {
         }
     }
 
-
     public void manage_passwords(MouseEvent mouseEvent) throws IOException {
 
-        branchManager=branchManagerDAO.getBranchManager(uname);
-        bc=branchManager.getBranchCode();
-        branch=branchDAO.getBranchByCode(bc);
+        branchManager = branchManagerDAO.getBranchManager(uname);
+        bc = branchManager.getBranchCode();
+        branch = branchDAO.getBranchByCode(bc);
 
-        if(branch.isActive()) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/manage_passwords.fxml"));
+        if (branch.isActive()) {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/project_pos/manage_passwords.fxml"));
             Parent root = loader.load();
-            ManagePasswords controller=loader.getController();
+            ManagePasswords controller = loader.getController();
             controller.setBranchcode(bc);
             Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        } else
-        {
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Inactive Branch");
             alert.setHeaderText(null);
@@ -145,24 +148,21 @@ public class BranchManager_controller {
         stage.close();
     }
 
-    public void generate_reports(MouseEvent mouseEvent)
-    {
+    public void generate_reports(MouseEvent mouseEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/reports_window.fxml"));
             Parent root = loader.load();
             ReportsWindow controller = loader.getController();
-            branchManager=branchManagerDAO.getBranchManager(uname);
+            branchManager = branchManagerDAO.getBranchManager(uname);
             controller.setBranchcode(branchManager.getBranchCode());
-            branch=branchDAO.getBranchByCode(branchManager.getBranchCode());
+            branch = branchDAO.getBranchByCode(branchManager.getBranchCode());
 
             if (branch.isActive()) {
                 Stage stage = new Stage();
                 stage.setTitle("Report Window");
                 stage.setScene(new Scene(root));
                 stage.show();
-            }
-            else
-            {
+            } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Inactive Branch");
                 alert.setHeaderText(null);
@@ -177,22 +177,21 @@ public class BranchManager_controller {
 
     public void add_data_entry_operator(MouseEvent mouseEvent) throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/Add_data_entry_operator.fxml"));
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/com/example/project_pos/Add_data_entry_operator.fxml"));
         Parent root = loader.load();
         AddDataEntryOperator controller = loader.getController();
-        branchManager=branchManagerDAO.getBranchManager(uname);
-        bc=branchManager.getBranchCode();
-        branch=branchDAO.getBranchByCode(bc);
+        branchManager = branchManagerDAO.getBranchManager(uname);
+        bc = branchManager.getBranchCode();
+        branch = branchDAO.getBranchByCode(bc);
 
-        if(branch.isActive()) {
+        if (branch.isActive()) {
             AddDataEntryOperator.setBranchcode(bc);
             Stage stage = new Stage();
             stage.setTitle("Add Data Entry Operator");
             stage.setScene(new Scene(root));
             stage.show();
-        }
-        else
-        {
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Inactive Branch");
             alert.setHeaderText(null);
@@ -201,28 +200,24 @@ public class BranchManager_controller {
 
         }
 
-
     }
 
     public void add_cashier(MouseEvent mouseEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/Add_cashier.fxml"));
         Parent root = loader.load();
         AddCashier controller = loader.getController();
-        branchManager=branchManagerDAO.getBranchManager(uname);
-        bc=branchManager.getBranchCode();
-        branch=branchDAO.getBranchByCode(bc);
+        branchManager = branchManagerDAO.getBranchManager(uname);
+        bc = branchManager.getBranchCode();
+        branch = branchDAO.getBranchByCode(bc);
 
-        if(branch.isActive()) {
-
+        if (branch.isActive()) {
 
             AddCashier.setBranchcode(bc);
             Stage stage = new Stage();
             stage.setTitle("Add Cashier");
             stage.setScene(new Scene(root));
             stage.show();
-        }
-        else
-        {
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Inactive Branch");
             alert.setHeaderText(null);

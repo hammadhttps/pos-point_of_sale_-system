@@ -23,11 +23,22 @@ public class second_page_controller {
     private Button cancel_btn;
 
     @FXML
+    private Button sa_btn;
+
+    @FXML
+    private Button bm_btn;
+
+    @FXML
+    private Button csh_btn;
+
+    @FXML
+    private Button data_btn;
+
+    @FXML
     private ImageView supadmin_img, BM_img, data_img, cash_img;
 
     @FXML
     private AnchorPane anchorPane;
-
 
     private void fadeInAndOutImages() {
 
@@ -38,14 +49,12 @@ public class second_page_controller {
         fadeSupAdmin.setAutoReverse(true);
         fadeSupAdmin.play();
 
-
         FadeTransition fadeBM = new FadeTransition(Duration.seconds(2), BM_img);
         fadeBM.setFromValue(0);
         fadeBM.setToValue(1);
         fadeBM.setCycleCount(FadeTransition.INDEFINITE);
         fadeBM.setAutoReverse(true);
         fadeBM.play();
-
 
         FadeTransition fadeData = new FadeTransition(Duration.seconds(2), data_img);
         fadeData.setFromValue(0);
@@ -54,7 +63,6 @@ public class second_page_controller {
         fadeData.setAutoReverse(true);
         fadeData.play();
 
-
         FadeTransition fadeCash = new FadeTransition(Duration.seconds(2), cash_img);
         fadeCash.setFromValue(0);
         fadeCash.setToValue(1);
@@ -62,7 +70,6 @@ public class second_page_controller {
         fadeCash.setAutoReverse(true);
         fadeCash.play();
     }
-
 
     private void dropText() {
         TranslateTransition translateSup = new TranslateTransition(Duration.seconds(1), sup_text);
@@ -97,27 +104,24 @@ public class second_page_controller {
 
     public void cance_action(ActionEvent actionEvent) {
 
-
-        Stage stg=(Stage) cancel_btn.getScene().getWindow();
+        Stage stg = (Stage) cancel_btn.getScene().getWindow();
         stg.close();
 
     }
 
     public void csh_action(ActionEvent actionEvent) {
         try {
-
+            System.out.println("Cashier button clicked!");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/cashier_login.fxml"));
             Parent root = loader.load();
 
-
-            Stage currentStage = (Stage) cancel_btn.getScene().getWindow();
+            Stage currentStage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
             currentStage.close();
-
 
             Stage newStage = new Stage();
             Scene scene = new Scene(root);
             newStage.setScene(scene);
-             newStage.setResizable(false);
+            newStage.setResizable(false);
             newStage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,19 +131,18 @@ public class second_page_controller {
 
     public void data_btn(ActionEvent actionEvent) {
         try {
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/Data_entry_operator_login.fxml"));
+            System.out.println("Data Entry button clicked!");
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/project_pos/Data_entry_operator_login.fxml"));
             Parent root = loader.load();
 
-
-            Stage currentStage = (Stage) cancel_btn.getScene().getWindow();
+            Stage currentStage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
             currentStage.close();
-
 
             Stage newStage = new Stage();
             Scene scene = new Scene(root);
             newStage.setScene(scene);
-             newStage.setResizable(false);
+            newStage.setResizable(false);
             newStage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,19 +151,18 @@ public class second_page_controller {
 
     public void bm_action(ActionEvent actionEvent) {
         try {
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/branch_manager_login.fxml"));
+            System.out.println("Branch Manager button clicked!");
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/project_pos/branch_manager_login.fxml"));
             Parent root = loader.load();
 
-
-            Stage currentStage = (Stage) cancel_btn.getScene().getWindow();
+            Stage currentStage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
             currentStage.close();
-
 
             Stage newStage = new Stage();
             Scene scene = new Scene(root);
             newStage.setScene(scene);
-           newStage.setResizable(false);
+            newStage.setResizable(false);
             newStage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -169,14 +171,13 @@ public class second_page_controller {
 
     public void sa_action(ActionEvent actionEvent) {
         try {
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/super_admin_login.fxml"));
+            System.out.println("Super Admin button clicked!");
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/project_pos/super_admin_login.fxml"));
             Parent root = loader.load();
 
-
-            Stage currentStage = (Stage) cancel_btn.getScene().getWindow();
+            Stage currentStage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
             currentStage.close();
-
 
             Stage newStage = new Stage();
             Scene scene = new Scene(root);

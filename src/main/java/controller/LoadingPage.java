@@ -21,6 +21,12 @@ public class LoadingPage {
     private Label loading;
 
     @FXML
+    private Label statusLabel;
+
+    @FXML
+    private Label detailLabel;
+
+    @FXML
     private Line line1, line2, line3, line4;
 
     @FXML

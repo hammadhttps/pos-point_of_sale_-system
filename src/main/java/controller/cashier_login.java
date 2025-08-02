@@ -26,31 +26,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 import javafx.scene.control.Alert;
+import javafx.fxml.FXML;
 
-public class cashier_login
-{
+public class cashier_login {
+    @FXML
     public ImageView _icon;
+    
+    @FXML
     public TextField username;
+    
+    @FXML
     public PasswordField password;
+    
+    @FXML
     public Button loginButton;
+    
     int count = 0;
-    Branch branch=new Branch();
-    BranchDAO  branchDAO=new BranchDAO();
-    Cashier cashier=new Cashier();
-    CashierDAO cashierDAO =new CashierDAO();
-
+    Branch branch = new Branch();
+    BranchDAO branchDAO = new BranchDAO();
+    Cashier cashier = new Cashier();
+    CashierDAO cashierDAO = new CashierDAO();
 
     // On login button click
     public void On_login(ActionEvent actionEvent) {
         if (authenticate(username.getText(), password.getText())) {
 
-            _icon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/project_pos/icons_and_images/Lock-Unlock-icon.png"))));
+            _icon.setImage(new Image(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/com/example/project_pos/icons_and_images/Lock-Unlock-icon.png"))));
             cashier = cashierDAO.getCashier(username.getText());
             branch = branchDAO.getBranchByCode(cashier.getBranchCode());
 
             if (branch.isActive()) {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/cashier-modern.fxml"));
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("/com/example/project_pos/cashier-modern.fxml"));
                     Parent root = loader.load();
 
                     CashierModernController csh = loader.getController();
@@ -79,7 +88,6 @@ public class cashier_login
         }
         loginButton.setText("Login");
     }
-
 
     private void shakeButton(Button button) {
         TranslateTransition transition = new TranslateTransition(Duration.millis(100), button);
@@ -126,6 +134,5 @@ public class cashier_login
         }
         return false;
     }
-
 
 }

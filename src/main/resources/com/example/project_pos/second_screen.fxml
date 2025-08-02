@@ -47,7 +47,7 @@
 
             <!-- Super Admin Card -->
             <VBox styleClass="pos-card-hover" alignment="CENTER" spacing="16" 
-                   onMouseClicked="#sa_action" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                   GridPane.columnIndex="0" GridPane.rowIndex="0">
                 <ImageView fitHeight="80.0" fitWidth="80.0" preserveRatio="true" styleClass="dashboard-icon">
                     <image>
                         <Image url="@icons_and_images/administrator-icon.png" />
@@ -60,7 +60,7 @@
 
             <!-- Branch Manager Card -->
             <VBox styleClass="pos-card-hover" alignment="CENTER" spacing="16" 
-                   onMouseClicked="#bm_action" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                   GridPane.columnIndex="1" GridPane.rowIndex="0">
                 <ImageView fitHeight="80.0" fitWidth="80.0" preserveRatio="true" styleClass="dashboard-icon">
                     <image>
                         <Image url="@icons_and_images/Manager-icon.png" />
