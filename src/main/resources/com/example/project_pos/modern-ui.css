@@ -1,0 +1,391 @@
+/* Modern UI Design System for POS Application */
+
+/* ===== ROOT STYLES ===== */
+.root {
+    -fx-background-color: #f8fafc;
+    -fx-font-family: 'Segoe UI', 'System', sans-serif;
+    -fx-font-size: 14px;
+}
+
+/* ===== COLOR PALETTE ===== */
+.primary-color { -fx-background-color: #3b82f6; }
+.primary-text { -fx-text-fill: #3b82f6; }
+.secondary-color { -fx-background-color: #64748b; }
+.secondary-text { -fx-text-fill: #64748b; }
+.success-color { -fx-background-color: #10b981; }
+.success-text { -fx-text-fill: #10b981; }
+.warning-color { -fx-background-color: #f59e0b; }
+.warning-text { -fx-text-fill: #f59e0b; }
+.danger-color { -fx-background-color: #ef4444; }
+.danger-text { -fx-text-fill: #ef4444; }
+.light-bg { -fx-background-color: #ffffff; }
+.dark-bg { -fx-background-color: #1e293b; }
+.gray-bg { -fx-background-color: #f1f5f9; }
+
+/* ===== TYPOGRAPHY ===== */
+.title-large {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+.title-medium {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+.title-small {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+.body-text {
+    -fx-font-size: 14px;
+    -fx-text-fill: #475569;
+}
+
+.caption-text {
+    -fx-font-size: 12px;
+    -fx-text-fill: #64748b;
+}
+
+/* ===== LAYOUT COMPONENTS ===== */
+.card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 2);
+    -fx-padding: 24px;
+}
+
+.card-hover {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 15, 0, 0, 4);
+    -fx-padding: 24px;
+    -fx-cursor: hand;
+}
+
+.container {
+    -fx-background-color: #f8fafc;
+    -fx-padding: 24px;
+}
+
+.sidebar {
+    -fx-background-color: #1e293b;
+    -fx-padding: 20px;
+}
+
+/* ===== FORM COMPONENTS ===== */
+.form-field {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-padding: 12px 16px;
+    -fx-font-size: 14px;
+}
+
+.form-field:focused {
+    -fx-border-color: #3b82f6;
+    -fx-border-width: 2px;
+}
+
+.form-field:error {
+    -fx-border-color: #ef4444;
+}
+
+.form-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #374151;
+    -fx-font-size: 14px;
+}
+
+.form-section {
+    -fx-spacing: 16px;
+    -fx-padding: 20px;
+}
+
+/* ===== BUTTONS ===== */
+.btn-primary {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 24px;
+    -fx-cursor: hand;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #2563eb;
+}
+
+.btn-primary:pressed {
+    -fx-background-color: #1d4ed8;
+}
+
+.btn-secondary {
+    -fx-background-color: #64748b;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 24px;
+    -fx-cursor: hand;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #475569;
+}
+
+.btn-success {
+    -fx-background-color: #10b981;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 24px;
+    -fx-cursor: hand;
+}
+
+.btn-success:hover {
+    -fx-background-color: #059669;
+}
+
+.btn-danger {
+    -fx-background-color: #ef4444;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 24px;
+    -fx-cursor: hand;
+}
+
+.btn-danger:hover {
+    -fx-background-color: #dc2626;
+}
+
+.btn-outline {
+    -fx-background-color: transparent;
+    -fx-text-fill: #3b82f6;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8px;
+    -fx-border-color: #3b82f6;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-padding: 12px 24px;
+    -fx-cursor: hand;
+}
+
+.btn-outline:hover {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: #ffffff;
+}
+
+/* ===== TABLES ===== */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #f8fafc;
+    -fx-font-weight: bold;
+    -fx-text-fill: #374151;
+}
+
+.table-view .table-cell {
+    -fx-padding: 12px 16px;
+    -fx-text-fill: #475569;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f8fafc;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #dbeafe;
+}
+
+/* ===== NAVIGATION ===== */
+.nav-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: #64748b;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 12px 16px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}
+
+.nav-item:hover {
+    -fx-background-color: #f1f5f9;
+    -fx-text-fill: #3b82f6;
+}
+
+.nav-item:selected {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: #ffffff;
+}
+
+/* ===== DASHBOARD CARDS ===== */
+.dashboard-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 2);
+    -fx-padding: 24px;
+    -fx-cursor: hand;
+}
+
+.dashboard-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 15, 0, 0, 4);
+}
+
+.dashboard-icon {
+    -fx-fit-width: 48px;
+    -fx-fit-height: 48px;
+}
+
+/* ===== LOGIN FORMS ===== */
+.login-container {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 20, 0, 0, 4);
+    -fx-padding: 40px;
+}
+
+.login-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+    -fx-alignment: center;
+}
+
+.login-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: #64748b;
+    -fx-alignment: center;
+}
+
+/* ===== SCROLL PANES ===== */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: #f1f5f9;
+    -fx-background-radius: 4px;
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #cbd5e1;
+    -fx-background-radius: 4px;
+}
+
+.scroll-pane .scroll-bar .thumb:hover {
+    -fx-background-color: #94a3b8;
+}
+
+/* ===== ALERTS AND NOTIFICATIONS ===== */
+.alert-success {
+    -fx-background-color: #d1fae5;
+    -fx-text-fill: #065f46;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 16px;
+    -fx-border-color: #10b981;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+}
+
+.alert-error {
+    -fx-background-color: #fee2e2;
+    -fx-text-fill: #991b1b;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 16px;
+    -fx-border-color: #ef4444;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+}
+
+.alert-warning {
+    -fx-background-color: #fef3c7;
+    -fx-text-fill: #92400e;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 16px;
+    -fx-border-color: #f59e0b;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+}
+
+/* ===== LOADING STATES ===== */
+.loading-overlay {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}
+
+.loading-spinner {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 4);
+}
+
+/* ===== RESPONSIVE UTILITIES ===== */
+.hidden { -fx-visible: false; }
+.visible { -fx-visible: true; }
+
+/* ===== CUSTOM COMPONENTS ===== */
+.status-badge {
+    -fx-background-radius: 12px;
+    -fx-padding: 4px 12px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.status-active {
+    -fx-background-color: #d1fae5;
+    -fx-text-fill: #065f46;
+}
+
+.status-inactive {
+    -fx-background-color: #fee2e2;
+    -fx-text-fill: #991b1b;
+}
+
+.status-pending {
+    -fx-background-color: #fef3c7;
+    -fx-text-fill: #92400e;
+}
+
+/* ===== ANIMATIONS ===== */
+.fade-in {
+    -fx-opacity: 0;
+    -fx-animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from { -fx-opacity: 0; }
+    to { -fx-opacity: 1; }
+}
+
+.slide-in {
+    -fx-translate-x: -100;
+    -fx-animation: slideIn 0.3s ease-out forwards;
+}
+
+@keyframes slideIn {
+    from { -fx-translate-x: -100; }
+    to { -fx-translate-x: 0; }
+} 
