@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="800.0" prefWidth="1400.0" 
+            styleClass="pos-container" 
+            stylesheets="@pos-theme.css" 
+            xmlns="http://javafx.com/javafx/17.0.12" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="controller.DataEntryOperator_controller">
+
+    <!-- Top Navigation Bar -->
+    <top>
+        <HBox styleClass="pos-header" alignment="CENTER_LEFT" spacing="24">
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <ImageView fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                    <image>
+                        <Image url="@icons_and_images/pos_icon.png" />
+                    </image>
+                </ImageView>
+                <VBox spacing="2">
+                    <Label text="Data Entry Dashboard" styleClass="title-sm" />
+                    <Label text="Manage inventory and vendor data" styleClass="body-sm" />
+                </VBox>
+            </HBox>
+            
+            <Region HBox.hgrow="ALWAYS" />
+            
+            <!-- Quick Stats -->
+            <HBox spacing="24" alignment="CENTER_RIGHT">
+                <VBox alignment="CENTER" spacing="2">
+                    <Label text="Products" styleClass="caption" />
+                    <Label text="1,247" styleClass="body-md" />
+                </VBox>
+                <VBox alignment="CENTER" spacing="2">
+                    <Label text="Vendors" styleClass="caption" />
+                    <Label text="45" styleClass="body-md" />
+                </VBox>
+                <Separator orientation="VERTICAL" />
+                <Button text="Logout" styleClass="btn-outline" onAction="#cancel" />
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- Main Content -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="pos-scroll">
+            <VBox spacing="32" styleClass="p-4" maxWidth="1200">
+                
+                <!-- Welcome Section -->
+                <VBox spacing="16" alignment="CENTER">
+                    <Label text="Inventory Management Center" styleClass="title-lg" />
+                    <Label text="Manage products, vendors, and inventory data efficiently" styleClass="body-lg" />
+                </VBox>
+
+                <!-- Primary Actions Grid -->
+                <GridPane hgap="24" vgap="24" alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="300" prefWidth="300" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="300" prefWidth="300" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="300" prefWidth="300" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints vgrow="SOMETIMES" minHeight="200" prefHeight="200" />
+                        <RowConstraints vgrow="SOMETIMES" minHeight="200" prefHeight="200" />
+                    </rowConstraints>
+
+                    <!-- Vendors Management Card -->
+                    <VBox styleClass="pos-card-hover" alignment="CENTER" spacing="16" 
+                           onMouseClicked="#show_vendors" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/vendors.png" />
+                            </image>
+                        </ImageView>
+                        <VBox alignment="CENTER" spacing="8">
+                            <Label text="Vendors Management" styleClass="title-sm" />
+                            <Label text="View and manage vendor relationships" styleClass="body-md" />
+                            <Label text="45 active vendors" styleClass="caption" />
+                        </VBox>
+                        <Button text="Manage Vendors" styleClass="btn-primary" onAction="#show_vendors" />
+                    </VBox>
+
+                    <!-- Add New Product Card -->
+                    <VBox styleClass="pos-card-hover" alignment="CENTER" spacing="16" 
+                           onMouseClicked="#add_new_product" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/add-to-cart.png" />
+                            </image>
+                        </ImageView>
+                        <VBox alignment="CENTER" spacing="8">
+                            <Label text="Add New Product" styleClass="title-sm" />
+                            <Label text="Add products to the inventory system" styleClass="body-md" />
+                            <Label text="1,247 products in system" styleClass="caption" />
+                        </VBox>
+                        <Button text="Add Product" styleClass="btn-success" onAction="#add_new_product" />
+                    </VBox>
+
+                    <!-- Add New Vendor Card -->
+                    <VBox styleClass="pos-card-hover" alignment="CENTER" spacing="16" 
+                           onMouseClicked="#add_new_vendor" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                        <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/add_new_vendor.png" />
+                            </image>
+                        </ImageView>
+                        <VBox alignment="CENTER" spacing="8">
+                            <Label text="Add New Vendor" styleClass="title-sm" />
+                            <Label text="Register new vendors in the system" styleClass="body-md" />
+                            <Label text="Expand supplier network" styleClass="caption" />
+                        </VBox>
+                        <Button text="Add Vendor" styleClass="btn-warning" onAction="#add_new_vendor" />
+                    </VBox>
+
+                    <!-- Inventory Management Card -->
+                    <VBox styleClass="pos-card" alignment="CENTER" spacing="16" 
+                           GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/download.png" />
+                            </image>
+                        </ImageView>
+                        <VBox alignment="CENTER" spacing="8">
+                            <Label text="Inventory Overview" styleClass="title-sm" />
+                            <Label text="Monitor stock levels and alerts" styleClass="body-md" />
+                        </VBox>
+                        <VBox spacing="8" alignment="CENTER">
+                            <Button text="View Inventory" styleClass="btn-secondary w-full" />
+                            <Button text="Low Stock Alerts" styleClass="btn-outline w-full" />
+                        </VBox>
+                    </VBox>
+
+                    <!-- Data Reports Card -->
+                    <VBox styleClass="pos-card" alignment="CENTER" spacing="16" 
+                           GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/reports.png" />
+                            </image>
+                        </ImageView>
+                        <VBox alignment="CENTER" spacing="8">
+                            <Label text="Data Reports" styleClass="title-sm" />
+                            <Label text="Generate inventory and vendor reports" styleClass="body-md" />
+                        </VBox>
+                        <VBox spacing="8" alignment="CENTER">
+                            <Button text="Inventory Reports" styleClass="btn-secondary w-full" />
+                            <Button text="Vendor Reports" styleClass="btn-outline w-full" />
+                        </VBox>
+                    </VBox>
+
+                    <!-- Bulk Operations Card -->
+                    <VBox styleClass="pos-card" alignment="CENTER" spacing="16" 
+                           GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/iconfinder-settings-4341324_120534.png" />
+                            </image>
+                        </ImageView>
+                        <VBox alignment="CENTER" spacing="8">
+                            <Label text="Bulk Operations" styleClass="title-sm" />
+                            <Label text="Import/export and batch operations" styleClass="body-md" />
+                        </VBox>
+                        <VBox spacing="8" alignment="CENTER">
+                            <Button text="Bulk Import" styleClass="btn-secondary w-full" />
+                            <Button text="Data Export" styleClass="btn-outline w-full" />
+                        </VBox>
+                    </VBox>
+                </GridPane>
+
+                <!-- Recent Activity Section -->
+                <VBox spacing="20" styleClass="pos-card">
+                    <Label text="Recent Activity" styleClass="title-md" />
+                    <VBox spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="p-2" 
+                              style="-fx-background-color: #f0fdf4; -fx-background-radius: 8px;">
+                            <Circle radius="4" style="-fx-fill: #10b981;" />
+                            <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                <Label text="Added 15 new products to inventory" styleClass="body-md" />
+                                <Label text="2 hours ago" styleClass="caption" />
+                            </VBox>
+                        </HBox>
+                        
+                        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="p-2" 
+                              style="-fx-background-color: #eff6ff; -fx-background-radius: 8px;">
+                            <Circle radius="4" style="-fx-fill: #3b82f6;" />
+                            <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                <Label text="Updated vendor 'ABC Suppliers' contact information" styleClass="body-md" />
+                                <Label text="4 hours ago" styleClass="caption" />
+                            </VBox>
+                        </HBox>
+                        
+                        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="p-2" 
+                              style="-fx-background-color: #fffbeb; -fx-background-radius: 8px;">
+                            <Circle radius="4" style="-fx-fill: #f59e0b;" />
+                            <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                <Label text="Bulk import completed - 50 products added" styleClass="body-md" />
+                                <Label text="1 day ago" styleClass="caption" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- Status Bar -->
+    <bottom>
+        <HBox styleClass="pos-header" alignment="CENTER_LEFT" spacing="16">
+            <HBox alignment="CENTER_LEFT" spacing="8">
+                <Label text="System Status:" styleClass="body-sm" />
+                <Circle styleClass="status-online" radius="4" />
+                <Label text="Ready" styleClass="body-sm" />
+            </HBox>
+            
+            <Region HBox.hgrow="ALWAYS" />
+            
+            <Label text="Last sync: Just now" styleClass="caption" />
+        </HBox>
+    </bottom>
+</BorderPane>

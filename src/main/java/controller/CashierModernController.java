@@ -20,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.text.SimpleDateFormat;
@@ -33,11 +34,14 @@ public class CashierModernController {
     @FXML private Label currentDateLabel;
     @FXML private Label productCountLabel;
     @FXML private Label cartTotalLabel;
+    @FXML private Label cartItemCountLabel;
     @FXML private Label subtotalLabel;
     @FXML private Label discountLabel;
+    @FXML private Label taxLabel;
     @FXML private Label finalTotalLabel;
     @FXML private Label statusLabel;
     @FXML private Label connectionStatusLabel;
+    @FXML private TextField searchField;
 
     @FXML private Button btnGrocery, btnElectronics, btnfashion, btnSearch;
     @FXML private Button btnCancel, btnCreateBill, btnCancel1, btnApplyDiscount;
@@ -64,6 +68,7 @@ public class CashierModernController {
     private double subtotal = 0.0;
     private double discountAmount = 0.0;
     private double discountPercentage = 0.0;
+    private double taxRate = 0.10; // 10% tax
     private String currentCategory = "";
 
     // UI Update Timer
@@ -78,6 +83,7 @@ public class CashierModernController {
         loadProducts();
         startUpdateTimer();
         updateConnectionStatus();
+        setupSearchField();
     }
 
     private void setupTableColumns() {
@@ -92,6 +98,17 @@ public class CashierModernController {
         // Price Column
         colProductPrice.setCellValueFactory(data -> 
             new SimpleDoubleProperty(data.getValue().getSalePrice()).asObject());
+        colProductPrice.setCellFactory(column -> new TableCell<Product, Double>() {
+            @Override
+            protected void updateItem(Double price, boolean empty) {
+                super.updateItem(price, empty);
+                if (empty || price == null) {
+                    setText(null);
+                } else {
+                    setText(String.format("$%.2f", price));
+                }
+            }
+        });
         
         // Quantity Column
         colProductquantity.setCellValueFactory(data ->
@@ -104,6 +121,17 @@ public class CashierModernController {
             double total = product.getSalePrice() * quantity;
             return new SimpleDoubleProperty(total).asObject();
         });
+        colProductTotal.setCellFactory(column -> new TableCell<Product, Double>() {
+            @Override
+            protected void updateItem(Double total, boolean empty) {
+                super.updateItem(total, empty);
+                if (empty || total == null) {
+                    setText(null);
+                } else {
+                    setText(String.format("$%.2f", total));
+                }
+            }
+        });
 
         selectedItemsListtable.setItems(selectedProducts);
     }
@@ -111,8 +139,17 @@ public class CashierModernController {
     private void setupEventHandlers() {
         // Category buttons
         btnGrocery.setOnAction(event -> showProductsByCategory("Grocery"));
+        });
+            resetCategoryButtons();
+            resetCategoryButtons();
+            btnElectronics.getStyleClass().add("category-btn:selected");
+            btnGrocery.getStyleClass().add("category-btn:selected");
+        });
         btnElectronics.setOnAction(event -> showProductsByCategory("Electronic Accessories"));
+            resetCategoryButtons();
+            btnfashion.getStyleClass().add("category-btn:selected");
         btnfashion.setOnAction(event -> showProductsByCategory("Fashion"));
+        });
         
         // Action buttons
         btnCancel1.setOnAction(event -> deleteSelectedItem());
@@ -122,6 +159,31 @@ public class CashierModernController {
         btnSearch.setOnAction(event -> showSearchDialog());
     }
 
+    private void resetCategoryButtons() {
+        btnGrocery.getStyleClass().removeAll("category-btn:selected");
+        btnElectronics.getStyleClass().removeAll("category-btn:selected");
+        btnfashion.getStyleClass().removeAll("category-btn:selected");
+    }
+
+    private void setupSearchField() {
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue.length() > 2) {
+                performSearch();
+            } else if (newValue == null || newValue.isEmpty()) {
+                if (!currentCategory.isEmpty()) {
+                    showProductsByCategory(currentCategory);
+                }
+            }
+        });
+    }
+
+    private void performSearch() {
+        String searchTerm = searchField.getText();
+        if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+            List<Product> searchResults = productDAO.searchProductsByName(searchTerm.trim());
+            showSearchResults(searchResults);
+        }
+    }
     private void startUpdateTimer() {
         updateTimer.setCycleCount(Timeline.INDEFINITE);
         updateTimer.play();
@@ -137,9 +199,7 @@ public class CashierModernController {
     }
 
     private void updateConnectionStatus() {
-        // Simulate connection check - in real app, check actual DB connection
         connectionStatusLabel.setText("Connected");
-        connectionStatusLabel.getStyleClass().add("connected");
     }
 
     public void setCashier(Cashier cashier) {
@@ -147,6 +207,11 @@ public class CashierModernController {
         if (cashier != null) {
             cashierNameLabel.setText("Cashier: " + cashier.getName());
         }
+    }
+
+    public void get_cashier_detail(String username) {
+        cashier = cashierDAO.getCashier(username);
+        setCashier(cashier);
     }
 
     private void loadProducts() {
@@ -174,21 +239,57 @@ public class CashierModernController {
         if (products != null) {
             productCountLabel.setText(products.size() + " items");
             
+            // Create product grid (3 columns)
+            VBox gridContainer = new VBox(12);
+            HBox currentRow = null;
+            int itemsInRow = 0;
+            
             for (Product product : products) {
+                if (itemsInRow == 0) {
+                    currentRow = new HBox(12);
+                    currentRow.setAlignment(javafx.geometry.Pos.CENTER);
+                    gridContainer.getChildren().add(currentRow);
+                }
+                
                 VBox productCard = createProductCard(product);
-                vboxProductContainer.getChildren().add(productCard);
+                currentRow.getChildren().add(productCard);
+                itemsInRow++;
+                
+                if (itemsInRow == 3) {
+                    itemsInRow = 0;
+                }
             }
             
+            vboxProductContainer.getChildren().add(gridContainer);
             updateStatus("Showing " + category + " products");
         } else {
             productCountLabel.setText("0 items");
+            showEmptyState("No products found in " + category);
             updateStatus("No products found in " + category);
         }
     }
 
+    private void showEmptyState(String message) {
+        VBox emptyState = new VBox(16);
+        emptyState.setAlignment(javafx.geometry.Pos.CENTER);
+        emptyState.getStyleClass().add("p-4");
+        
+        ImageView icon = new ImageView();
+        icon.setFitWidth(48);
+        icon.setFitHeight(48);
+        icon.setOpacity(0.5);
+        
+        Label messageLabel = new Label(message);
+        messageLabel.getStyleClass().add("body-md");
+        
+        emptyState.getChildren().addAll(icon, messageLabel);
+        vboxProductContainer.getChildren().add(emptyState);
+    }
     private VBox createProductCard(Product product) {
         VBox card = new VBox(8);
-        card.getStyleClass().add("product-card");
+        card.getStyleClass().addAll("product-card");
+        card.setPrefWidth(120);
+        card.setMaxWidth(120);
         card.setOnMouseClicked(event -> addProductToCart(product));
 
         // Product Image
@@ -196,10 +297,11 @@ public class CashierModernController {
         
         // Product Info
         VBox infoBox = new VBox(4);
-        infoBox.getStyleClass().add("product-info");
         
         Label nameLabel = new Label(product.getName());
         nameLabel.getStyleClass().add("product-name");
+        nameLabel.setWrapText(true);
+        nameLabel.setMaxWidth(120);
         
         Label priceLabel = new Label("$" + String.format("%.2f", product.getSalePrice()));
         priceLabel.getStyleClass().add("product-price");
@@ -207,7 +309,19 @@ public class CashierModernController {
         Label categoryLabel = new Label(product.getCategory());
         categoryLabel.getStyleClass().add("product-category");
         
-        infoBox.getChildren().addAll(nameLabel, priceLabel, categoryLabel);
+        // Stock indicator
+        Label stockLabel = new Label();
+        if (product.isInStock()) {
+            stockLabel.setText("In Stock (" + product.getQuantity() + ")");
+            stockLabel.getStyleClass().add("body-sm");
+        } else {
+            stockLabel.setText("Out of Stock");
+            stockLabel.getStyleClass().addAll("body-sm", "danger-text");
+            card.setDisable(true);
+            card.setOpacity(0.6);
+        }
+        
+        infoBox.getChildren().addAll(nameLabel, priceLabel, categoryLabel, stockLabel);
         
         card.getChildren().addAll(imageView, infoBox);
         
@@ -226,19 +340,25 @@ public class CashierModernController {
             String imagePath = "/com/example/project_pos/products_icons/" + product.getName().toLowerCase().replace(" ", "_") + ".png";
             Image image = new Image(getClass().getResourceAsStream(imagePath));
             if (image.isError()) {
-                // Use default image if product image not found
-                image = new Image(getClass().getResourceAsStream("/com/example/project_pos/products_icons/default_product.png"));
+                // Use a default placeholder
+                imagePath = "/com/example/project_pos/icons_and_images/add-to-cart.png";
+                image = new Image(getClass().getResourceAsStream(imagePath));
             }
             imageView.setImage(image);
         } catch (Exception e) {
-            // Use a placeholder if image loading fails
-            imageView.setStyle("-fx-background-color: #E2E8F0; -fx-background-radius: 4px;");
+            // Create a simple placeholder
+            imageView.setStyle("-fx-background-color: #f1f5f9; -fx-background-radius: 8px;");
         }
         
         return imageView;
     }
 
     private void addProductToCart(Product product) {
+        if (!product.isInStock()) {
+            showAlert("Out of Stock", product.getName() + " is currently out of stock.");
+            return;
+        }
+        
         int currentCount = productSelectionCount.getOrDefault(product, 0);
         productSelectionCount.put(product, currentCount + 1);
         
@@ -268,6 +388,11 @@ public class CashierModernController {
     }
 
     private void clearCart() {
+        if (selectedProducts.isEmpty()) {
+            showAlert("Information", "Cart is already empty");
+            return;
+        }
+        
         selectedProducts.clear();
         productSelectionCount.clear();
         updateCartTotals();
@@ -282,15 +407,19 @@ public class CashierModernController {
             subtotal += product.getSalePrice() * quantity;
         }
         
-        double discountValue = subtotal * (discountPercentage / 100.0);
-        discountAmount = discountValue;
-        double finalTotal = subtotal - discountAmount;
+        discountAmount = subtotal * (discountPercentage / 100.0);
+        double taxAmount = (subtotal - discountAmount) * taxRate;
+        double finalTotal = subtotal - discountAmount + taxAmount;
+        
+        int totalItems = productSelectionCount.values().stream().mapToInt(Integer::intValue).sum();
         
         // Update UI labels
         subtotalLabel.setText("$" + String.format("%.2f", subtotal));
         discountLabel.setText("$" + String.format("%.2f", discountAmount));
+        taxLabel.setText("$" + String.format("%.2f", taxAmount));
         finalTotalLabel.setText("$" + String.format("%.2f", finalTotal));
         cartTotalLabel.setText("Total: $" + String.format("%.2f", finalTotal));
+        cartItemCountLabel.setText(String.valueOf(totalItems));
         
         // Refresh table
         selectedItemsListtable.refresh();
@@ -319,26 +448,36 @@ public class CashierModernController {
         });
     }
 
-    private void showSearchDialog() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Search Products");
-        dialog.setHeaderText("Enter product name to search");
-        dialog.setContentText("Product name:");
-        
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(searchTerm -> {
-            List<Product> searchResults = productDAO.searchProductsByName(searchTerm);
-            showSearchResults(searchResults);
-        });
-    }
 
     private void showSearchResults(List<Product> results) {
         vboxProductContainer.getChildren().clear();
         productCountLabel.setText(results.size() + " items found");
         
-        for (Product product : results) {
-            VBox productCard = createProductCard(product);
-            vboxProductContainer.getChildren().add(productCard);
+        if (results.isEmpty()) {
+            showEmptyState("No products found matching your search");
+        } else {
+            // Create product grid for search results
+            VBox gridContainer = new VBox(12);
+            HBox currentRow = null;
+            int itemsInRow = 0;
+            
+            for (Product product : results) {
+                if (itemsInRow == 0) {
+                    currentRow = new HBox(12);
+                    currentRow.setAlignment(javafx.geometry.Pos.CENTER);
+                    gridContainer.getChildren().add(currentRow);
+                }
+                
+                VBox productCard = createProductCard(product);
+                currentRow.getChildren().add(productCard);
+                itemsInRow++;
+                
+                if (itemsInRow == 3) {
+                    itemsInRow = 0;
+                }
+            }
+            
+            vboxProductContainer.getChildren().add(gridContainer);
         }
         
         updateStatus("Search results: " + results.size() + " products found");
@@ -353,7 +492,8 @@ public class CashierModernController {
         try {
             // Create sale record with proper constructor
             String saleId = generateSaleId();
-            double finalTotal = subtotal - discountAmount;
+            double taxAmount = (subtotal - discountAmount) * taxRate;
+            double finalTotal = subtotal - discountAmount + taxAmount;
             
             // Create a new list of products with quantities
             List<Product> saleProducts = new ArrayList<>();
@@ -363,6 +503,7 @@ public class CashierModernController {
                                                product.getCategory(), product.getOriginalPrice(), 
                                                product.getSalePrice(), product.getPriceByUnit(), 
                                                product.getPriceByCarton(), quantity);
+                saleProduct.setSoldQuantity(quantity);
                 saleProducts.add(saleProduct);
             }
             
@@ -372,9 +513,18 @@ public class CashierModernController {
             boolean success = saleDAO.createSale(sale);
             
             if (success) {
+                // Update product quantities in inventory
+                productDAO.updateProductQuantities(productSelectionCount);
+                
                 showAlert("Success", "Bill created successfully!\nSale ID: " + sale.getSaleId());
                 clearCart();
                 updateStatus("Bill created successfully");
+                
+                // Refresh current category to show updated stock
+                if (!currentCategory.isEmpty()) {
+                    loadProducts(); // Reload to get updated quantities
+                    showProductsByCategory(currentCategory);
+                }
             } else {
                 showAlert("Error", "Failed to create bill");
             }
@@ -401,9 +551,27 @@ public class CashierModernController {
         alert.showAndWait();
     }
 
+    public void handleLogout(javafx.event.ActionEvent event) {
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Logout Confirmation");
+        confirmAlert.setHeaderText("Are you sure you want to logout?");
+        confirmAlert.setContentText("Any unsaved changes will be lost.");
+        
+        Optional<ButtonType> result = confirmAlert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            cleanup();
+            // Navigate back to login screen
+            javafx.application.Platform.exit();
+        }
+    }
+
+    public void handleLogout(javafx.scene.input.MouseEvent event) {
+        handleLogout(new javafx.event.ActionEvent());
+    }
+
     public void cleanup() {
         if (updateTimer != null) {
             updateTimer.stop();
         }
     }
-} 
+}

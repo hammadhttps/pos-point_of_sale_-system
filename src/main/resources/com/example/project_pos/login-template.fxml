@@ -6,17 +6,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.shape.*?>
-<?import javafx.scene.shape.*?>
 
+<!-- Reusable Login Template -->
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" 
            prefHeight="800.0" prefWidth="1400.0" 
            styleClass="pos-container" 
            stylesheets="@pos-theme.css" 
            xmlns="http://javafx.com/javafx/17.0.12" 
-           xmlns:fx="http://javafx.com/fxml/1" 
-           fx:controller="controller.cashier_login">
+           xmlns:fx="http://javafx.com/fxml/1">
 
-    <!-- Background with gradient -->
+    <!-- Background -->
     <Rectangle width="1400" height="800" fill="linear-gradient(to bottom right, #1e293b, #0f172a)" />
 
     <!-- Main Content -->
@@ -27,13 +26,9 @@
             
             <!-- Header -->
             <VBox alignment="CENTER" spacing="16">
-                <ImageView fx:id="_icon" fitHeight="80.0" fitWidth="80.0" preserveRatio="true">
-                    <image>
-                        <Image url="@icons_and_images/cashier.jpg" />
-                    </image>
-                </ImageView>
-                <Label text="Cashier Login" styleClass="title-lg" />
-                <Label text="Access point of sale system" styleClass="body-md" />
+                <ImageView fx:id="roleIcon" fitHeight="80.0" fitWidth="80.0" preserveRatio="true" />
+                <Label fx:id="loginTitle" text="Login" styleClass="title-lg" />
+                <Label fx:id="loginSubtitle" text="Access your account" styleClass="body-md" />
             </VBox>
 
             <!-- Login Form -->
@@ -51,24 +46,30 @@
                     <PasswordField fx:id="password" promptText="Enter your password" styleClass="form-field" />
                 </VBox>
 
+                <!-- Remember Me -->
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <CheckBox fx:id="rememberMe" text="Remember me" styleClass="body-sm" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label text="Forgot password?" styleClass="body-sm" style="-fx-text-fill: #3b82f6; -fx-cursor: hand;" />
+                </HBox>
+
                 <!-- Login Button -->
-                <Button fx:id="loginButton" text="Sign In" styleClass="btn-primary btn-lg w-full" 
-                        onAction="#On_login" />
+                <Button fx:id="loginButton" text="Sign In" styleClass="btn-primary btn-lg w-full" />
             </VBox>
 
             <!-- Footer -->
             <VBox alignment="CENTER" spacing="8">
-                <Label text="Forgot your password?" styleClass="caption" />
-                <Label text="Contact your branch manager" styleClass="caption" />
+                <Label text="Need help?" styleClass="body-sm" />
+                <Label fx:id="helpText" text="Contact your administrator" styleClass="caption" />
             </VBox>
         </VBox>
 
         <!-- Back to Home Button -->
-        <Button text="← Back to Home" styleClass="btn-outline" onAction="#home_pressed" 
+        <Button text="← Back to Home" styleClass="btn-outline" 
                 style="-fx-text-fill: white; -fx-border-color: white;" />
     </VBox>
 
-    <!-- Loading Overlay (Hidden by default) -->
+    <!-- Loading Overlay -->
     <VBox fx:id="loadingOverlay" styleClass="loading-overlay" visible="false" 
            alignment="CENTER">
         <VBox styleClass="pos-card" alignment="CENTER" spacing="16" maxWidth="200">

@@ -50,10 +50,10 @@ public class cashier_login
 
             if (branch.isActive()) {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/cashier.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/cashier-modern.fxml"));
                     Parent root = loader.load();
 
-                    Cashier_controller csh = loader.getController();
+                    CashierModernController csh = loader.getController();
                     csh.get_cashier_detail(username.getText());
 
                     Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

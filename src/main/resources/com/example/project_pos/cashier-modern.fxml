@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="800.0" prefWidth="1400.0" 
+            styleClass="pos-container" 
+            stylesheets="@pos-theme.css" 
+            xmlns="http://javafx.com/javafx/17.0.12" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="controller.CashierModernController">
+
+    <!-- Top Header Bar -->
+    <top>
+        <HBox styleClass="pos-header" alignment="CENTER_LEFT" spacing="24">
+            <!-- Logo and Title -->
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <ImageView fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                    <image>
+                        <Image url="@icons_and_images/pos_icon.png" />
+                    </image>
+                </ImageView>
+                <VBox spacing="2">
+                    <Label text="Point of Sale" styleClass="title-sm" />
+                    <Label fx:id="cashierNameLabel" text="Cashier: Loading..." styleClass="body-sm" />
+                </VBox>
+            </HBox>
+
+            <!-- Search Bar -->
+            <HBox styleClass="search-container" alignment="CENTER_LEFT" spacing="8" HBox.hgrow="ALWAYS" maxWidth="400">
+                <ImageView fitHeight="16.0" fitWidth="16.0" preserveRatio="true">
+                    <image>
+                        <Image url="@icons_and_images/search-icon.png" />
+                    </image>
+                </ImageView>
+                <TextField fx:id="searchField" promptText="Search products..." styleClass="search-field" HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnSearch" text="Search" styleClass="btn-ghost btn-sm" />
+            </HBox>
+
+            <!-- Status and Time -->
+            <VBox alignment="CENTER_RIGHT" spacing="2">
+                <HBox alignment="CENTER_RIGHT" spacing="8">
+                    <Circle styleClass="status-online" radius="4" />
+                    <Label fx:id="connectionStatusLabel" text="Connected" styleClass="body-sm" />
+                </HBox>
+                <Label fx:id="currentTimeLabel" text="Time: --:--:--" styleClass="caption" />
+                <Label fx:id="currentDateLabel" text="Date: Loading..." styleClass="caption" />
+            </VBox>
+
+            <!-- User Actions -->
+            <HBox spacing="8">
+                <Button text="Settings" styleClass="btn-ghost" />
+                <Button text="Logout" styleClass="btn-outline" onAction="#handleLogout" />
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- Main Content Area -->
+    <center>
+        <HBox spacing="0" styleClass="pos-container">
+            
+            <!-- Left Panel - Product Categories and Catalog -->
+            <VBox styleClass="pos-sidebar" spacing="24" prefWidth="420" maxWidth="420">
+                
+                <!-- Category Selection -->
+                <VBox spacing="16">
+                    <Label text="Product Categories" styleClass="title-sm" />
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Button fx:id="btnGrocery" text="Grocery" styleClass="category-btn" />
+                        <Button fx:id="btnElectronics" text="Electronics" styleClass="category-btn" />
+                        <Button fx:id="btnfashion" text="Fashion" styleClass="category-btn" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="8">
+                        <Label text="Products:" styleClass="body-sm" />
+                        <Label fx:id="productCountLabel" text="0 items" styleClass="body-sm" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="statusLabel" text="Select a category" styleClass="caption" />
+                    </HBox>
+                </VBox>
+
+                <!-- Product Grid -->
+                <VBox spacing="12" VBox.vgrow="ALWAYS">
+                    <Label text="Available Products" styleClass="body-md" />
+                    <ScrollPane fx:id="scrollPane" fitToWidth="true" styleClass="pos-scroll" VBox.vgrow="ALWAYS">
+                        <VBox fx:id="vboxProductContainer" spacing="12" styleClass="p-2">
+                            <!-- Products will be dynamically loaded here -->
+                            <VBox alignment="CENTER" spacing="16" styleClass="p-4">
+                                <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true" opacity="0.5">
+                                    <image>
+                                        <Image url="@icons_and_images/add-to-cart.png" />
+                                    </image>
+                                </ImageView>
+                                <Label text="Select a category to view products" styleClass="body-md" />
+                            </VBox>
+                        </VBox>
+                    </ScrollPane>
+                </VBox>
+            </VBox>
+
+            <!-- Right Panel - Cart and Checkout -->
+            <VBox spacing="24" styleClass="p-3" HBox.hgrow="ALWAYS">
+                
+                <!-- Transaction Header -->
+                <HBox alignment="CENTER_LEFT" spacing="16" styleClass="pos-card">
+                    <VBox spacing="4">
+                        <Label text="Current Transaction" styleClass="title-md" />
+                        <Label text="Add products to cart and process payment" styleClass="body-sm" />
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS" />
+                    <VBox alignment="CENTER_RIGHT" spacing="4">
+                        <Label text="Transaction #POS-001" styleClass="body-sm" />
+                        <Label text="Items in cart:" styleClass="caption" />
+                        <Label fx:id="cartItemCountLabel" text="0" styleClass="body-md" />
+                    </VBox>
+                </HBox>
+
+                <!-- Cart Items Table -->
+                <VBox spacing="16" styleClass="cart-container" VBox.vgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <Label text="Cart Items" styleClass="title-sm" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btnCancel" text="Clear Cart" styleClass="btn-outline btn-sm" />
+                    </HBox>
+                    
+                    <TableView fx:id="selectedItemsListtable" styleClass="pos-table" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colProductName" text="Product" prefWidth="180" />
+                            <TableColumn fx:id="colProductCategory" text="Category" prefWidth="120" />
+                            <TableColumn fx:id="colProductPrice" text="Price" prefWidth="100" />
+                            <TableColumn fx:id="colProductquantity" text="Qty" prefWidth="80" />
+                            <TableColumn fx:id="colProductTotal" text="Total" prefWidth="100" />
+                        </columns>
+                        <placeholder>
+                            <VBox alignment="CENTER" spacing="16" styleClass="p-4">
+                                <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true" opacity="0.3">
+                                    <image>
+                                        <Image url="@icons_and_images/add-to-cart.png" />
+                                    </image>
+                                </ImageView>
+                                <Label text="Your cart is empty" styleClass="body-md" />
+                                <Label text="Add products from the catalog" styleClass="caption" />
+                            </VBox>
+                        </placeholder>
+                    </TableView>
+
+                    <!-- Cart Actions -->
+                    <HBox spacing="12" alignment="CENTER_LEFT">
+                        <Button fx:id="btnCancel1" text="Remove Selected" styleClass="btn-danger btn-sm" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btnApplyDiscount" text="Apply Discount" styleClass="btn-secondary btn-sm" />
+                    </HBox>
+                </VBox>
+
+                <!-- Transaction Summary -->
+                <VBox spacing="16" styleClass="checkout-panel">
+                    <Label text="Transaction Summary" styleClass="title-sm" />
+                    
+                    <!-- Summary Rows -->
+                    <VBox spacing="8">
+                        <HBox alignment="CENTER_LEFT" styleClass="summary-row">
+                            <Label text="Subtotal:" styleClass="price-label" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label fx:id="subtotalLabel" text="$0.00" styleClass="body-md" />
+                        </HBox>
+                        
+                        <HBox alignment="CENTER_LEFT" styleClass="summary-row">
+                            <Label text="Discount:" styleClass="price-label" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label fx:id="discountLabel" text="$0.00" styleClass="body-md" />
+                        </HBox>
+                        
+                        <HBox alignment="CENTER_LEFT" styleClass="summary-row">
+                            <Label text="Tax (10%):" styleClass="price-label" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label fx:id="taxLabel" text="$0.00" styleClass="body-md" />
+                        </HBox>
+                        
+                        <Separator />
+                        
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Total:" styleClass="title-sm" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label fx:id="finalTotalLabel" text="$0.00" styleClass="price-display" />
+                        </HBox>
+                    </VBox>
+
+                    <!-- Checkout Actions -->
+                    <VBox spacing="12">
+                        <Button fx:id="btnCreateBill" text="Process Payment" styleClass="btn-success btn-lg w-full" />
+                        <HBox spacing="12">
+                            <Button text="Hold Transaction" styleClass="btn-secondary w-full" />
+                            <Button text="Void Transaction" styleClass="btn-outline w-full" />
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </HBox>
+    </center>
+
+    <!-- Bottom Status Bar -->
+    <bottom>
+        <HBox styleClass="pos-header" alignment="CENTER_LEFT" spacing="16">
+            <HBox alignment="CENTER_LEFT" spacing="8">
+                <Label text="Status:" styleClass="body-sm" />
+                <Circle styleClass="status-online" radius="4" />
+                <Label text="Ready" styleClass="body-sm" />
+            </HBox>
+            
+            <Region HBox.hgrow="ALWAYS" />
+            
+            <HBox alignment="CENTER_RIGHT" spacing="16">
+                <VBox alignment="CENTER_RIGHT" spacing="2">
+                    <Label text="Cart Total:" styleClass="caption" />
+                    <Label fx:id="cartTotalLabel" text="$0.00" styleClass="body-md" />
+                </VBox>
+                
+                <Separator orientation="VERTICAL" />
+                
+                <VBox alignment="CENTER_RIGHT" spacing="2">
+                    <Label text="Today's Sales:" styleClass="caption" />
+                    <Label text="$2,450.00" styleClass="body-md" />
+                </VBox>
+            </HBox>
+        </HBox>
+    </bottom>
+</BorderPane>

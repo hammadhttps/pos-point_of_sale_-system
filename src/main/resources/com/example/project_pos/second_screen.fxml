@@ -9,8 +9,8 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" 
            prefHeight="800.0" prefWidth="1400.0" 
-           styleClass="container" 
-           stylesheets="@modern-ui.css" 
+           styleClass="pos-container" 
+           stylesheets="@pos-theme.css" 
            xmlns="http://javafx.com/javafx/17.0.12" 
            xmlns:fx="http://javafx.com/fxml/1" 
            fx:controller="controller.second_page_controller">
@@ -29,9 +29,9 @@
                         <Image url="@icons_and_images/pos_icon.png" />
                     </image>
                 </ImageView>
-                <Label text="POS SYSTEM" styleClass="title-large" style="-fx-text-fill: white;" />
+                <Label text="POS SYSTEM" styleClass="title-xl" style="-fx-text-fill: white;" />
             </HBox>
-            <Label text="Point of Sale Management System" styleClass="body-text" style="-fx-text-fill: rgba(255,255,255,0.9);" />
+            <Label text="Point of Sale Management System" styleClass="body-lg" style="-fx-text-fill: rgba(255,255,255,0.9);" />
         </VBox>
 
         <!-- Login Options Grid -->
@@ -46,54 +46,54 @@
             </rowConstraints>
 
             <!-- Super Admin Card -->
-            <VBox styleClass="dashboard-card" alignment="CENTER" spacing="16" 
+            <VBox styleClass="pos-card-hover" alignment="CENTER" spacing="16" 
                    onMouseClicked="#sa_action" GridPane.columnIndex="0" GridPane.rowIndex="0">
                 <ImageView fitHeight="80.0" fitWidth="80.0" preserveRatio="true" styleClass="dashboard-icon">
                     <image>
                         <Image url="@icons_and_images/administrator-icon.png" />
                     </image>
                 </ImageView>
-                <Label text="Super Admin" styleClass="title-small" />
-                <Label text="System Administration" styleClass="caption-text" />
+                <Label text="Super Admin" styleClass="title-sm" />
+                <Label text="System Administration" styleClass="body-sm" />
                 <Button fx:id="sa_btn" text="Login" styleClass="btn-primary" onAction="#sa_action" />
             </VBox>
 
             <!-- Branch Manager Card -->
-            <VBox styleClass="dashboard-card" alignment="CENTER" spacing="16" 
+            <VBox styleClass="pos-card-hover" alignment="CENTER" spacing="16" 
                    onMouseClicked="#bm_action" GridPane.columnIndex="1" GridPane.rowIndex="0">
                 <ImageView fitHeight="80.0" fitWidth="80.0" preserveRatio="true" styleClass="dashboard-icon">
                     <image>
                         <Image url="@icons_and_images/Manager-icon.png" />
                     </image>
                 </ImageView>
-                <Label text="Branch Manager" styleClass="title-small" />
-                <Label text="Branch Operations" styleClass="caption-text" />
+                <Label text="Branch Manager" styleClass="title-sm" />
+                <Label text="Branch Operations" styleClass="body-sm" />
                 <Button fx:id="bm_btn" text="Login" styleClass="btn-primary" onAction="#bm_action" />
             </VBox>
 
             <!-- Cashier Card -->
-            <VBox styleClass="dashboard-card" alignment="CENTER" spacing="16" 
+            <VBox styleClass="pos-card-hover" alignment="CENTER" spacing="16" 
                    onMouseClicked="#csh_action" GridPane.columnIndex="0" GridPane.rowIndex="1">
                 <ImageView fitHeight="80.0" fitWidth="80.0" preserveRatio="true" styleClass="dashboard-icon">
                     <image>
                         <Image url="@icons_and_images/clerk.png" />
                     </image>
                 </ImageView>
-                <Label text="Cashier" styleClass="title-small" />
-                <Label text="Sales  Transactions" styleClass="caption-text" />
+                <Label text="Cashier" styleClass="title-sm" />
+                <Label text="Sales Transactions" styleClass="body-sm" />
                 <Button fx:id="csh_btn" text="Login" styleClass="btn-primary" onAction="#csh_action" />
             </VBox>
 
             <!-- Data Entry Operator Card -->
-            <VBox styleClass="dashboard-card" alignment="CENTER" spacing="16" 
+            <VBox styleClass="pos-card-hover" alignment="CENTER" spacing="16" 
                    onMouseClicked="#data_btn" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <ImageView fitHeight="80.0" fitWidth="80.0" preserveRatio="true" styleClass="dashboard-icon">
                     <image>
                         <Image url="@icons_and_images/images (1).png" />
                     </image>
                 </ImageView>
-                <Label text="Data Entry Operator" styleClass="title-small" />
-                <Label text="Inventory Management" styleClass="caption-text" />
+                <Label text="Data Entry Operator" styleClass="title-sm" />
+                <Label text="Inventory Management" styleClass="body-sm" />
                 <Button fx:id="data_btn" text="Login" styleClass="btn-primary" onAction="#data_btn" />
             </VBox>
         </GridPane>
@@ -104,15 +104,10 @@
         </HBox>
     </VBox>
 
-    <!-- Side Navigation Panel (Hidden by default, can be toggled) -->
-   <VBox fx:id="sidePanel" styleClass="sidebar" visible="false" 
-       alignment="TOP_RIGHT" prefWidth="300">
-    <VBox spacing="16" style="-fx-padding: 20;">
-        <Label text="Navigation" styleClass="title-small" style="-fx-text-fill: white;" />
-        <Separator style="-fx-background-color: rgba(255,255,255,0.2);" />
-        <Button text="Home" styleClass="nav-item" style="-fx-text-fill: white;" />
-        <Button text="Settings" styleClass="nav-item" style="-fx-text-fill: white;" />
-        <Button text="Help" styleClass="nav-item" style="-fx-text-fill: white;" />
+    <!-- Version Info -->
+    <VBox alignment="BOTTOM_RIGHT" spacing="4" StackPane.alignment="BOTTOM_RIGHT" 
+          style="-fx-padding: 24px;">
+        <Label text="Version 2.1.0" styleClass="caption" style="-fx-text-fill: rgba(255,255,255,0.5);" />
+        <Label text="© 2024 POS System" styleClass="caption" style="-fx-text-fill: rgba(255,255,255,0.5);" />
     </VBox>
-</VBox>
 </StackPane>

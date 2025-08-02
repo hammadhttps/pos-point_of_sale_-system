@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="800.0" prefWidth="1400.0" 
+            styleClass="pos-container" 
+            stylesheets="@pos-theme.css" 
+            xmlns="http://javafx.com/javafx/17.0.12" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="controller.BranchManager_controller">
+
+    <!-- Top Navigation Bar -->
+    <top>
+        <HBox styleClass="pos-header" alignment="CENTER_LEFT" spacing="24">
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <ImageView fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                    <image>
+                        <Image url="@icons_and_images/pos_icon.png" />
+                    </image>
+                </ImageView>
+                <VBox spacing="2">
+                    <Label text="Branch Manager Dashboard" styleClass="title-sm" />
+                    <Label text="Manage your branch operations" styleClass="body-sm" />
+                </VBox>
+            </HBox>
+            
+            <Region HBox.hgrow="ALWAYS" />
+            
+            <!-- Quick Stats -->
+            <HBox spacing="24" alignment="CENTER_RIGHT">
+                <VBox alignment="CENTER" spacing="2">
+                    <Label text="Active Staff" styleClass="caption" />
+                    <Label text="12" styleClass="body-md" />
+                </VBox>
+                <VBox alignment="CENTER" spacing="2">
+                    <Label text="Today's Sales" styleClass="caption" />
+                    <Label text="$2,450" styleClass="body-md" />
+                </VBox>
+                <Separator orientation="VERTICAL" />
+                <Button text="Logout" styleClass="btn-outline" onAction="#exit" />
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- Main Content -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="pos-scroll">
+            <VBox spacing="32" styleClass="p-4" maxWidth="1200">
+                
+                <!-- Welcome Section -->
+                <VBox spacing="16" alignment="CENTER">
+                    <Label text="Welcome Back!" styleClass="title-lg" />
+                    <Label text="Manage your branch operations and staff efficiently" styleClass="body-lg" />
+                </VBox>
+
+                <!-- Quick Actions Grid -->
+                <GridPane hgap="24" vgap="24" alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="300" prefWidth="300" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="300" prefWidth="300" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="300" prefWidth="300" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints vgrow="SOMETIMES" minHeight="180" prefHeight="180" />
+                        <RowConstraints vgrow="SOMETIMES" minHeight="180" prefHeight="180" />
+                    </rowConstraints>
+
+                    <!-- Add Cashier Card -->
+                    <VBox styleClass="pos-card-hover" alignment="CENTER" spacing="16" 
+                           onMouseClicked="#add_cashier" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/plus_1828821.png" />
+                            </image>
+                        </ImageView>
+                        <VBox alignment="CENTER" spacing="8">
+                            <Label text="Add Cashier" styleClass="title-sm" />
+                            <Label text="Create new cashier accounts for your branch" styleClass="body-md" />
+                        </VBox>
+                        <Button text="Add Cashier" styleClass="btn-primary" onAction="#add_cashier" />
+                    </VBox>
+
+                    <!-- Add Data Entry Operator Card -->
+                    <VBox styleClass="pos-card-hover" alignment="CENTER" spacing="16" 
+                           onMouseClicked="#add_data_entry_operator" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/square_14034302.png" />
+                            </image>
+                        </ImageView>
+                        <VBox alignment="CENTER" spacing="8">
+                            <Label text="Add Data Entry Operator" styleClass="title-sm" />
+                            <Label text="Create inventory management accounts" styleClass="body-md" />
+                        </VBox>
+                        <Button text="Add Operator" styleClass="btn-primary" onAction="#add_data_entry_operator" />
+                    </VBox>
+
+                    <!-- Generate Reports Card -->
+                    <VBox styleClass="pos-card-hover" alignment="CENTER" spacing="16" 
+                           onMouseClicked="#generate_reports" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/reports.png" />
+                            </image>
+                        </ImageView>
+                        <VBox alignment="CENTER" spacing="8">
+                            <Label text="Generate Reports" styleClass="title-sm" />
+                            <Label text="View branch performance and analytics" styleClass="body-md" />
+                        </VBox>
+                        <Button text="View Reports" styleClass="btn-success" onAction="#generate_reports" />
+                    </VBox>
+
+                    <!-- Manage Passwords Card -->
+                    <VBox styleClass="pos-card-hover" alignment="CENTER" spacing="16" 
+                           onMouseClicked="#manage_passwords" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/ManageNameExt_30180.png" />
+                            </image>
+                        </ImageView>
+                        <VBox alignment="CENTER" spacing="8">
+                            <Label text="Manage Passwords" styleClass="title-sm" />
+                            <Label text="Update staff account credentials" styleClass="body-md" />
+                        </VBox>
+                        <Button text="Manage Staff" styleClass="btn-secondary" onAction="#manage_passwords" />
+                    </VBox>
+
+                    <!-- Branch Status Card -->
+                    <VBox styleClass="pos-card" alignment="CENTER" spacing="16" 
+                           GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/branch.png" />
+                            </image>
+                        </ImageView>
+                        <VBox alignment="CENTER" spacing="8">
+                            <Label text="Branch Status" styleClass="title-sm" />
+                            <HBox alignment="CENTER" spacing="8">
+                                <Circle styleClass="status-online" radius="6" />
+                                <Label text="Active & Operational" styleClass="body-md" />
+                            </HBox>
+                        </VBox>
+                    </VBox>
+
+                    <!-- Quick Settings Card -->
+                    <VBox styleClass="pos-card" alignment="CENTER" spacing="16" 
+                           GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/iconfinder-settings-4341324_120534.png" />
+                            </image>
+                        </ImageView>
+                        <VBox alignment="CENTER" spacing="8">
+                            <Label text="Quick Settings" styleClass="title-sm" />
+                            <VBox spacing="8" alignment="CENTER">
+                                <Button text="Branch Settings" styleClass="btn-ghost btn-sm" maxWidth="Infinity" />
+                                <Button text="View Staff List" styleClass="btn-ghost btn-sm" maxWidth="Infinity" />
+                            </VBox>
+                        </VBox>
+                    </VBox>
+                </GridPane>
+
+                <!-- Performance Metrics -->
+                <VBox spacing="20" styleClass="pos-card">
+                    <Label text="Branch Performance" styleClass="title-md" />
+                    <GridPane hgap="24" vgap="16">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="200" prefWidth="200" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="200" prefWidth="200" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="200" prefWidth="200" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="200" prefWidth="200" />
+                        </columnConstraints>
+
+                        <!-- Cashiers -->
+                        <VBox alignment="CENTER" spacing="8" GridPane.columnIndex="0" 
+                              style="-fx-background-color: #eff6ff; -fx-background-radius: 8px; -fx-padding: 16px;">
+                            <Label text="Active Cashiers" styleClass="body-sm" />
+                            <Label text="5" styleClass="title-lg" style="-fx-text-fill: #3b82f6;" />
+                            <Label text="Online" styleClass="caption" />
+                        </VBox>
+
+                        <!-- Data Entry Operators -->
+                        <VBox alignment="CENTER" spacing="8" GridPane.columnIndex="1" 
+                              style="-fx-background-color: #f0fdf4; -fx-background-radius: 8px; -fx-padding: 16px;">
+                            <Label text="Data Entry Staff" styleClass="body-sm" />
+                            <Label text="3" styleClass="title-lg" style="-fx-text-fill: #10b981;" />
+                            <Label text="Active" styleClass="caption" />
+                        </VBox>
+
+                        <!-- Today's Sales -->
+                        <VBox alignment="CENTER" spacing="8" GridPane.columnIndex="2" 
+                              style="-fx-background-color: #fffbeb; -fx-background-radius: 8px; -fx-padding: 16px;">
+                            <Label text="Today's Sales" styleClass="body-sm" />
+                            <Label text="$2,450" styleClass="title-lg" style="-fx-text-fill: #f59e0b;" />
+                            <Label text="+12% vs yesterday" styleClass="caption" />
+                        </VBox>
+
+                        <!-- Inventory Items -->
+                        <VBox alignment="CENTER" spacing="8" GridPane.columnIndex="3" 
+                              style="-fx-background-color: #fef2f2; -fx-background-radius: 8px; -fx-padding: 16px;">
+                            <Label text="Inventory Items" styleClass="body-sm" />
+                            <Label text="1,247" styleClass="title-lg" style="-fx-text-fill: #ef4444;" />
+                            <Label text="In Stock" styleClass="caption" />
+                        </VBox>
+                    </GridPane>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- Status Bar -->
+    <bottom>
+        <HBox styleClass="pos-header" alignment="CENTER_LEFT" spacing="16">
+            <HBox alignment="CENTER_LEFT" spacing="8">
+                <Label text="Branch Status:" styleClass="body-sm" />
+                <Circle styleClass="status-online" radius="4" />
+                <Label text="Operational" styleClass="body-sm" />
+            </HBox>
+            
+            <Region HBox.hgrow="ALWAYS" />
+            
+            <Label text="Last updated: Just now" styleClass="caption" />
+        </HBox>
+    </bottom>
+</BorderPane>
