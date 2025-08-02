@@ -47,7 +47,7 @@ public class NewBranch {
         branch.setPhone(phone);
         branch.setActive(isActive);
         branch.setEmployeeCount(employeeCount);
-        branch.setBranchcode(branchCode);
+        branch.setBranchCode(branchCode);
 
         // Try to add the branch
         if (branchDAO.addBranch(branch)) {

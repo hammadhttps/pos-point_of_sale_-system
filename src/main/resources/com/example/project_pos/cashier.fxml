@@ -1,53 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="main" prefHeight="742.0" prefWidth="1312.0" stylesheets="@cashier.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Cashier_controller">
-    <BorderPane layoutX="422.0" layoutY="-2.0" prefHeight="742.0" prefWidth="890.0">
-        <bottom>
-            <Pane prefHeight="245.0" prefWidth="890.0" BorderPane.alignment="CENTER">
-                <Button fx:id="btnCancel" layoutX="30.0" layoutY="192.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="841.0" text="Cancel" />
-                <Button fx:id="btnCreateBill" layoutX="32.0" layoutY="138.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="841.0" text="Create Bill" />
-                <Button fx:id="btnApplyDiscount" layoutX="33.0" layoutY="66.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="839.0" text="Add Discount" />
-                <Button fx:id="btnCancel1" layoutX="32.0" layoutY="13.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="835.0" text="Delete Item" />
-            </Pane>
-        </bottom>
-        <center>
-            <VBox BorderPane.alignment="CENTER">
-                <Label prefHeight="25.0" prefWidth="131.0" style="-fx-font-size: 16px;" text="Selected Items">
-                    <font>
-                        <Font size="25.0" />
-                    </font>
-                </Label>
-                <ListView fx:id="selectedItemsList" prefHeight="79.0" prefWidth="890.0" />
-                <TableView fx:id="selectedItemsListtable" prefHeight="544.0" prefWidth="890.0">
-                    <columns>
-                        <TableColumn fx:id="colProductName" prefWidth="300.0" text="Product Name" />
-                        <TableColumn fx:id="colProductPrice" prefWidth="150.0" text="Price" />
-                        <TableColumn fx:id="colProductCategory" prefWidth="200.0" text="Category" />
-                        <TableColumn fx:id="colProductquantity" prefWidth="200.0" text="Quantity" />
-                    </columns>
-                </TableView>
+<BorderPane prefHeight="800.0" prefWidth="1400.0" 
+            styleClass="container" 
+            stylesheets="@modern-ui.css" 
+            xmlns="http://javafx.com/javafx/17.0.12" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="controller.Cashier_controller">
+
+    <!-- Top Navigation Bar -->
+    <top>
+                 <HBox styleClass="card" alignment="CENTER_LEFT" spacing="20">
+            <ImageView fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                <image>
+                    <Image url="@icons_and_images/pos_icon.png" />
+                </image>
+            </ImageView>
+            <Label text="Point of Sale - Cashier" styleClass="title-medium" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="Welcome, Cashier" styleClass="body-text" />
+            <Button text="Logout" styleClass="btn-outline" onAction="#handleLogout" />
+        </HBox>
+    </top>
+
+    <!-- Main Content -->
+    <center>
+        <HBox spacing="0" maxWidth="1400">
+            
+            <!-- Left Panel - Product Categories and Items -->
+            <VBox styleClass="card" spacing="16" prefWidth="400" maxWidth="400">
+                
+                <!-- Category Buttons -->
+                <VBox spacing="12">
+                    <Label text="Product Categories" styleClass="title-small" />
+                    <HBox spacing="8" alignment="CENTER">
+                        <Button fx:id="btnGrocery" text="Grocery" styleClass="btn-secondary" maxWidth="Infinity" />
+                        <Button fx:id="btnElectronics" text="Electronics" styleClass="btn-secondary" maxWidth="Infinity" />
+                        <Button fx:id="btnfashion" text="Fashion" styleClass="btn-secondary" maxWidth="Infinity" />
+                    </HBox>
+                </VBox>
+
+                <!-- Search Bar -->
+                <VBox spacing="8">
+                    <Label text="Search Products" styleClass="form-label" />
+                    <TextField fx:id="searchField" promptText="Search by name, ID, or category" styleClass="form-field" />
+                </VBox>
+
+                <!-- Product Items ScrollPane -->
+                <VBox spacing="8">
+                    <Label text="Available Products" styleClass="form-label" />
+                    <ScrollPane fx:id="scrollPane" fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
+                        <VBox fx:id="vboxProductContainer" spacing="8">
+                            <!-- Products will be dynamically added here -->
+                            <Label text="Select a category to view products" styleClass="body-text" />
+                        </VBox>
+                    </ScrollPane>
+                </VBox>
             </VBox>
-        </center>
-    </BorderPane>
 
-    <!-- Category Buttons -->
-    <HBox alignment="CENTER" layoutX="14.0" layoutY="10.0" spacing="10.0">
-        <Button fx:id="btnGrocery" prefHeight="42.0" prefWidth="97.0" text="Grocery" />
-        <Button fx:id="btnElectronics" prefHeight="42.0" prefWidth="185.0" text="Electronic Accessories" />
-        <Button fx:id="btnfashion" prefHeight="42.0" prefWidth="96.0" text="Fashion" />
-    </HBox>
+            <!-- Right Panel - Cart and Transaction -->
+            <VBox styleClass="card" spacing="16" HBox.hgrow="ALWAYS">
+                
+                <!-- Transaction Header -->
+                <HBox alignment="CENTER_LEFT" spacing="16">
+                    <Label text="Current Transaction" styleClass="title-medium" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label fx:id="transactionIdLabel" text="Transaction #: POS-001" styleClass="body-text" />
+                    <Label fx:id="dateTimeLabel" text="Date: 2024-01-15 14:30" styleClass="caption-text" />
+                </HBox>
 
-    <!-- ScrollPane for Product Items -->
-    <ScrollPane fx:id="scrollPane" fitToWidth="true" layoutX="1.0" layoutY="70.0" prefHeight="672.0" prefWidth="417.0">
-        <VBox fx:id="vboxProductContainer" alignment="TOP_CENTER" spacing="10">
-            <!-- Placeholder content; to be replaced dynamically -->
-            <Label prefHeight="39.0" prefWidth="175.0" text="Select a category to view items" />
+                <!-- Selected Items Table -->
+                <VBox spacing="8">
+                    <Label text="Selected Items" styleClass="form-label" />
+                    <TableView fx:id="selectedItemsListtable" VBox.vgrow="ALWAYS" styleClass="table-view">
+                        <columns>
+                            <TableColumn fx:id="colProductName" text="Product Name" prefWidth="200" />
+                            <TableColumn fx:id="colProductPrice" text="Price" prefWidth="100" />
+                            <TableColumn fx:id="colProductCategory" text="Category" prefWidth="120" />
+                            <TableColumn fx:id="colProductquantity" text="Quantity" prefWidth="80" />
+                            <TableColumn fx:id="colSubtotal" text="Subtotal" prefWidth="100" />
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <!-- Transaction Summary -->
+                <VBox styleClass="card" spacing="12">
+                    <Label text="Transaction Summary" styleClass="title-small" />
+                    <GridPane hgap="16" vgap="8">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="100" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="100" />
+                        </columnConstraints>
+
+                        <Label text="Subtotal:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="form-label" />
+                        <Label fx:id="subtotalLabel" text="$0.00" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="body-text" />
+
+                        <Label text="Tax (10%):" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="form-label" />
+                        <Label fx:id="taxLabel" text="$0.00" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="body-text" />
+
+                        <Label text="Discount:" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="form-label" />
+                        <Label fx:id="discountLabel" text="$0.00" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="success-text" />
+
+                        <Separator GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2" />
+
+                        <Label text="Total:" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="title-small" />
+                        <Label fx:id="totalLabel" text="$0.00" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="title-medium" />
+                    </GridPane>
+                </VBox>
+
+                <!-- Action Buttons -->
+                <HBox spacing="12" alignment="CENTER">
+                    <Button fx:id="btnApplyDiscount" text="Apply Discount" styleClass="btn-secondary" onAction="#handleApplyDiscount" />
+                    <Button fx:id="btnCancel1" text="Remove Item" styleClass="btn-danger" onAction="#handleRemoveItem" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button fx:id="btnCreateBill" text="Create Bill" styleClass="btn-success" onAction="#handleCreateBill" />
+                    <Button fx:id="btnCancel" text="Cancel Transaction" styleClass="btn-outline" onAction="#handleCancelTransaction" />
+                </HBox>
+            </VBox>
+        </HBox>
+    </center>
+
+    <!-- Bottom Status Bar -->
+    <bottom>
+                 <HBox styleClass="card" alignment="CENTER_LEFT" spacing="16">
+            <Label text="Status:" styleClass="form-label" />
+            <Label text="Ready for transaction" styleClass="body-text" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="Items in cart:" styleClass="caption-text" />
+            <Label fx:id="cartCountLabel" text="0" styleClass="body-text" />
+            <Label text="| Total:" styleClass="caption-text" />
+            <Label fx:id="cartTotalLabel" text="$0.00" styleClass="body-text" />
+        </HBox>
+    </bottom>
+
+    <!-- Bill Receipt Panel (Hidden by default) -->
+    <VBox fx:id="bill" styleClass="card" visible="false" 
+           AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" 
+           AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+                 <VBox spacing="16">
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <Label text="Bill Receipt" styleClass="title-medium" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button text="Print" styleClass="btn-primary" onAction="#handlePrintBill" />
+                <Button text="Close" styleClass="btn-outline" onAction="#handleCloseBill" />
+            </HBox>
+            
+            <VBox fx:id="billContent" spacing="8">
+                <!-- Bill content will be dynamically generated -->
+            </VBox>
         </VBox>
-    </ScrollPane>
-   <Pane fx:id="bill" layoutX="514.0" layoutY="27.0" prefHeight="705.0" prefWidth="722.0" visible="false" />
-
-</AnchorPane>
+    </VBox>
+</BorderPane>

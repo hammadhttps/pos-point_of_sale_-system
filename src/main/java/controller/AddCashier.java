@@ -45,7 +45,7 @@ public class AddCashier {
         }
 
         Cashier cashier = new Cashier();
-        cashier.setusername(username);
+        cashier.setUsername(username);
         cashier.setName(name);
         cashier.setEmail(email);
         cashier.setRole(role);

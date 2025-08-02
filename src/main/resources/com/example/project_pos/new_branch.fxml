@@ -1,57 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.collections.FXCollections?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.NewBranch"
-            prefHeight="400.0" prefWidth="600.0"
-            style="-fx-background-color: #f9f9f9;">
+<BorderPane prefHeight="800.0" prefWidth="1400.0" 
+            styleClass="container" 
+            stylesheets="@modern-ui.css" 
+            xmlns="http://javafx.com/javafx/17.0.12" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="controller.NewBranch">
 
-    <children>
-        <Label layoutX="180.0" layoutY="20.0" text="Create New Branch"
-               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+    <!-- Top Navigation Bar -->
+    <top>
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="20" padding="16">
+            <ImageView fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                <image>
+                    <Image url="@icons_and_images/pos_icon.png" />
+                </image>
+            </ImageView>
+            <Label text="Create New Branch" styleClass="title-medium" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button text="Back" styleClass="btn-outline" onAction="#handleBack" />
+        </HBox>
+    </top>
 
-        <GridPane layoutX="50.0" layoutY="80.0" hgap="15.0" vgap="10.0">
-            <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" minWidth="150" />
-                <ColumnConstraints halignment="LEFT" minWidth="300" />
-            </columnConstraints>
-            <children>
-                <!-- Name -->
-                <Label text="Name:" />
-                <TextField fx:id="nameField" GridPane.columnIndex="1" />
+    <!-- Main Content -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+            <VBox alignment="CENTER" spacing="32" padding="32" maxWidth="600">
+                
+                <!-- Form Card -->
+                <VBox styleClass="card" spacing="24" maxWidth="500">
+                    
+                    <!-- Header -->
+                    <VBox spacing="16" alignment="CENTER">
+                        <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/branch.png" />
+                            </image>
+                        </ImageView>
+                        <Label text="Create New Branch" styleClass="title-medium" />
+                        <Label text="Add a new branch to the POS network" styleClass="body-text" />
+                    </VBox>
 
-                <!-- City -->
-                <Label text="City:" GridPane.rowIndex="1" />
-                <TextField fx:id="cityField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <!-- Form Fields -->
+                    <GridPane hgap="20" vgap="16" alignment="CENTER">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="200" prefWidth="200" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="250" prefWidth="250" />
+                        </columnConstraints>
 
-                <!-- Address -->
-                <Label text="Address:" GridPane.rowIndex="2" />
-                <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <!-- Branch Name -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="Branch Name *" styleClass="form-label" />
+                            <TextField fx:id="nameField" promptText="Enter branch name" styleClass="form-field" />
+                        </VBox>
 
-                <!-- Phone -->
-                <Label text="Phone:" GridPane.rowIndex="3" />
-                <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <!-- Branch Code -->
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="Branch Code *" styleClass="form-label" />
+                            <TextField fx:id="branchCodeField" promptText="Enter branch code" styleClass="form-field" />
+                        </VBox>
 
-                <!-- Is Active -->
-                <Label text="Is Active:" GridPane.rowIndex="4" />
-                <CheckBox fx:id="isActiveField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <!-- City -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <Label text="City *" styleClass="form-label" />
+                            <TextField fx:id="cityField" promptText="Enter city" styleClass="form-field" />
+                        </VBox>
 
-                <!-- Employee Count -->
-                <Label text="Employee Count:" GridPane.rowIndex="5" />
-                <TextField fx:id="employeeCountField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <!-- Phone -->
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <Label text="Phone *" styleClass="form-label" />
+                            <TextField fx:id="phoneField" promptText="Enter phone number" styleClass="form-field" />
+                        </VBox>
 
-                <!-- Branch Code -->
-                <Label text="Branch Code:" GridPane.rowIndex="6" />
-                <TextField fx:id="branchCodeField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            </children>
-        </GridPane>
+                        <!-- Address -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2">
+                            <Label text="Address *" styleClass="form-label" />
+                            <TextArea fx:id="addressField" promptText="Enter full address" 
+                                     styleClass="form-field" prefRowCount="3" wrapText="true" />
+                        </VBox>
 
-        <Button layoutX="250.0" layoutY="350.0" text="Add Branch" fx:id="addBranchButton"
-                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-background-radius: 5px;"
-                onAction="#addBranchAction" />
-    </children>
-</AnchorPane>
+                        <!-- Employee Count -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                            <Label text="Employee Count" styleClass="form-label" />
+                            <TextField fx:id="employeeCountField" promptText="Enter employee count" styleClass="form-field" />
+                        </VBox>
+
+                        <!-- Branch Status -->
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                            <Label text="Branch Status" styleClass="form-label" />
+                            <HBox spacing="16">
+                                <RadioButton fx:id="isActiveField" text="Active" selected="true" />
+                                <RadioButton fx:id="isInactiveField" text="Inactive" />
+                            </HBox>
+                        </VBox>
+
+                        <!-- Branch Manager Assignment -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2">
+                            <Label text="Branch Manager" styleClass="form-label" />
+                            <ComboBox fx:id="managerComboBox" promptText="Select branch manager" styleClass="form-field" />
+                        </VBox>
+
+                        <!-- Branch Type -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="5">
+                            <Label text="Branch Type" styleClass="form-label" />
+                            <ComboBox fx:id="branchTypeComboBox" promptText="Select branch type" styleClass="form-field">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Retail" />
+                                        <String fx:value="Wholesale" />
+                                        <String fx:value="Warehouse" />
+                                        <String fx:value="Distribution Center" />
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                        </VBox>
+
+                        <!-- Operating Hours -->
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                            <Label text="Operating Hours" styleClass="form-label" />
+                            <TextField fx:id="operatingHoursField" promptText="e.g., 9:00 AM - 6:00 PM" styleClass="form-field" />
+                        </VBox>
+                    </GridPane>
+
+                    <!-- Action Buttons -->
+                    <HBox spacing="16" alignment="CENTER">
+                        <Button text="Add Branch" styleClass="btn-primary" onAction="#addBranchAction" />
+                        <Button text="Clear Form" styleClass="btn-secondary" onAction="#handleClearForm" />
+                        <Button text="Cancel" styleClass="btn-outline" onAction="#handleCancel" />
+                    </HBox>
+                </VBox>
+
+                <!-- Information Card -->
+                <VBox styleClass="card" spacing="16">
+                    <Label text="Important Information" styleClass="title-small" />
+                    <VBox spacing="8">
+                        <HBox spacing="8">
+                            <Label text="•" styleClass="caption-text" />
+                            <Label text="Branch code must be unique across the system" styleClass="body-text" />
+                        </HBox>
+                        <HBox spacing="8">
+                            <Label text="•" styleClass="caption-text" />
+                            <Label text="Branch name should be descriptive and clear" styleClass="body-text" />
+                        </HBox>
+                        <HBox spacing="8">
+                            <Label text="•" styleClass="caption-text" />
+                            <Label text="Phone number should include country code if applicable" styleClass="body-text" />
+                        </HBox>
+                        <HBox spacing="8">
+                            <Label text="•" styleClass="caption-text" />
+                            <Label text="Employee count should reflect current staffing levels" styleClass="body-text" />
+                        </HBox>
+                        <HBox spacing="8">
+                            <Label text="•" styleClass="caption-text" />
+                            <Label text="Branch manager can be assigned after branch creation" styleClass="body-text" />
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- Status Bar -->
+    <bottom>
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="16" padding="12">
+            <Label text="Status:" styleClass="form-label" />
+            <Label text="Ready to create branch" styleClass="body-text" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="* Required fields" styleClass="caption-text" />
+        </HBox>
+    </bottom>
+</BorderPane>

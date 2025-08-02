@@ -1,43 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1283.0" stylesheets="@style2.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DataEntryOperator_controller">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" 
+           prefHeight="800.0" prefWidth="1400.0" 
+           styleClass="container" 
+           stylesheets="@modern-ui.css" 
+           xmlns="http://javafx.com/javafx/17.0.12" 
+           xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="controller.DataEntryOperator_controller">
 
-   <children>
-      <AnchorPane layoutX="358.0" layoutY="113.0" prefHeight="544.0" prefWidth="599.0" style="-fx-background-color: #0e1111;">
-         <children>
-            <ImageView fx:id="_icon" fitHeight="125.0" fitWidth="125.0" layoutX="304.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@icons_and_images/Lock-Lock-icon.png" />
-               </image></ImageView>
-            <Label layoutX="75.0" layoutY="248.0" text="Username:" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-            </Label>
-            <PasswordField fx:id="password" layoutX="254.0" layoutY="329.0" prefHeight="25.0" prefWidth="248.0" />
-            <TextField fx:id="username" layoutX="255.0" layoutY="252.0" prefHeight="25.0" prefWidth="248.0" />
-            <Label layoutX="78.0" layoutY="325.0" text="Password:" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-            </Label>
-            <Button fx:id="loginButton" layoutX="321.0" layoutY="436.0" mnemonicParsing="false" onAction="#On_login" prefHeight="42.0" prefWidth="91.0" text="Login" />
-            <ImageView fitHeight="89.0" fitWidth="101.0" layoutX="83.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@icons_and_images/download.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <Button layoutX="53.0" layoutY="40.0" mnemonicParsing="false" onAction="#home_pressed" prefHeight="59.0" prefWidth="134.0" style="-fx-background-color: #0e1111;" text="Home" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="32.0" />
-         </font>
-      </Button>
-   </children>
-</AnchorPane>
+    <!-- Background with gradient -->
+    <Rectangle width="1400" height="800" fill="linear-gradient(to bottom right, #1e293b, #0f172a)" />
+
+    <!-- Main Content -->
+    <VBox alignment="CENTER" spacing="40" maxWidth="500">
+        
+        <!-- Login Card -->
+        <VBox styleClass="login-container" alignment="CENTER" spacing="32" maxWidth="400">
+            
+            <!-- Header -->
+            <VBox alignment="CENTER" spacing="16">
+                <ImageView fitHeight="80.0" fitWidth="80.0" preserveRatio="true">
+                    <image>
+                        <Image url="@icons_and_images/download.png" />
+                    </image>
+                </ImageView>
+                <Label text="Data Entry Operator Login" styleClass="login-title" />
+                <Label text="Access inventory management system" styleClass="login-subtitle" />
+            </VBox>
+
+            <!-- Login Form -->
+            <VBox spacing="20" maxWidth="320">
+                
+                <!-- Username Field -->
+                <VBox spacing="8">
+                    <Label text="Username" styleClass="form-label" />
+                    <TextField fx:id="username" promptText="Enter your username" styleClass="form-field" />
+                </VBox>
+
+                <!-- Password Field -->
+                <VBox spacing="8">
+                    <Label text="Password" styleClass="form-label" />
+                    <PasswordField fx:id="password" promptText="Enter your password" styleClass="form-field" />
+                </VBox>
+
+                <!-- Login Button -->
+                <Button fx:id="loginButton" text="Sign In" styleClass="btn-primary" 
+                        onAction="#On_login" maxWidth="Infinity" />
+            </VBox>
+
+            <!-- Footer -->
+            <VBox alignment="CENTER" spacing="8">
+                <Label text="Forgot your password?" styleClass="caption-text" />
+                <Label text="Contact your branch manager" styleClass="caption-text" />
+            </VBox>
+        </VBox>
+
+        <!-- Back to Home Button -->
+        <Button text="← Back to Home" styleClass="btn-outline" onAction="#home_pressed" />
+    </VBox>
+
+    <!-- Loading Overlay (Hidden by default) -->
+    <VBox fx:id="loadingOverlay" styleClass="loading-overlay" visible="false" 
+           alignment="CENTER">
+        <VBox styleClass="loading-spinner" alignment="CENTER" spacing="16">
+            <ProgressIndicator />
+            <Label text="Authenticating..." styleClass="body-text" />
+        </VBox>
+    </VBox>
+</StackPane>

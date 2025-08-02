@@ -15,7 +15,7 @@ public class BranchManagerDAO {
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
-            pstmt.setString(1, manager.getusername());
+            pstmt.setString(1, manager.getUsername());
             pstmt.setString(2, manager.getName());
             pstmt.setString(3, manager.getEmail());
             pstmt.setString(4, manager.getPassword());
@@ -44,7 +44,7 @@ public class BranchManagerDAO {
             pstmt.setString(5, manager.getBranchCode());
             pstmt.setDouble(6, manager.getSalary());
             pstmt.setInt(7, manager.getEmployeeCount());
-            pstmt.setString(8, manager.getusername());
+            pstmt.setString(8, manager.getUsername());
 
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -78,7 +78,7 @@ public class BranchManagerDAO {
 
             if (rs.next()) {
                 BranchManager manager = new BranchManager();
-                manager.setusername(rs.getString("username"));
+                manager.setUsername(rs.getString("username"));
                 manager.setName(rs.getString("name"));
                 manager.setEmail(rs.getString("email"));
                 manager.setPassword(rs.getString("password"));
@@ -105,7 +105,7 @@ public class BranchManagerDAO {
 
             while (rs.next()) {
                 BranchManager manager = new BranchManager();
-                manager.setusername(rs.getString("username"));
+                manager.setUsername(rs.getString("username"));
                 manager.setName(rs.getString("name"));
                 manager.setEmail(rs.getString("email"));
                 manager.setPassword(rs.getString("password"));
@@ -131,7 +131,7 @@ public class BranchManagerDAO {
 
             if (rs.next()) {
                 BranchManager manager = new BranchManager();
-                manager.setusername(rs.getString("username"));
+                manager.setUsername(rs.getString("username"));
                 manager.setName(rs.getString("name"));
                 manager.setEmail(rs.getString("email"));
                 manager.setPassword(rs.getString("password"));

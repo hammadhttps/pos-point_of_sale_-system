@@ -9,9 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Vendor;
-import model.vendor_product;
 import services.VendorDAO;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -67,8 +65,7 @@ public class showVendors implements Initializable {
                 vendorNameLabel,
                 vendorIdLabel,
                 contactInfoLabel,
-                viewDetailsButton
-        );
+                viewDetailsButton);
 
         return vendorDetailsBox;
     }
@@ -83,7 +80,6 @@ public class showVendors implements Initializable {
 
             // Load the parent
             Parent root = loader.load();
-
 
             Stage vendorDetailsStage = new Stage();
             vendorDetailsStage.setTitle("Vendor Details - " + vendor.getName());

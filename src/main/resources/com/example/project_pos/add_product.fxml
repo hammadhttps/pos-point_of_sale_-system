@@ -1,64 +1,215 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.collections.FXCollections?>
 
-<AnchorPane fx:id="addProductPane" prefHeight="486.0" prefWidth="666.0" stylesheets="@style4.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddProduct">
-    <children>
-        <Label layoutX="242.0" layoutY="14.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Add New Product" />
-        <GridPane hgap="20.0" layoutX="50.0" layoutY="80.0" vgap="10.0">
-            <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" prefWidth="150.0" />
-                <ColumnConstraints prefWidth="300.0" />
-            </columnConstraints>
-            <children>
-                <Label text="Product ID:" />
-                <TextField fx:id="productIdField" GridPane.columnIndex="1" />
+<BorderPane prefHeight="800.0" prefWidth="1400.0" 
+            styleClass="container" 
+            stylesheets="@modern-ui.css" 
+            xmlns="http://javafx.com/javafx/17.0.12" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="controller.AddProduct">
 
-                <Label text="Product Name:" GridPane.rowIndex="1" />
-                <TextField fx:id="productNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <!-- Top Navigation Bar -->
+    <top>
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="20" padding="16">
+            <ImageView fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                <image>
+                    <Image url="@icons_and_images/pos_icon.png" />
+                </image>
+            </ImageView>
+            <Label text="Add New Product" styleClass="title-medium" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button text="Back" styleClass="btn-outline" onAction="#handleBack" />
+        </HBox>
+    </top>
 
-                <Label text="Category:" GridPane.rowIndex="2" />
-                <!-- Replacing TextField with ComboBox -->
-                <ComboBox fx:id="categoryField" promptText="Select a category" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Fashion" />
-                            <String fx:value="Electronic Accessories" />
-                            <String fx:value="Grocery" />
-                        </FXCollections>
-                    </items>
-                </ComboBox>
+    <!-- Main Content -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+            <VBox alignment="CENTER" spacing="32" padding="32" maxWidth="800">
+                
+                <!-- Form Card -->
+                <VBox styleClass="card" spacing="24" maxWidth="700">
+                    
+                    <!-- Header -->
+                    <VBox spacing="16" alignment="CENTER">
+                        <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/add-to-cart.png" />
+                            </image>
+                        </ImageView>
+                        <Label text="Add New Product" styleClass="title-medium" />
+                        <Label text="Add a new product to the inventory system" styleClass="body-text" />
+                    </VBox>
 
-                <Label text="Original Price:" GridPane.rowIndex="3" />
-                <TextField fx:id="originalPriceField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <!-- Form Fields -->
+                    <GridPane hgap="24" vgap="20" alignment="CENTER">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="300" prefWidth="300" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="300" prefWidth="300" />
+                        </columnConstraints>
 
-                <Label text="Sale Price:" GridPane.rowIndex="4" />
-                <TextField fx:id="salePriceField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <!-- Product ID -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="Product ID *" styleClass="form-label" />
+                            <TextField fx:id="productIdField" promptText="Enter product ID" styleClass="form-field" />
+                        </VBox>
 
-                <Label text="Price by Unit:" GridPane.rowIndex="5" />
-                <TextField fx:id="priceByUnitField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <!-- Product Name -->
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="Product Name *" styleClass="form-label" />
+                            <TextField fx:id="productNameField" promptText="Enter product name" styleClass="form-field" />
+                        </VBox>
 
-                <Label text="Price by Carton:" GridPane.rowIndex="6" />
-                <TextField fx:id="priceByCartonField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <!-- Category -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <Label text="Category *" styleClass="form-label" />
+                            <ComboBox fx:id="categoryField" promptText="Select a category" styleClass="form-field">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Fashion" />
+                                        <String fx:value="Electronic Accessories" />
+                                        <String fx:value="Grocery" />
+                                        <String fx:value="Home & Garden" />
+                                        <String fx:value="Sports & Outdoors" />
+                                        <String fx:value="Books & Media" />
+                                        <String fx:value="Health & Beauty" />
+                                        <String fx:value="Automotive" />
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                        </VBox>
 
-                <Label text="Quantity:" GridPane.rowIndex="7" />
-                <TextField fx:id="quantityField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            </children>
-            <rowConstraints>
-                <RowConstraints />
-                <RowConstraints />
-                <RowConstraints />
-                <RowConstraints />
-                <RowConstraints />
-                <RowConstraints />
-                <RowConstraints />
-                <RowConstraints />
-            </rowConstraints>
-        </GridPane>
-        <Button fx:id="uploadOfflineDataButton" text="Upload Offline Data" layoutX="260.0" layoutY="550.0" onAction="#uploadOfflineData" visible="true" />
-        <Button layoutX="295.0" layoutY="474.0" onAction="#addProduct" text="Add Product" />
-    </children>
-</AnchorPane>
+                        <!-- Vendor -->
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <Label text="Vendor" styleClass="form-label" />
+                            <ComboBox fx:id="vendorComboBox" promptText="Select vendor" styleClass="form-field" />
+                        </VBox>
+
+                        <!-- Original Price -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                            <Label text="Original Price *" styleClass="form-label" />
+                            <TextField fx:id="originalPriceField" promptText="Enter original price" styleClass="form-field" />
+                        </VBox>
+
+                        <!-- Sale Price -->
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <Label text="Sale Price *" styleClass="form-label" />
+                            <TextField fx:id="salePriceField" promptText="Enter sale price" styleClass="form-field" />
+                        </VBox>
+
+                        <!-- Price by Unit -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                            <Label text="Price by Unit" styleClass="form-label" />
+                            <TextField fx:id="priceByUnitField" promptText="Enter unit price" styleClass="form-field" />
+                        </VBox>
+
+                        <!-- Price by Carton -->
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                            <Label text="Price by Carton" styleClass="form-label" />
+                            <TextField fx:id="priceByCartonField" promptText="Enter carton price" styleClass="form-field" />
+                        </VBox>
+
+                        <!-- Quantity -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                            <Label text="Quantity *" styleClass="form-label" />
+                            <TextField fx:id="quantityField" promptText="Enter quantity" styleClass="form-field" />
+                        </VBox>
+
+                        <!-- Unit of Measure -->
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                            <Label text="Unit of Measure" styleClass="form-label" />
+                            <ComboBox fx:id="unitComboBox" promptText="Select unit" styleClass="form-field">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Pieces" />
+                                        <String fx:value="Kilograms" />
+                                        <String fx:value="Liters" />
+                                        <String fx:value="Meters" />
+                                        <String fx:value="Boxes" />
+                                        <String fx:value="Cartons" />
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                        </VBox>
+
+                        <!-- Description -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="2">
+                            <Label text="Description" styleClass="form-label" />
+                            <TextArea fx:id="descriptionField" promptText="Enter product description" 
+                                     styleClass="form-field" prefRowCount="3" wrapText="true" />
+                        </VBox>
+
+                        <!-- Product Image -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.columnSpan="2">
+                            <Label text="Product Image" styleClass="form-label" />
+                            <HBox spacing="16" alignment="CENTER_LEFT">
+                                <ImageView fx:id="productImageView" fitHeight="80" fitWidth="80" 
+                                          styleClass="card" preserveRatio="true" />
+                                <VBox spacing="8">
+                                    <Button text="Upload Image" styleClass="btn-secondary" onAction="#handleUploadImage" />
+                                    <Label text="Click to upload product image" styleClass="caption-text" />
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                    </GridPane>
+
+                    <!-- Action Buttons -->
+                    <HBox spacing="16" alignment="CENTER">
+                        <Button text="Add Product" styleClass="btn-primary" onAction="#addProduct" />
+                        <Button text="Clear Form" styleClass="btn-secondary" onAction="#handleClearForm" />
+                        <Button text="Cancel" styleClass="btn-outline" onAction="#handleCancel" />
+                    </HBox>
+                </VBox>
+
+                <!-- Additional Features Card -->
+                <VBox styleClass="card" spacing="16">
+                    <Label text="Additional Features" styleClass="title-small" />
+                    <HBox spacing="16" alignment="CENTER">
+                        <Button text="Upload Offline Data" styleClass="btn-secondary" onAction="#uploadOfflineData" />
+                        <Button text="Import from Excel" styleClass="btn-secondary" onAction="#handleImportExcel" />
+                        <Button text="Bulk Import" styleClass="btn-secondary" onAction="#handleBulkImport" />
+                    </HBox>
+                </VBox>
+
+                <!-- Information Card -->
+                <VBox styleClass="card" spacing="16">
+                    <Label text="Important Information" styleClass="title-small" />
+                    <VBox spacing="8">
+                        <HBox spacing="8">
+                            <Label text="•" styleClass="caption-text" />
+                            <Label text="Product ID must be unique across the system" styleClass="body-text" />
+                        </HBox>
+                        <HBox spacing="8">
+                            <Label text="•" styleClass="caption-text" />
+                            <Label text="Sale price should be less than or equal to original price" styleClass="body-text" />
+                        </HBox>
+                        <HBox spacing="8">
+                            <Label text="•" styleClass="caption-text" />
+                            <Label text="Quantity must be a positive number" styleClass="body-text" />
+                        </HBox>
+                        <HBox spacing="8">
+                            <Label text="•" styleClass="caption-text" />
+                            <Label text="Product images should be in JPG, PNG, or GIF format" styleClass="body-text" />
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- Status Bar -->
+    <bottom>
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="16" padding="12">
+            <Label text="Status:" styleClass="form-label" />
+            <Label text="Ready to add product" styleClass="body-text" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="* Required fields" styleClass="caption-text" />
+        </HBox>
+    </bottom>
+</BorderPane>

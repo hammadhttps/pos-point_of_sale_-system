@@ -15,7 +15,7 @@ public class DataEntryOperatorDAO {
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
-            pstmt.setString(1, operator.getusername());
+            pstmt.setString(1, operator.getUsername());
             pstmt.setString(2, operator.getName());
             pstmt.setString(3, operator.getEmail());
             pstmt.setString(4, operator.getPassword());
@@ -42,7 +42,7 @@ public class DataEntryOperatorDAO {
             pstmt.setString(4, operator.getRole());
             pstmt.setString(5, operator.getBranchCode());
             pstmt.setDouble(6, operator.getSalary());
-            pstmt.setString(7, operator.getusername());
+            pstmt.setString(7, operator.getUsername());
 
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -76,7 +76,7 @@ public class DataEntryOperatorDAO {
 
             if (rs.next()) {
                 DataEntryOperator operator = new DataEntryOperator();
-                operator.setusername(rs.getString("username"));
+                operator.setUsername(rs.getString("username"));
                 operator.setName(rs.getString("name"));
                 operator.setEmail(rs.getString("email"));
                 operator.setPassword(rs.getString("password"));
@@ -102,7 +102,7 @@ public class DataEntryOperatorDAO {
 
             while (rs.next()) {
                 DataEntryOperator operator = new DataEntryOperator();
-                operator.setusername(rs.getString("username"));
+                operator.setUsername(rs.getString("username"));
                 operator.setName(rs.getString("name"));
                 operator.setEmail(rs.getString("email"));
                 operator.setPassword(rs.getString("password"));
@@ -129,7 +129,7 @@ public class DataEntryOperatorDAO {
 
             while (rs.next()) {
                 DataEntryOperator operator = new DataEntryOperator();
-                operator.setusername(rs.getString("username"));
+                operator.setUsername(rs.getString("username"));
                 operator.setName(rs.getString("name"));
                 operator.setEmail(rs.getString("email"));
                 operator.setPassword(rs.getString("password"));

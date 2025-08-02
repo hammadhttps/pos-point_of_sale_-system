@@ -1,32 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="748.0" prefWidth="1205.0" style="-fx-background-color: Black;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoadingPage">
-   <children>
-      <Label layoutX="411.0" layoutY="138.0" prefHeight="174.0" prefWidth="383.0" text="WELCOME" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="436.0" AnchorPane.rightAnchor="411.0">
-         <cursor>
-            <Cursor fx:constant="E_RESIZE" />
-         </cursor>
-         <font>
-            <Font name="Impact" size="96.0" />
-         </font>
-      </Label>
-      <Label fx:id="loading" alignment="CENTER" layoutX="461.0" layoutY="341.0" prefHeight="99.0" prefWidth="266.0" text="Loading" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="33.0" />
-         </font>
-      </Label>
-      <Line fx:id="line1" endY="0.0" layoutX="90.0" layoutY="100.0" stroke="WHITE" strokeWidth="8.0" />
+<StackPane fx:id="stackPane" prefHeight="800.0" prefWidth="1400.0" 
+           styleClass="container" 
+           stylesheets="@modern-ui.css" 
+           xmlns="http://javafx.com/javafx/17.0.12" 
+           xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="controller.LoadingPage">
 
-      <Line fx:id="line4" endX="0.0" endY="0.0" layoutX="90.0" layoutY="600.0" startX="0.0" startY="0.0" stroke="WHITE" strokeWidth="8.0" />
+    <!-- Background -->
+    <Rectangle width="1400" height="800" fill="linear-gradient(to bottom right, #1e293b, #0f172a)" />
 
-      <Line fx:id="line3" endX="0.0" endY="0.0" layoutX="1100.0" layoutY="600.0" startX="0.0" startY="0.0" stroke="WHITE" strokeWidth="8.0" />
+    <!-- Main Content -->
+    <VBox alignment="CENTER" spacing="40">
+        
+        <!-- Logo and Title -->
+        <VBox alignment="CENTER" spacing="24">
+            <ImageView fitHeight="120.0" fitWidth="120.0" preserveRatio="true">
+                <image>
+                    <Image url="@icons_and_images/pos_icon.png" />
+                </image>
+            </ImageView>
+            <Label text="POS SYSTEM" styleClass="title-large" style="-fx-text-fill: white;" />
+            <Label text="Point of Sale Management System" styleClass="body-text" style="-fx-text-fill: rgba(255,255,255,0.8);" />
+        </VBox>
 
-      <Line fx:id="line2" endX="0.0" endY="0.0" layoutX="1100.0" layoutY="100.0" startX="0.0" startY="0.0" stroke="WHITE" strokeWidth="8.0" />
-    </children>
-</AnchorPane>
+        <!-- Loading Animation -->
+        <VBox alignment="CENTER" spacing="16">
+            <ProgressIndicator fx:id="loadingSpinner" style="-fx-progress-color: #3b82f6;" />
+            <Label fx:id="loading" text="Loading..." styleClass="body-text" style="-fx-text-fill: white;" />
+        </VBox>
+
+        <!-- Progress Bar -->
+        <VBox spacing="8" maxWidth="400">
+            <ProgressBar fx:id="progressBar" prefWidth="400" style="-fx-accent: #3b82f6;" />
+            <Label text="Initializing system components..." styleClass="caption-text" style="-fx-text-fill: rgba(255,255,255,0.7);" />
+        </VBox>
+
+        <!-- Status Messages -->
+        <VBox spacing="8" maxWidth="500">
+            <Label fx:id="statusLabel" text="Starting application..." styleClass="body-text" style="-fx-text-fill: white;" />
+            <Label fx:id="detailLabel" text="Please wait while we prepare your environment" styleClass="caption-text" style="-fx-text-fill: rgba(255,255,255,0.6);" />
+        </VBox>
+    </VBox>
+
+    <!-- Animated Border Lines -->
+    <Pane>
+        <!-- Top Line -->
+        <Line fx:id="line1" startX="0" startY="0" endX="1400" endY="0" 
+              stroke="white" strokeWidth="4" />
+        
+        <!-- Right Line -->
+        <Line fx:id="line2" startX="1400" startY="0" endX="1400" endY="800" 
+              stroke="white" strokeWidth="4" />
+        
+        <!-- Bottom Line -->
+        <Line fx:id="line3" startX="1400" startY="800" endX="0" endY="800" 
+              stroke="white" strokeWidth="4" />
+        
+        <!-- Left Line -->
+        <Line fx:id="line4" startX="0" startY="800" endX="0" endY="0" 
+              stroke="white" strokeWidth="4" />
+    </Pane>
+
+    <!-- Loading Steps -->
+    <VBox alignment="BOTTOM_CENTER" spacing="16">
+        <VBox spacing="8" maxWidth="600">
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="●" styleClass="success-text" />
+                <Label text="Database connection established" styleClass="body-text" style="-fx-text-fill: white;" />
+            </HBox>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="●" styleClass="success-text" />
+                <Label text="User authentication system ready" styleClass="body-text" style="-fx-text-fill: white;" />
+            </HBox>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="●" styleClass="success-text" />
+                <Label text="Inventory management loaded" styleClass="body-text" style="-fx-text-fill: white;" />
+            </HBox>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="●" styleClass="primary-text" />
+                <Label text="Preparing user interface..." styleClass="body-text" style="-fx-text-fill: white;" />
+            </HBox>
+        </VBox>
+    </VBox>
+
+    <!-- Version Info -->
+    <VBox alignment="BOTTOM_RIGHT">
+        <Label text="Version 2.1.0" styleClass="caption-text" style="-fx-text-fill: rgba(255,255,255,0.5);" />
+        <Label text="© 2024 POS System" styleClass="caption-text" style="-fx-text-fill: rgba(255,255,255,0.5);" />
+    </VBox>
+</StackPane>

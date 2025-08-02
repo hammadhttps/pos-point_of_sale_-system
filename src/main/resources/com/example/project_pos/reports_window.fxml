@@ -1,24 +1,216 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="749.0" prefWidth="1243.0" stylesheets="@style8.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportsWindow">
-   <children>
-      <Button layoutX="130.0" layoutY="40.0" mnemonicParsing="false" onAction="#sales_chart" prefHeight="63.0" prefWidth="226.0" text="Sales Chart" />
-      <Button layoutX="509.0" layoutY="40.0" mnemonicParsing="false" onAction="#sales_graph" prefHeight="63.0" prefWidth="226.0" text="Sales Graph" />
-      <Button layoutX="933.0" layoutY="40.0" mnemonicParsing="false" onAction="#inventory" prefHeight="63.0" prefWidth="226.0" text="Inventoty" />
-      <Pane fx:id="displayPane" layoutX="30.0" layoutY="126.0" prefHeight="602.0" prefWidth="1192.0" />
-      <TableView fx:id="productTable" layoutX="30.0" layoutY="126.0" prefHeight="602.0" prefWidth="1192.0" visible="false">
-         <columns>
-            <TableColumn fx:id="productIdColumn" prefWidth="150.0" text="Product ID" />
-            <TableColumn fx:id="productNameColumn" prefWidth="250.0" text="Product Name" />
-            <TableColumn fx:id="categoryColumn" prefWidth="150.0" text="Category" />
-            <TableColumn fx:id="quantityColumn" prefWidth="100.0" text="Quantity" />
-            <TableColumn fx:id="salePriceColumn" prefWidth="150.0" text="Sale Price" />
-            <TableColumn fx:id="priceByCartonColumn" prefWidth="150.0" text="Price by Carton" />
-            <TableColumn fx:id="priceByUnitColumn" prefWidth="150.0" text="Price by Unit" />
-         </columns>
-      </TableView>
-   </children>
-</AnchorPane>
+<BorderPane prefHeight="800.0" prefWidth="1400.0" 
+            styleClass="container" 
+            stylesheets="@modern-ui.css" 
+            xmlns="http://javafx.com/javafx/17.0.12" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="controller.ReportsWindow">
+
+    <!-- Top Navigation Bar -->
+    <top>
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="20" padding="16">
+            <ImageView fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                <image>
+                    <Image url="@icons_and_images/pos_icon.png" />
+                </image>
+            </ImageView>
+            <Label text="Reports & Analytics" styleClass="title-medium" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button text="Back" styleClass="btn-outline" onAction="#handleBack" />
+        </HBox>
+    </top>
+
+    <!-- Main Content -->
+    <center>
+        <VBox spacing="24" padding="24">
+            
+            <!-- Header -->
+            <VBox spacing="16" alignment="CENTER">
+                <Label text="Reports & Analytics Dashboard" styleClass="title-large" />
+                <Label text="Generate comprehensive reports and analytics for your business" styleClass="body-text" />
+            </VBox>
+
+            <!-- Report Categories -->
+            <GridPane hgap="20" vgap="20" alignment="CENTER">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="300" prefWidth="300" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="300" prefWidth="300" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="300" prefWidth="300" />
+                </columnConstraints>
+
+                <!-- Sales Reports -->
+                <VBox styleClass="dashboard-card" spacing="16" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/reports.png" />
+                            </image>
+                        </ImageView>
+                        <VBox spacing="4">
+                            <Label text="Sales Reports" styleClass="title-small" />
+                            <Label text="Revenue analytics and trends" styleClass="caption-text" />
+                        </VBox>
+                    </HBox>
+                    <VBox spacing="8">
+                        <Button text="Sales Chart" styleClass="btn-primary" onAction="#sales_chart" maxWidth="Infinity" />
+                        <Button text="Sales Graph" styleClass="btn-secondary" onAction="#sales_graph" maxWidth="Infinity" />
+                        <Button text="Revenue Analysis" styleClass="btn-secondary" onAction="#handleRevenueAnalysis" maxWidth="Infinity" />
+                    </VBox>
+                </VBox>
+
+                <!-- Inventory Reports -->
+                <VBox styleClass="dashboard-card" spacing="16" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/add-to-cart.png" />
+                            </image>
+                        </ImageView>
+                        <VBox spacing="4">
+                            <Label text="Inventory Reports" styleClass="title-small" />
+                            <Label text="Stock levels and management" styleClass="caption-text" />
+                        </VBox>
+                    </HBox>
+                    <VBox spacing="8">
+                        <Button text="Inventory Table" styleClass="btn-primary" onAction="#inventory" maxWidth="Infinity" />
+                        <Button text="Stock Analysis" styleClass="btn-secondary" onAction="#handleStockAnalysis" maxWidth="Infinity" />
+                        <Button text="Low Stock Alert" styleClass="btn-secondary" onAction="#handleLowStockAlert" maxWidth="Infinity" />
+                    </VBox>
+                </VBox>
+
+                <!-- Employee Reports -->
+                <VBox styleClass="dashboard-card" spacing="16" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
+                            <Image url="@icons_and_images/Manager-icon.png" />
+                        </ImageView>
+                        <VBox spacing="4">
+                            <Label text="Employee Reports" styleClass="title-small" />
+                            <Label text="Staff performance and data" styleClass="caption-text" />
+                        </VBox>
+                    </HBox>
+                    <VBox spacing="8">
+                        <Button text="Employee Performance" styleClass="btn-primary" onAction="#handleEmployeePerformance" maxWidth="Infinity" />
+                        <Button text="Attendance Report" styleClass="btn-secondary" onAction="#handleAttendanceReport" maxWidth="Infinity" />
+                        <Button text="Salary Analysis" styleClass="btn-secondary" onAction="#handleSalaryAnalysis" maxWidth="Infinity" />
+                    </VBox>
+                </VBox>
+
+                <!-- Financial Reports -->
+                <VBox styleClass="dashboard-card" spacing="16" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/iconfinder-settings-4341324_120534.png" />
+                            </image>
+                        </ImageView>
+                        <VBox spacing="4">
+                            <Label text="Financial Reports" styleClass="title-small" />
+                            <Label text="Profit, loss, and expenses" styleClass="caption-text" />
+                        </VBox>
+                    </HBox>
+                    <VBox spacing="8">
+                        <Button text="Profit & Loss" styleClass="btn-primary" onAction="#handleProfitLoss" maxWidth="Infinity" />
+                        <Button text="Expense Analysis" styleClass="btn-secondary" onAction="#handleExpenseAnalysis" maxWidth="Infinity" />
+                        <Button text="Cash Flow" styleClass="btn-secondary" onAction="#handleCashFlow" maxWidth="Infinity" />
+                    </VBox>
+                </VBox>
+
+                <!-- Customer Reports -->
+                <VBox styleClass="dashboard-card" spacing="16" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/cashier.jpg" />
+                            </image>
+                        </ImageView>
+                        <VBox spacing="4">
+                            <Label text="Customer Reports" styleClass="title-small" />
+                            <Label text="Customer behavior and trends" styleClass="caption-text" />
+                        </VBox>
+                    </HBox>
+                    <VBox spacing="8">
+                        <Button text="Customer Analysis" styleClass="btn-primary" onAction="#handleCustomerAnalysis" maxWidth="Infinity" />
+                        <Button text="Purchase Patterns" styleClass="btn-secondary" onAction="#handlePurchasePatterns" maxWidth="Infinity" />
+                        <Button text="Customer Feedback" styleClass="btn-secondary" onAction="#handleCustomerFeedback" maxWidth="Infinity" />
+                    </VBox>
+                </VBox>
+
+                <!-- System Reports -->
+                <VBox styleClass="dashboard-card" spacing="16" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/administrator-icon.png" />
+                            </image>
+                        </ImageView>
+                        <VBox spacing="4">
+                            <Label text="System Reports" styleClass="title-small" />
+                            <Label text="System health and performance" styleClass="caption-text" />
+                        </VBox>
+                    </HBox>
+                    <VBox spacing="8">
+                        <Button text="System Health" styleClass="btn-primary" onAction="#handleSystemHealth" maxWidth="Infinity" />
+                        <Button text="Performance Metrics" styleClass="btn-secondary" onAction="#handlePerformanceMetrics" maxWidth="Infinity" />
+                        <Button text="Error Logs" styleClass="btn-secondary" onAction="#handleErrorLogs" maxWidth="Infinity" />
+                    </VBox>
+                </VBox>
+            </GridPane>
+
+            <!-- Report Display Area -->
+            <VBox styleClass="card" spacing="16" VBox.vgrow="ALWAYS">
+                <HBox alignment="CENTER_LEFT" spacing="16">
+                    <Label text="Report Output" styleClass="title-medium" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button text="Export Report" styleClass="btn-secondary" onAction="#handleExportReport" />
+                    <Button text="Print Report" styleClass="btn-secondary" onAction="#handlePrintReport" />
+                </HBox>
+                
+                <!-- Display Pane for Charts/Graphs -->
+                <Pane fx:id="displayPane" styleClass="form-field" VBox.vgrow="ALWAYS" />
+                
+                <!-- Table View for Data -->
+                <TableView fx:id="productTable" styleClass="table-view" visible="false" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="productIdColumn" text="Product ID" prefWidth="150" />
+                        <TableColumn fx:id="productNameColumn" text="Product Name" prefWidth="250" />
+                        <TableColumn fx:id="categoryColumn" text="Category" prefWidth="150" />
+                        <TableColumn fx:id="quantityColumn" text="Quantity" prefWidth="100" />
+                        <TableColumn fx:id="salePriceColumn" text="Sale Price" prefWidth="150" />
+                        <TableColumn fx:id="priceByCartonColumn" text="Price by Carton" prefWidth="150" />
+                        <TableColumn fx:id="priceByUnitColumn" text="Price by Unit" prefWidth="150" />
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Quick Actions -->
+            <VBox styleClass="card" spacing="16">
+                <Label text="Quick Actions" styleClass="title-small" />
+                <HBox spacing="16" alignment="CENTER">
+                    <Button text="Generate All Reports" styleClass="btn-primary" onAction="#handleGenerateAllReports" />
+                    <Button text="Schedule Reports" styleClass="btn-secondary" onAction="#handleScheduleReports" />
+                    <Button text="Report Templates" styleClass="btn-secondary" onAction="#handleReportTemplates" />
+                    <Button text="Data Export" styleClass="btn-outline" onAction="#handleDataExport" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </center>
+
+    <!-- Status Bar -->
+    <bottom>
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="16" padding="12">
+            <Label text="Status:" styleClass="form-label" />
+            <Label text="Ready to generate reports" styleClass="body-text" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="Last generated:" styleClass="caption-text" />
+            <Label text="2 hours ago" styleClass="body-text" />
+        </HBox>
+    </bottom>
+</BorderPane>

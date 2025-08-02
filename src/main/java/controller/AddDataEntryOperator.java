@@ -23,14 +23,10 @@ public class AddDataEntryOperator {
 
     private static String bc1;
 
-    private DataEntryOperatorDAO dataEntryOperatorDAO=new DataEntryOperatorDAO();
+    private DataEntryOperatorDAO dataEntryOperatorDAO = new DataEntryOperatorDAO();
 
-
-
-
-    public static void setBranchcode(String bc)
-    {
-        bc1=bc;
+    public static void setBranchcode(String bc) {
+        bc1 = bc;
     }
 
     public void handleAddDataEntry(ActionEvent event) {
@@ -39,24 +35,22 @@ public class AddDataEntryOperator {
         String email = emailField.getText();
         String password = passwordField.getText();
         String salary = salaryField.getText();
-        String role="Data Entry Operator";
-        String branchcode=bc1;
+        String role = "Data Entry Operator";
+        String branchcode = bc1;
 
         if (username.isEmpty() || name.isEmpty() || email.isEmpty() || password.isEmpty() || salary.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Error", "Please fill in all fields.");
             return;
         }
 
-        DataEntryOperator dataEntryOperator=new DataEntryOperator();
+        DataEntryOperator dataEntryOperator = new DataEntryOperator();
         dataEntryOperator.setName(name);
-        dataEntryOperator.setusername(username);
+        dataEntryOperator.setUsername(username);
         dataEntryOperator.setRole(role);
         dataEntryOperator.setEmail(email);
         dataEntryOperator.setSalary(Double.parseDouble(salary));
         dataEntryOperator.setPassword(password);
         dataEntryOperator.setBranchCode(branchcode);
-
-
 
         if (dataEntryOperatorDAO.addDataEntryOperator(dataEntryOperator)) {
             showAlert(Alert.AlertType.INFORMATION, "Success", "Operator added successfully!");

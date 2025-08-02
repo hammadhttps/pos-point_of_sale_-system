@@ -7,6 +7,7 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
@@ -23,11 +24,10 @@ public class LoadingPage {
     private Line line1, line2, line3, line4;
 
     @FXML
-    private AnchorPane anchorPane;
+    private StackPane stackPane;
 
     private void animateLines() {
         Timeline lineAnimation = new Timeline();
-
 
         KeyFrame line1Animation = new KeyFrame(Duration.seconds(2), e -> {
             if (line1.getEndX() < line2.getLayoutX()) {
@@ -53,18 +53,15 @@ public class LoadingPage {
             }
         });
 
-
         lineAnimation.getKeyFrames().addAll(line1Animation, line2Animation, line3Animation, line4Animation);
         lineAnimation.setCycleCount(1);
         lineAnimation.setRate(2);
-
 
         lineAnimation.setOnFinished(event -> {
             showSecondScreen();
         });
 
         lineAnimation.play();
-
 
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), loading);
         fadeTransition.setFromValue(1.0);
@@ -80,14 +77,12 @@ public class LoadingPage {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/project_pos/second_screen.fxml"));
             Parent root = loader.load();
 
-
-            Stage stage = (Stage) anchorPane.getScene().getWindow();
-
+            Stage stage = (Stage) stackPane.getScene().getWindow();
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
 
-             stage.setResizable(false);
+            stage.setResizable(false);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

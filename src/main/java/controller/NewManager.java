@@ -41,7 +41,7 @@ public class NewManager {
         branchManager.setBranchCode(branchCodeField.getText());
         branchManager.setEmail(emailField.getText());
         branchManager.setName(nameField.getText());
-        branchManager.setusername(usernameField.getText());
+        branchManager.setUsername(usernameField.getText());
         branchManager.setPassword(passwordField.getText());
         branchManager.setRole("Manager");
         branchManager.setSalary(Double.parseDouble(salaryField.getText()));

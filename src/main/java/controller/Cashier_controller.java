@@ -1,10 +1,11 @@
 package controller;
 
+import javafx.application.Platform;
+import javafx.scene.input.MouseEvent;
 import model.Cashier;
 import services.CashierDAO;
 import services.SaleDAO;
 import model.Sale;
-
 
 import java.util.Date;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -27,9 +28,8 @@ import java.util.*;
 public class Cashier_controller {
 
     private final SaleDAO saleDAO = new SaleDAO();
-    private Cashier cashier=null;
-    private final CashierDAO cashierDAO=new CashierDAO();
-
+    private Cashier cashier = null;
+    private final CashierDAO cashierDAO = new CashierDAO();
 
     public Pane bill;
     public Button btnCancel;
@@ -57,31 +57,25 @@ public class Cashier_controller {
     @FXML
     private TableColumn<Product, Integer> colProductquantity;
 
-
     private final ObservableList<Product> selectedProducts = FXCollections.observableArrayList();
-
 
     private Map<String, List<Product>> productsByCategory = new HashMap<>();
     private final Map<Product, Integer> productSelectionCount = new HashMap<>();
 
-    private  int quantity;
-
+    private int quantity;
 
     @FXML
     public void initialize() {
 
-        //  table columns
+        // table columns
         colProductName.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
         colProductCategory.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getCategory()));
-        colProductPrice.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getSalePrice()).asObject());
-        colProductquantity.setCellValueFactory(data ->
-                new SimpleIntegerProperty(productSelectionCount.getOrDefault(data.getValue(), 0)).asObject()
-        );
-
-
+        colProductPrice
+                .setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getSalePrice()).asObject());
+        colProductquantity.setCellValueFactory(
+                data -> new SimpleIntegerProperty(productSelectionCount.getOrDefault(data.getValue(), 0)).asObject());
 
         selectedItemsListtable.setItems(selectedProducts);
-
 
         loadProducts();
 
@@ -97,13 +91,9 @@ public class Cashier_controller {
         btnApplyDiscount.setOnAction(event -> applyDiscount());
     }
 
-    public void get_cashier_detail(String username1)
-    {
-        cashier=cashierDAO.getCashier(username1);
+    public void get_cashier_detail(String username1) {
+        cashier = cashierDAO.getCashier(username1);
     }
-
-
-
 
     private double discountPercentage = 0.0;
 
@@ -161,7 +151,8 @@ public class Cashier_controller {
         categoryCol.setPrefWidth(150);
 
         TableColumn<Product, Integer> quantityCol = new TableColumn<>("Quantity");
-        quantityCol.setCellValueFactory(data -> new SimpleIntegerProperty(productSelectionCount.getOrDefault(data.getValue(), 0)).asObject());
+        quantityCol.setCellValueFactory(
+                data -> new SimpleIntegerProperty(productSelectionCount.getOrDefault(data.getValue(), 0)).asObject());
         quantityCol.setPrefWidth(100);
 
         TableColumn<Product, Double> priceCol = new TableColumn<>("Price");
@@ -178,7 +169,8 @@ public class Cashier_controller {
         double finalPrice = totalPrice - discountAmount;
 
         Label totalLabel = new Label("Total: $" + String.format("%.2f", totalPrice));
-        Label discountLabel = new Label("Discount (" + discountPercentage + "%): -$" + String.format("%.2f", discountAmount));
+        Label discountLabel = new Label(
+                "Discount (" + discountPercentage + "%): -$" + String.format("%.2f", discountAmount));
         Label finalTotalLabel = new Label("Final Total: $" + String.format("%.2f", finalPrice));
 
         totalLabel.setStyle("-fx-font-size: 16px;");
@@ -197,8 +189,7 @@ public class Cashier_controller {
                 totalLabel,
                 discountLabel,
                 finalTotalLabel,
-                closeButton
-        );
+                closeButton);
         bill.getChildren().add(billLayout);
 
         // Save the sale in the database
@@ -207,8 +198,7 @@ public class Cashier_controller {
                 new ArrayList<>(selectedProducts),
                 finalPrice,
                 new Date(),
-                cashier.getBranchCode()
-        );
+                cashier.getBranchCode());
 
         boolean isSaved = saleDAO.createSale(sale);
 
@@ -228,8 +218,6 @@ public class Cashier_controller {
 
         resetTable(); // Clear the table after saving the bill
     }
-
-
 
     private void loadProducts() {
         ProductDAO productDAO = new ProductDAO();
@@ -278,9 +266,9 @@ public class Cashier_controller {
             }
 
             // Decrement the sold quantity of the product
-            if (selectedProduct.get_sold_quantity() > 0) {
-                selectedProduct.setQuantity(selectedProduct.getQuantity()+1);
-                selectedProduct.set_sold_quantity(selectedProduct.get_sold_quantity() - 1);
+            if (selectedProduct.getSoldQuantity() > 0) {
+                selectedProduct.setQuantity(selectedProduct.getQuantity() + 1);
+                selectedProduct.setSoldQuantity(selectedProduct.getSoldQuantity() - 1);
             }
 
             selectedItemsListtable.refresh(); // Refresh the table to show updated counts
@@ -288,8 +276,6 @@ public class Cashier_controller {
             showAlert("No Selection", "Please select an item to delete.");
         }
     }
-
-
 
     private void resetTable() {
         selectedProducts.clear();
@@ -309,7 +295,9 @@ public class Cashier_controller {
         boolean isOutOfStock = product.getQuantity() == 0;
 
         // Set the image
-        ImageView imageView = createImageView("C:\\Users\\city\\Desktop\\Project_pos\\src\\main\\resources\\com\\example\\project_pos\\products_icons\\" + product.getName() + ".png");
+        ImageView imageView = createImageView(
+                "C:\\Users\\city\\Desktop\\Project_pos\\src\\main\\resources\\com\\example\\project_pos\\products_icons\\"
+                        + product.getName() + ".png");
 
         // Disable the image if the product is out of stock
         if (isOutOfStock) {
@@ -344,7 +332,8 @@ public class Cashier_controller {
             }
         } catch (Exception e) {
             // Fallback to default image if the specified image is not found
-            image = new Image("C:\\Users\\city\\Desktop\\Project_pos\\src\\main\\resources\\com\\example\\project_pos\\products_icons\\image.png");
+            image = new Image(
+                    "C:\\Users\\city\\Desktop\\Project_pos\\src\\main\\resources\\com\\example\\project_pos\\products_icons\\image.png");
         }
 
         ImageView imageView = new ImageView(image);
@@ -364,12 +353,11 @@ public class Cashier_controller {
         }
 
         // Increment the sold quantity of the product
-        product.set_sold_quantity(product.get_sold_quantity() + 1);
-        product.setQuantity(product.getQuantity()-1);
+        product.setSoldQuantity(product.getSoldQuantity() + 1);
+        product.setQuantity(product.getQuantity() - 1);
 
         selectedItemsListtable.refresh();
     }
-
 
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -378,14 +366,18 @@ public class Cashier_controller {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
     public static String generate4DigitNumber() {
 
         long currentTimeMillis = System.currentTimeMillis();
 
-
-        int last4Digits = (int)(currentTimeMillis % 10000); // Get the last 4 digits
-
+        int last4Digits = (int) (currentTimeMillis % 10000); // Get the last 4 digits
 
         return String.format("%04d", last4Digits);
+    }
+
+    public void handleLogout(MouseEvent mouseEvent) {
+        Platform.exit();
+        System.exit(0);
     }
 }

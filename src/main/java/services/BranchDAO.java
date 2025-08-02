@@ -26,7 +26,7 @@ public class BranchDAO {
                 branch.setPhone(resultSet.getString("phone"));
                 branch.setActive(resultSet.getBoolean("isActive"));
                 branch.setEmployeeCount(resultSet.getInt("employeeCount"));
-                branch.setBranchcode(resultSet.getString("branchcode"));
+                branch.setBranchCode(resultSet.getString("branchcode"));
                 branches.add(branch);
             }
 
@@ -55,7 +55,7 @@ public class BranchDAO {
                     branch.setPhone(resultSet.getString("phone"));
                     branch.setActive(resultSet.getBoolean("isActive"));
                     branch.setEmployeeCount(resultSet.getInt("employeeCount"));
-                    branch.setBranchcode(resultSet.getString("branchcode"));
+                    branch.setBranchCode(resultSet.getString("branchcode"));
                 }
             }
 
@@ -79,7 +79,7 @@ public class BranchDAO {
             preparedStatement.setString(4, branch.getPhone());
             preparedStatement.setBoolean(5, branch.isActive());
             preparedStatement.setInt(6, branch.getEmployeeCount());
-            preparedStatement.setString(7, branch.getBranchcode());
+            preparedStatement.setString(7, branch.getBranchCode());
 
             int rowsInserted = preparedStatement.executeUpdate();
             return rowsInserted > 0;
@@ -104,7 +104,7 @@ public class BranchDAO {
             preparedStatement.setString(4, branch.getPhone());
             preparedStatement.setBoolean(5, branch.isActive());
             preparedStatement.setInt(6, branch.getEmployeeCount());
-            preparedStatement.setString(7, branch.getBranchcode());
+            preparedStatement.setString(7, branch.getBranchCode());
 
             int rowsUpdated = preparedStatement.executeUpdate();
             return rowsUpdated > 0;

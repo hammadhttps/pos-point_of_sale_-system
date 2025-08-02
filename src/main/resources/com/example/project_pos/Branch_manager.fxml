@@ -1,61 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="743.0" prefWidth="1268.0" stylesheets="@style7.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BranchManager_controller">
-   <children>
-      <Label alignment="CENTER" layoutX="431.0" layoutY="53.0" prefHeight="66.0" prefWidth="416.0" styleClass="branch-manager-title" text="Branch Manager">
-         <font>
-            <Font size="45.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="232.0" fitWidth="200.0" layoutX="155.0" layoutY="214.0" onMouseClicked="#add_cashier" pickOnBounds="true" preserveRatio="true" styleClass="action-image">
-         <image>
-            <Image url="@icons_and_images/plus_1828821.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="232.0" fitWidth="200.0" layoutX="400.0" layoutY="214.0" onMouseClicked="#add_data_entry_operator" pickOnBounds="true" preserveRatio="true" styleClass="action-image">
-         <image>
-            <Image url="@icons_and_images/square_14034302.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="200.0" fitWidth="196.0" layoutX="846.0" layoutY="225.0" onMouseClicked="#generate_reports" pickOnBounds="true" preserveRatio="true" styleClass="action-image">
-         <image>
-            <Image url="@icons_and_images/reports.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="61.0" fitWidth="73.0" layoutX="1144.0" layoutY="629.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true" styleClass="exit-image">
-         <image>
-            <Image url="@icons_and_images/exit.png" />
-         </image>
-      </ImageView>
-      <Label alignment="CENTER" layoutX="206.0" layoutY="421.0" prefHeight="38.0" prefWidth="105.0" styleClass="action-label" text="Cashier">
-         <font>
-            <Font name="System Bold" size="19.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="394.0" layoutY="421.0" prefHeight="38.0" prefWidth="196.0" styleClass="action-label" text="Data Entry Operator">
-         <font>
-            <Font name="System Bold" size="19.0" />
-         </font>
-      </Label>
-      <Label layoutX="919.0" layoutY="421.0" styleClass="action-label" text="Report">
-         <font>
-            <Font name="System Bold" size="19.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="200.0" fitWidth="196.0" layoutX="651.0" layoutY="219.0" onMouseClicked="#manage_passwords" pickOnBounds="true" preserveRatio="true" styleClass="action-image">
-         <image>
-            <Image url="@icons_and_images/ManageNameExt_30180.png" />
-         </image>
-      </ImageView>
-      <Label alignment="TOP_LEFT" layoutX="659.0" layoutY="421.0" styleClass="action-label" text="Manage Passwords">
-         <font>
-            <Font name="System Bold" size="19.0" />
-         </font>
-      </Label>
-   </children>
-</AnchorPane>
+<BorderPane prefHeight="800.0" prefWidth="1400.0" 
+            styleClass="container" 
+            stylesheets="@modern-ui.css" 
+            xmlns="http://javafx.com/javafx/17.0.12" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="controller.BranchManager_controller">
+
+    <!-- Top Navigation Bar -->
+    <top>
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="20" padding="16">
+            <ImageView fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                <image>
+                    <Image url="@icons_and_images/pos_icon.png" />
+                </image>
+            </ImageView>
+            <Label text="Branch Manager Dashboard" styleClass="title-medium" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button text="Logout" styleClass="btn-outline" onAction="#exit" />
+        </HBox>
+    </top>
+
+    <!-- Main Content -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+            <VBox spacing="32" padding="32" maxWidth="1200">
+                
+                <!-- Welcome Section -->
+                <VBox spacing="16" alignment="CENTER">
+                    <Label text="Welcome, Branch Manager" styleClass="title-large" />
+                    <Label text="Manage your branch operations and staff" styleClass="body-text" />
+                </VBox>
+
+                <!-- Dashboard Cards Grid -->
+                <GridPane hgap="24" vgap="24" alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="300" prefWidth="300" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="300" prefWidth="300" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="300" prefWidth="300" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints vgrow="SOMETIMES" minHeight="200" prefHeight="200" />
+                        <RowConstraints vgrow="SOMETIMES" minHeight="200" prefHeight="200" />
+                    </rowConstraints>
+
+                    <!-- Add Cashier Card -->
+                    <VBox styleClass="dashboard-card" alignment="CENTER" spacing="16" 
+                           onMouseClicked="#add_cashier" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true" styleClass="dashboard-icon">
+                            <image>
+                                <Image url="@icons_and_images/plus_1828821.png" />
+                            </image>
+                        </ImageView>
+                        <Label text="Add Cashier" styleClass="title-small" />
+                        <Label text="Create new cashier accounts" styleClass="caption-text" />
+                        <Button text="Add Cashier" styleClass="btn-primary" onAction="#add_cashier" />
+                    </VBox>
+
+                    <!-- Add Data Entry Operator Card -->
+                    <VBox styleClass="dashboard-card" alignment="CENTER" spacing="16" 
+                           onMouseClicked="#add_data_entry_operator" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true" styleClass="dashboard-icon">
+                            <image>
+                                <Image url="@icons_and_images/square_14034302.png" />
+                            </image>
+                        </ImageView>
+                        <Label text="Add Data Entry Operator" styleClass="title-small" />
+                        <Label text="Create new data entry accounts" styleClass="caption-text" />
+                        <Button text="Add Operator" styleClass="btn-primary" onAction="#add_data_entry_operator" />
+                    </VBox>
+
+                    <!-- Generate Reports Card -->
+                    <VBox styleClass="dashboard-card" alignment="CENTER" spacing="16" 
+                           onMouseClicked="#generate_reports" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                        <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true" styleClass="dashboard-icon">
+                            <image>
+                                <Image url="@icons_and_images/reports.png" />
+                            </image>
+                        </ImageView>
+                        <Label text="Generate Reports" styleClass="title-small" />
+                        <Label text="View branch performance analytics" styleClass="caption-text" />
+                        <Button text="View Reports" styleClass="btn-primary" onAction="#generate_reports" />
+                    </VBox>
+
+                    <!-- Manage Passwords Card -->
+                    <VBox styleClass="dashboard-card" alignment="CENTER" spacing="16" 
+                           onMouseClicked="#manage_passwords" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true" styleClass="dashboard-icon">
+                            <image>
+                                <Image url="@icons_and_images/ManageNameExt_30180.png" />
+                            </image>
+                        </ImageView>
+                        <Label text="Manage Passwords" styleClass="title-small" />
+                        <Label text="Update staff account credentials" styleClass="caption-text" />
+                        <Button text="Manage Passwords" styleClass="btn-primary" onAction="#manage_passwords" />
+                    </VBox>
+
+                    <!-- Branch Status Card -->
+                    <VBox styleClass="dashboard-card" alignment="CENTER" spacing="16" 
+                           GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true" styleClass="dashboard-icon">
+                            <image>
+                                <Image url="@icons_and_images/branch.png" />
+                            </image>
+                        </ImageView>
+                        <Label text="Branch Status" styleClass="title-small" />
+                        <Label text="Monitor branch operations" styleClass="caption-text" />
+                        <Label text="Branch Active" styleClass="success-text" style="-fx-font-weight: bold;" />
+                    </VBox>
+
+                    <!-- Quick Actions Card -->
+                    <VBox styleClass="dashboard-card" alignment="CENTER" spacing="16" 
+                           GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true" styleClass="dashboard-icon">
+                            <image>
+                                <Image url="@icons_and_images/iconfinder-settings-4341324_120534.png" />
+                            </image>
+                        </ImageView>
+                        <Label text="Quick Actions" styleClass="title-small" />
+                        <Label text="Common management tasks" styleClass="caption-text" />
+                        <VBox spacing="8" alignment="CENTER">
+                            <Button text="View Staff" styleClass="btn-secondary" maxWidth="Infinity" />
+                            <Button text="Branch Settings" styleClass="btn-secondary" maxWidth="Infinity" />
+                        </VBox>
+                    </VBox>
+                </GridPane>
+
+                <!-- Branch Statistics Section -->
+                <VBox spacing="16">
+                    <Label text="Branch Statistics" styleClass="title-medium" />
+                    <GridPane hgap="16" vgap="16">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="200" prefWidth="200" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="200" prefWidth="200" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="200" prefWidth="200" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="200" prefWidth="200" />
+                        </columnConstraints>
+
+                        <!-- Cashiers Count -->
+                        <VBox styleClass="card" alignment="CENTER" spacing="8" GridPane.columnIndex="0">
+                            <Label text="Cashiers" styleClass="caption-text" />
+                            <Label text="5" styleClass="title-medium" />
+                            <Label text="Active" styleClass="success-text" />
+                        </VBox>
+
+                        <!-- Data Entry Operators Count -->
+                        <VBox styleClass="card" alignment="CENTER" spacing="8" GridPane.columnIndex="1">
+                            <Label text="Data Entry Operators" styleClass="caption-text" />
+                            <Label text="3" styleClass="title-medium" />
+                            <Label text="Active" styleClass="success-text" />
+                        </VBox>
+
+                        <!-- Today's Sales -->
+                        <VBox styleClass="card" alignment="CENTER" spacing="8" GridPane.columnIndex="2">
+                            <Label text="Today's Sales" styleClass="caption-text" />
+                            <Label text="$2,450" styleClass="title-medium" />
+                            <Label text="+12%" styleClass="success-text" />
+                        </VBox>
+
+                        <!-- Inventory Items -->
+                        <VBox styleClass="card" alignment="CENTER" spacing="8" GridPane.columnIndex="3">
+                            <Label text="Inventory Items" styleClass="caption-text" />
+                            <Label text="1,247" styleClass="title-medium" />
+                            <Label text="In Stock" styleClass="primary-text" />
+                        </VBox>
+                    </GridPane>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- Status Bar -->
+    <bottom>
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="16" padding="12">
+            <Label text="Branch Status:" styleClass="form-label" />
+            <Label text="Operational" styleClass="success-text" style="-fx-font-weight: bold;" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="Last updated:" styleClass="caption-text" />
+            <Label text="Just now" styleClass="caption-text" />
+        </HBox>
+    </bottom>
+</BorderPane>

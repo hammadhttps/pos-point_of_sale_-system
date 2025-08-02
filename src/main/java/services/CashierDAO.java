@@ -15,7 +15,7 @@ public class CashierDAO {
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
-            pstmt.setString(1, cashier.getusername());
+            pstmt.setString(1, cashier.getUsername());
             pstmt.setString(2, cashier.getName());
             pstmt.setString(3, cashier.getEmail());
             pstmt.setString(4, cashier.getPassword());
@@ -42,7 +42,7 @@ public class CashierDAO {
             pstmt.setString(4, cashier.getRole());
             pstmt.setString(5, cashier.getBranchCode());
             pstmt.setDouble(6, cashier.getSalary());
-            pstmt.setString(7, cashier.getusername());
+            pstmt.setString(7, cashier.getUsername());
 
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -76,7 +76,7 @@ public class CashierDAO {
 
             if (rs.next()) {
                 Cashier cashier = new Cashier();
-                cashier.setusername(rs.getString("username"));
+                cashier.setUsername(rs.getString("username"));
                 cashier.setName(rs.getString("name"));
                 cashier.setEmail(rs.getString("email"));
                 cashier.setPassword(rs.getString("password"));
@@ -102,7 +102,7 @@ public class CashierDAO {
 
             while (rs.next()) {
                 Cashier cashier = new Cashier();
-                cashier.setusername(rs.getString("username"));
+                cashier.setUsername(rs.getString("username"));
                 cashier.setName(rs.getString("name"));
                 cashier.setEmail(rs.getString("email"));
                 cashier.setPassword(rs.getString("password"));
@@ -129,7 +129,7 @@ public class CashierDAO {
 
             while (rs.next()) {
                 Cashier cashier = new Cashier();
-                cashier.setusername(rs.getString("username"));
+                cashier.setUsername(rs.getString("username"));
                 cashier.setName(rs.getString("name"));
                 cashier.setEmail(rs.getString("email"));
                 cashier.setPassword(rs.getString("password"));

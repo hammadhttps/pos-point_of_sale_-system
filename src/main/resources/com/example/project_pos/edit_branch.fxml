@@ -1,104 +1,186 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane
-        prefHeight="540.0"
-        prefWidth="1200.0"
-        style="-fx-background-color: #f0f4f8;"
-        xmlns="http://javafx.com/javafx/17.0.12"
-        xmlns:fx="http://javafx.com/fxml/1"
-        fx:controller="controller.EditBranch">
+<BorderPane prefHeight="800.0" prefWidth="1400.0" 
+            styleClass="container" 
+            stylesheets="@modern-ui.css" 
+            xmlns="http://javafx.com/javafx/17.0.12" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="controller.EditBranch">
 
-    <ScrollPane
-            fitToWidth="true"
-            AnchorPane.topAnchor="0"
-            AnchorPane.bottomAnchor="0"
-            AnchorPane.leftAnchor="0"
-            AnchorPane.rightAnchor="0">
-        <VBox
-                spacing="20"
-                style="-fx-padding: 20;"
-                maxWidth="1200">
+    <!-- Top Navigation Bar -->
+    <top>
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="20" padding="16">
+            <ImageView fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                <image>
+                    <Image url="@icons_and_images/pos_icon.png" />
+                </image>
+            </ImageView>
+            <Label text="Edit Branches" styleClass="title-medium" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button text="Back" styleClass="btn-outline" onAction="#handleBack" />
+        </HBox>
+    </top>
 
-            <Label
-                    text="Edit Branches"
-                    style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1a365d;" />
+    <!-- Main Content -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+            <VBox spacing="32" padding="32" maxWidth="1200">
+                
+                <!-- Header -->
+                <VBox spacing="16" alignment="CENTER">
+                    <Label text="Branch Management" styleClass="title-large" />
+                    <Label text="Manage branch status, employees, and configurations" styleClass="body-text" />
+                </VBox>
 
-            <!-- Active Branches -->
-            <VBox spacing="10">
-                <Label
-                        text="Active Branches"
-                        style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c7a2c;" />
-                <ListView
-                        fx:id="activeBranchList"
-                        style="-fx-background-color: white; -fx-control-inner-background: white; -fx-background-insets: 0;"
-                        prefHeight="150">
-                    <ScrollPane VBox.vgrow="ALWAYS" />
-                </ListView>
-                <HBox spacing="10">
-                    <Button
-                            text="Deactivate Selected Branch"
-                            fx:id="deactivateButton"
-                            style="-fx-background-color: #e53e3e; -fx-text-fill: white; -fx-font-weight: bold;" />
-                    <Button
-                            text="Increase Employee Count"
-                            fx:id="increaseEmpCountButton"
-                            style="-fx-background-color: #3182ce; -fx-text-fill: white; -fx-font-weight: bold;" />
+                <!-- Branch Management Cards -->
+                <HBox spacing="24" alignment="TOP_CENTER">
+                    
+                    <!-- Active Branches -->
+                    <VBox styleClass="card" spacing="16" prefWidth="500">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <ImageView fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@icons_and_images/branch.png" />
+                                </image>
+                            </ImageView>
+                            <Label text="Active Branches" styleClass="title-medium" />
+                        </HBox>
+                        
+                        <ScrollPane fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
+                            <ListView fx:id="activeBranchList" styleClass="form-field" prefHeight="200" />
+                        </ScrollPane>
+                        
+                        <HBox spacing="12" alignment="CENTER">
+                            <Button text="Deactivate Branch" styleClass="btn-danger" onAction="#handleDeactivateBranch" />
+                            <Button text="Increase Employees" styleClass="btn-primary" onAction="#handleIncreaseEmpCount" />
+                        </HBox>
+                    </VBox>
+
+                    <!-- Inactive Branches -->
+                    <VBox styleClass="card" spacing="16" prefWidth="500">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <ImageView fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@icons_and_images/iconfinder-settings-4341324_120534.png" />
+                                </image>
+                            </ImageView>
+                            <Label text="Inactive Branches" styleClass="title-medium" />
+                        </HBox>
+                        
+                        <ScrollPane fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
+                            <ListView fx:id="inactiveBranchList" styleClass="form-field" prefHeight="200" />
+                        </ScrollPane>
+                        
+                        <HBox spacing="12" alignment="CENTER">
+                            <Button text="Activate Branch" styleClass="btn-success" onAction="#handleActivateBranch" />
+                        </HBox>
+                    </VBox>
                 </HBox>
-            </VBox>
 
-            <!-- Inactive Branches -->
-            <VBox spacing="10">
-                <Label
-                        text="Not Active Branches"
-                        style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #a0aec0;" />
-                <ListView
-                        fx:id="inactiveBranchList"
-                        style="-fx-background-color: white; -fx-control-inner-background: #f7fafc; -fx-background-insets: 0;"
-                        prefHeight="150">
-                    <ScrollPane VBox.vgrow="ALWAYS" />
-                </ListView>
-                <Button
-                        text="Activate Selected Branch"
-                        fx:id="activateButton"
-                        style="-fx-background-color: #48bb78; -fx-text-fill: white; -fx-font-weight: bold;" />
-            </VBox>
+                <!-- Branch Details Section -->
+                <VBox styleClass="card" spacing="20">
+                    <Label text="Branch Details" styleClass="title-medium" />
+                    
+                    <!-- Branch Manager Info -->
+                    <VBox spacing="12">
+                        <Label text="Branch Manager" styleClass="form-label" />
+                        <Label fx:id="branchManagerLabel" text="Not Assigned" styleClass="body-text" />
+                    </VBox>
 
-            <!-- Branch Manager Details -->
-            <VBox spacing="10">
-                <Label
-                        fx:id="branchManagerLabel"
-                        text="Branch Manager: Not Assigned"
-                        style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #4a5568;" />
-            </VBox>
+                    <!-- Employee Details -->
+                    <GridPane hgap="20" vgap="16">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="300" prefWidth="300" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="300" prefWidth="300" />
+                        </columnConstraints>
 
-            <!-- Employee Details -->
-            <VBox spacing="10">
-                <Label
-                        text="Branch Details"
-                        style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #4a5568;" />
-                <VBox spacing="5">
-                    <Label text="Cashiers" style="-fx-font-weight: bold;" />
-                    <ListView
-                            fx:id="cashiersList"
-                            style="-fx-background-color: white; -fx-control-inner-background: white; -fx-background-insets: 0;"
-                            prefHeight="100">
-                        <ScrollPane VBox.vgrow="ALWAYS" />
-                    </ListView>
+                        <!-- Cashiers -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="Cashiers" styleClass="form-label" />
+                            <ScrollPane fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
+                                <ListView fx:id="cashiersList" styleClass="form-field" prefHeight="120" />
+                            </ScrollPane>
+                        </VBox>
+
+                        <!-- Data Entry Operators -->
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="Data Entry Operators" styleClass="form-label" />
+                            <ScrollPane fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
+                                <ListView fx:id="dataEntryOperatorsList" styleClass="form-field" prefHeight="120" />
+                            </ScrollPane>
+                        </VBox>
+                    </GridPane>
                 </VBox>
-                <VBox spacing="5">
-                    <Label text="Data Entry Operators" style="-fx-font-weight: bold;" />
-                    <ListView
-                            fx:id="dataEntryOperatorsList"
-                            style="-fx-background-color: white; -fx-control-inner-background: white; -fx-background-insets: 0;"
-                            prefHeight="100">
-                        <ScrollPane VBox.vgrow="ALWAYS" />
-                    </ListView>
+
+                <!-- Branch Statistics -->
+                <VBox spacing="16">
+                    <Label text="Branch Statistics" styleClass="title-medium" />
+                    <GridPane hgap="16" vgap="16">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="200" prefWidth="200" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="200" prefWidth="200" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="200" prefWidth="200" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="200" prefWidth="200" />
+                        </columnConstraints>
+
+                        <!-- Total Branches -->
+                        <VBox styleClass="card" alignment="CENTER" spacing="8" GridPane.columnIndex="0">
+                            <Label text="Total Branches" styleClass="caption-text" />
+                            <Label text="12" styleClass="title-medium" />
+                            <Label text="In System" styleClass="success-text" />
+                        </VBox>
+
+                        <!-- Active Branches -->
+                        <VBox styleClass="card" alignment="CENTER" spacing="8" GridPane.columnIndex="1">
+                            <Label text="Active Branches" styleClass="caption-text" />
+                            <Label text="8" styleClass="title-medium" />
+                            <Label text="Operational" styleClass="success-text" />
+                        </VBox>
+
+                        <!-- Inactive Branches -->
+                        <VBox styleClass="card" alignment="CENTER" spacing="8" GridPane.columnIndex="2">
+                            <Label text="Inactive Branches" styleClass="caption-text" />
+                            <Label text="4" styleClass="title-medium" />
+                            <Label text="Suspended" styleClass="warning-text" />
+                        </VBox>
+
+                        <!-- Total Employees -->
+                        <VBox styleClass="card" alignment="CENTER" spacing="8" GridPane.columnIndex="3">
+                            <Label text="Total Employees" styleClass="caption-text" />
+                            <Label text="156" styleClass="title-medium" />
+                            <Label text="Across All" styleClass="primary-text" />
+                        </VBox>
+                    </GridPane>
+                </VBox>
+
+                <!-- Quick Actions -->
+                <VBox styleClass="card" spacing="16">
+                    <Label text="Quick Actions" styleClass="title-small" />
+                    <HBox spacing="16" alignment="CENTER">
+                        <Button text="Add New Branch" styleClass="btn-primary" onAction="#handleAddNewBranch" />
+                        <Button text="Export Branch Data" styleClass="btn-secondary" onAction="#handleExportBranchData" />
+                        <Button text="Generate Reports" styleClass="btn-secondary" onAction="#handleGenerateReports" />
+                        <Button text="System Settings" styleClass="btn-outline" onAction="#handleSystemSettings" />
+                    </HBox>
                 </VBox>
             </VBox>
-        </VBox>
-    </ScrollPane>
-</AnchorPane>
+        </ScrollPane>
+    </center>
+
+    <!-- Status Bar -->
+    <bottom>
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="16" padding="12">
+            <Label text="Status:" styleClass="form-label" />
+            <Label text="Ready to manage branches" styleClass="body-text" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="Branches:" styleClass="caption-text" />
+            <Label text="12" styleClass="body-text" />
+        </HBox>
+    </bottom>
+</BorderPane>

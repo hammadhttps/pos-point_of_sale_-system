@@ -1,44 +1,231 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="addProductPane" prefHeight="455.0" prefWidth="662.0" styleClass="root-pane" stylesheets="@styles5.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddNewVendor">
+<BorderPane prefHeight="800.0" prefWidth="1400.0" 
+            styleClass="container" 
+            stylesheets="@modern-ui.css" 
+            xmlns="http://javafx.com/javafx/17.0.12" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="controller.AddNewVendor">
 
-    <VBox layoutX="50" layoutY="50" prefWidth="600" spacing="20" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
-        <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Add New Vendor" />
+    <!-- Top Navigation Bar -->
+    <top>
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="20" padding="16">
+            <ImageView fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                <image>
+                    <Image url="@icons_and_images/pos_icon.png" />
+                </image>
+            </ImageView>
+            <Label text="Add New Vendor" styleClass="title-medium" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button text="Back" styleClass="btn-outline" onAction="#handleCancel" />
+        </HBox>
+    </top>
 
-        <GridPane hgap="15" vgap="15">
-            <Label text="Vendor ID:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <TextField fx:id="vendorIdField" promptText="Enter Vendor ID" GridPane.columnIndex="1" GridPane.rowIndex="0" HBox.hgrow="ALWAYS" />
+    <!-- Main Content -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+            <VBox alignment="CENTER" spacing="32" padding="32" maxWidth="600">
+                
+                <!-- Form Card -->
+                <VBox styleClass="card" spacing="24" maxWidth="500">
+                    
+                    <!-- Header -->
+                    <VBox spacing="16" alignment="CENTER">
+                        <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true">
+                            <image>
+                                <Image url="@icons_and_images/add_new_vendor.png" />
+                            </image>
+                        </ImageView>
+                        <Label text="Add New Vendor" styleClass="title-medium" />
+                        <Label text="Register a new vendor in the system" styleClass="body-text" />
+                    </VBox>
 
-            <Label text="Vendor Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <TextField fx:id="nameField" promptText="Enter Vendor Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <!-- Form Fields -->
+                    <GridPane hgap="20" vgap="16" alignment="CENTER">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="200" prefWidth="200" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="250" prefWidth="250" />
+                        </columnConstraints>
 
-            <Label text="Contact Information:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-            <TextField fx:id="contactInfoField" promptText="Enter Contact Details" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-         <columnConstraints>
-            <ColumnConstraints />
-            <ColumnConstraints />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-         </rowConstraints>
-        </GridPane>
+                        <!-- Vendor ID -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="Vendor ID *" styleClass="form-label" />
+                            <TextField fx:id="vendorIdField" promptText="Enter vendor ID" styleClass="form-field" />
+                        </VBox>
 
-        <HBox alignment="CENTER_RIGHT" spacing="15" />
-    </VBox>
-      <Button layoutX="195.0" layoutY="284.0" onAction="#handleAddVendor" text="Add Vendor">
-          <tooltip>
-              <Tooltip text="Click to add a new vendor to the system" />
-          </tooltip>
-      </Button>
+                        <!-- Vendor Name -->
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="Vendor Name *" styleClass="form-label" />
+                            <TextField fx:id="nameField" promptText="Enter vendor name" styleClass="form-field" />
+                        </VBox>
 
-      <Button layoutX="554.0" layoutY="394.0" onAction="#handleCancel" styleClass="secondary-button" text="Cancel">
-          <tooltip>
-              <Tooltip text="Cancel and return to previous screen" />
-          </tooltip>
-      </Button>
-</AnchorPane>
+                        <!-- Contact Person -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <Label text="Contact Person" styleClass="form-label" />
+                            <TextField fx:id="contactPersonField" promptText="Enter contact person name" styleClass="form-field" />
+                        </VBox>
+
+                        <!-- Phone Number -->
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <Label text="Phone Number *" styleClass="form-label" />
+                            <TextField fx:id="phoneField" promptText="Enter phone number" styleClass="form-field" />
+                        </VBox>
+
+                        <!-- Email Address -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                            <Label text="Email Address" styleClass="form-label" />
+                            <TextField fx:id="emailField" promptText="Enter email address" styleClass="form-field" />
+                        </VBox>
+
+                        <!-- Website -->
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <Label text="Website" styleClass="form-label" />
+                            <TextField fx:id="websiteField" promptText="Enter website URL" styleClass="form-field" />
+                        </VBox>
+
+                        <!-- Address -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2">
+                            <Label text="Address *" styleClass="form-label" />
+                            <TextArea fx:id="addressField" promptText="Enter vendor address" 
+                                     styleClass="form-field" prefRowCount="3" wrapText="true" />
+                        </VBox>
+
+                        <!-- City -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                            <Label text="City *" styleClass="form-label" />
+                            <TextField fx:id="cityField" promptText="Enter city" styleClass="form-field" />
+                        </VBox>
+
+                        <!-- State/Province -->
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                            <Label text="State/Province" styleClass="form-label" />
+                            <TextField fx:id="stateField" promptText="Enter state/province" styleClass="form-field" />
+                        </VBox>
+
+                        <!-- Country -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="5">
+                            <Label text="Country *" styleClass="form-label" />
+                            <TextField fx:id="countryField" promptText="Enter country" styleClass="form-field" />
+                        </VBox>
+
+                        <!-- Postal Code -->
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                            <Label text="Postal Code" styleClass="form-label" />
+                            <TextField fx:id="postalCodeField" promptText="Enter postal code" styleClass="form-field" />
+                        </VBox>
+
+                        <!-- Vendor Type -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="6">
+                            <Label text="Vendor Type" styleClass="form-label" />
+                            <ComboBox fx:id="vendorTypeComboBox" promptText="Select vendor type" styleClass="form-field">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Manufacturer" />
+                                        <String fx:value="Distributor" />
+                                        <String fx:value="Wholesaler" />
+                                        <String fx:value="Retailer" />
+                                        <String fx:value="Service Provider" />
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                        </VBox>
+
+                        <!-- Payment Terms -->
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                            <Label text="Payment Terms" styleClass="form-label" />
+                            <ComboBox fx:id="paymentTermsComboBox" promptText="Select payment terms" styleClass="form-field">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Net 30" />
+                                        <String fx:value="Net 60" />
+                                        <String fx:value="Net 90" />
+                                        <String fx:value="Cash on Delivery" />
+                                        <String fx:value="Advance Payment" />
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                        </VBox>
+
+                        <!-- Tax ID -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="7">
+                            <Label text="Tax ID" styleClass="form-label" />
+                            <TextField fx:id="taxIdField" promptText="Enter tax identification number" styleClass="form-field" />
+                        </VBox>
+
+                        <!-- Credit Limit -->
+                        <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                            <Label text="Credit Limit" styleClass="form-label" />
+                            <TextField fx:id="creditLimitField" promptText="Enter credit limit" styleClass="form-field" />
+                        </VBox>
+
+                        <!-- Vendor Status -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="8" GridPane.columnSpan="2">
+                            <Label text="Vendor Status" styleClass="form-label" />
+                            <HBox spacing="16">
+                                <RadioButton fx:id="activeRadio" text="Active" selected="true" />
+                                <RadioButton fx:id="inactiveRadio" text="Inactive" />
+                            </HBox>
+                        </VBox>
+
+                        <!-- Notes -->
+                        <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="9" GridPane.columnSpan="2">
+                            <Label text="Notes" styleClass="form-label" />
+                            <TextArea fx:id="notesField" promptText="Enter any additional notes" 
+                                     styleClass="form-field" prefRowCount="3" wrapText="true" />
+                        </VBox>
+                    </GridPane>
+
+                    <!-- Action Buttons -->
+                    <HBox spacing="16" alignment="CENTER">
+                        <Button text="Add Vendor" styleClass="btn-primary" onAction="#handleAddVendor" />
+                        <Button text="Clear Form" styleClass="btn-secondary" onAction="#handleClearForm" />
+                        <Button text="Cancel" styleClass="btn-outline" onAction="#handleCancel" />
+                    </HBox>
+                </VBox>
+
+                <!-- Information Card -->
+                <VBox styleClass="card" spacing="16">
+                    <Label text="Important Information" styleClass="title-small" />
+                    <VBox spacing="8">
+                        <HBox spacing="8">
+                            <Label text="•" styleClass="caption-text" />
+                            <Label text="Vendor ID must be unique across the system" styleClass="body-text" />
+                        </HBox>
+                        <HBox spacing="8">
+                            <Label text="•" styleClass="caption-text" />
+                            <Label text="Vendor name should be the official business name" styleClass="body-text" />
+                        </HBox>
+                        <HBox spacing="8">
+                            <Label text="•" styleClass="caption-text" />
+                            <Label text="Phone number should include country code if applicable" styleClass="body-text" />
+                        </HBox>
+                        <HBox spacing="8">
+                            <Label text="•" styleClass="caption-text" />
+                            <Label text="Email address will be used for communication" styleClass="body-text" />
+                        </HBox>
+                        <HBox spacing="8">
+                            <Label text="•" styleClass="caption-text" />
+                            <Label text="Credit limit should be entered as a number only" styleClass="body-text" />
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- Status Bar -->
+    <bottom>
+        <HBox styleClass="card" alignment="CENTER_LEFT" spacing="16" padding="12">
+            <Label text="Status:" styleClass="form-label" />
+            <Label text="Ready to add vendor" styleClass="body-text" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="* Required fields" styleClass="caption-text" />
+        </HBox>
+    </bottom>
+</BorderPane>

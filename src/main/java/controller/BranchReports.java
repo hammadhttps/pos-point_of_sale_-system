@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import services.SaleDAO;
 import model.Sale;
 import model.Product;
@@ -23,17 +24,14 @@ public class BranchReports {
     @FXML
     private Pane displayPane;
 
-
     private SaleDAO saleDAO = new SaleDAO();
     private ProductDAO productDAO = new ProductDAO();
 
     private String branchCode;
 
-
     private void fetchBranchData() {
         branchCode = branchCodeField.getText().trim();
     }
-
 
     @FXML
     private void generateSalesGraph(ActionEvent event) {
@@ -49,7 +47,7 @@ public class BranchReports {
         }
     }
 
-    //  generate Sales Bar Chart
+    // generate Sales Bar Chart
     @FXML
     private void generateSalesBarChart(ActionEvent event) {
         fetchBranchData();
@@ -79,7 +77,7 @@ public class BranchReports {
         }
     }
 
-    //  generate a Sales Line Graph
+    // generate a Sales Line Graph
     private void generateSalesGraph(List<Sale> sales) {
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
@@ -92,12 +90,10 @@ public class BranchReports {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Total Sales");
 
-
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
         for (Sale sale : sales) {
             series.getData().add(new XYChart.Data<>(dateFormat.format(sale.getDate()), sale.getTotalAmount()));
         }
-
 
         lineChart.getData().add(series);
         displayPane.getChildren().add(lineChart);
@@ -116,7 +112,6 @@ public class BranchReports {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Products Sold");
 
-
         Map<String, Integer> productSalesMap = new HashMap<>();
         for (Sale sale : sales) {
             for (Product product : sale.getProducts()) {
@@ -126,11 +121,9 @@ public class BranchReports {
             }
         }
 
-
         for (Map.Entry<String, Integer> entry : productSalesMap.entrySet()) {
             series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
         }
-
 
         barChart.getData().add(series);
         displayPane.getChildren().add(barChart);
@@ -142,29 +135,38 @@ public class BranchReports {
         TableColumn<Product, String> productNameColumn = new TableColumn<>("Product Name");
         TableColumn<Product, Integer> quantityColumn = new TableColumn<>("Quantity");
 
-
         productTable.setPrefHeight(400);
         productTable.setPrefWidth(1120);
 
-
         productIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProductId()));
         productNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        quantityColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
-
+        quantityColumn.setCellValueFactory(
+                cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
 
         productTable.getColumns().addAll(productIdColumn, productNameColumn, quantityColumn);
 
-
         productTable.setItems(javafx.collections.FXCollections.observableArrayList(products));
-
 
         displayPane.getChildren().add(productTable);
     }
 
-
     private void showErrorMessage(String message) {
+        displayPane.getChildren().clear();
+        VBox errorContainer = new VBox(8);
+        errorContainer.setAlignment(javafx.geometry.Pos.CENTER);
+        errorContainer.setStyle(
+                "-fx-background-color: #fee2e2; -fx-background-radius: 8px; -fx-padding: 16px; -fx-border-color: #ef4444; -fx-border-radius: 8px; -fx-border-width: 1px;");
+
+        Label errorIcon = new Label("⚠");
+        errorIcon.setStyle("-fx-font-size: 24px; -fx-text-fill: #ef4444;");
+
         Label errorMessage = new Label(message);
-        errorMessage.setStyle("-fx-text-fill: red; -fx-font-size: 16px;");
-        displayPane.getChildren().add(errorMessage);
+        errorMessage.setStyle("-fx-text-fill: #991b1b; -fx-font-size: 16px; -fx-font-weight: bold;");
+
+        Label errorSubtitle = new Label("Please enter a valid branch code and try again.");
+        errorSubtitle.setStyle("-fx-text-fill: #dc2626; -fx-font-size: 14px;");
+
+        errorContainer.getChildren().addAll(errorIcon, errorMessage, errorSubtitle);
+        displayPane.getChildren().add(errorContainer);
     }
 }

@@ -32,7 +32,7 @@ public class SaleDAO {
                 for (Product product : sale.getProducts()) {
                     saleProductStmt.setString(1, sale.getSaleId());
                     saleProductStmt.setString(2, product.getProductId());
-                    saleProductStmt.setInt(3, product.get_sold_quantity());
+                    saleProductStmt.setInt(3, product.getSoldQuantity());
                     saleProductStmt.setString(4, sale.getBranchCode());
                     saleProductStmt.addBatch();
                 }

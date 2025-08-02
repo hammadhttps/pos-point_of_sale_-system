@@ -70,9 +70,10 @@ public class ManagePasswords {
         for (Cashier cashier : cashiers) {
             VBox cashierContainer = new VBox(5);
             cashierContainer.setPadding(new Insets(10));
-            cashierContainer.setStyle("-fx-border-color: #000; -fx-border-radius: 5; -fx-background-color: #cce5ff; -fx-padding: 10;");
+            cashierContainer.setStyle(
+                    "-fx-border-color: #000; -fx-border-radius: 5; -fx-background-color: #cce5ff; -fx-padding: 10;");
 
-            Label username = new Label("Username: " + cashier.getusername());
+            Label username = new Label("Username: " + cashier.getUsername());
             Label name = new Label("Name: " + cashier.getName());
             Label email = new Label("Email: " + cashier.getEmail());
             Label salary = new Label("Salary: " + cashier.getSalary());
@@ -93,9 +94,10 @@ public class ManagePasswords {
         for (DataEntryOperator operator : dataEntryOperators) {
             VBox operatorContainer = new VBox(5);
             operatorContainer.setPadding(new Insets(10));
-            operatorContainer.setStyle("-fx-border-color: #000; -fx-border-radius: 5; -fx-background-color: #d4edda; -fx-padding: 10;");
+            operatorContainer.setStyle(
+                    "-fx-border-color: #000; -fx-border-radius: 5; -fx-background-color: #d4edda; -fx-padding: 10;");
 
-            Label username = new Label("Username: " + operator.getusername());
+            Label username = new Label("Username: " + operator.getUsername());
             Label name = new Label("Name: " + operator.getName());
             Label email = new Label("Email: " + operator.getEmail());
             Label salary = new Label("Salary: " + operator.getSalary());
@@ -117,7 +119,7 @@ public class ManagePasswords {
             selectedOperator = null;
 
             editTitle.setText("Edit Cashier Details");
-            usernameField.setText(cashier.getusername());
+            usernameField.setText(cashier.getUsername());
             nameField.setText(cashier.getName());
             emailField.setText(cashier.getEmail());
             salaryField.setText(String.valueOf(cashier.getSalary()));
@@ -127,7 +129,7 @@ public class ManagePasswords {
             selectedOperator = operator;
 
             editTitle.setText("Edit Operator Details");
-            usernameField.setText(operator.getusername());
+            usernameField.setText(operator.getUsername());
             nameField.setText(operator.getName());
             emailField.setText(operator.getEmail());
             salaryField.setText(String.valueOf(operator.getSalary()));
@@ -139,14 +141,14 @@ public class ManagePasswords {
     @FXML
     private void saveDetails() {
         if (selectedCashier != null) {
-            selectedCashier.setusername(usernameField.getText());
+            selectedCashier.setUsername(usernameField.getText());
             selectedCashier.setName(nameField.getText());
             selectedCashier.setEmail(emailField.getText());
             selectedCashier.setSalary(Double.parseDouble(salaryField.getText()));
             selectedCashier.setPassword(passwordField.getText());
             cashierDAO.updateCashier(selectedCashier);
         } else if (selectedOperator != null) {
-            selectedOperator.setusername(usernameField.getText());
+            selectedOperator.setUsername(usernameField.getText());
             selectedOperator.setName(nameField.getText());
             selectedOperator.setEmail(emailField.getText());
             selectedOperator.setSalary(Double.parseDouble(salaryField.getText()));

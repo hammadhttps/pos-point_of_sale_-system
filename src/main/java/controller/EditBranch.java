@@ -42,7 +42,6 @@ public class EditBranch {
     public void initialize() {
         loadBranches();
 
-
         activeBranchList.setCellFactory(listView -> new ListCell<>() {
             @Override
             protected void updateItem(Branch branch, boolean empty) {
@@ -64,8 +63,10 @@ public class EditBranch {
         deactivateButton.setOnAction(event -> deactivateBranch());
         increaseEmpCountButton.setOnAction(event -> increaseEmployeeCount());
 
-        activeBranchList.setOnMouseClicked(event -> showBranchDetails(activeBranchList.getSelectionModel().getSelectedItem()));
-        inactiveBranchList.setOnMouseClicked(event -> showBranchDetails(inactiveBranchList.getSelectionModel().getSelectedItem()));
+        activeBranchList
+                .setOnMouseClicked(event -> showBranchDetails(activeBranchList.getSelectionModel().getSelectedItem()));
+        inactiveBranchList.setOnMouseClicked(
+                event -> showBranchDetails(inactiveBranchList.getSelectionModel().getSelectedItem()));
     }
 
     private void loadBranches() {
@@ -125,7 +126,7 @@ public class EditBranch {
     private void showBranchDetails(Branch branch) {
         if (branch != null) {
             // Fetch branch manager for the branch
-            BranchManager manager = branchManagerDAO.getBranchManagerByBranchCode(branch.getBranchcode());
+            BranchManager manager = branchManagerDAO.getBranchManagerByBranchCode(branch.getBranchCode());
 
             if (manager != null) {
                 branchManagerLabel.setText("Branch Manager: " + manager.getName() + " (" + manager.getEmail() + ")");
@@ -134,16 +135,15 @@ public class EditBranch {
             }
 
             // Fetch cashiers and data entry operators for the branch
-            List<Cashier> cashiers = cashierDAO.getAllCashiersByBranchCode(branch.getBranchcode());
-            List<DataEntryOperator> dataEntryOperators = dataEntryOperatorDAO.getDataEntryOperatorsByBranchCode(branch.getBranchcode());
+            List<Cashier> cashiers = cashierDAO.getAllCashiersByBranchCode(branch.getBranchCode());
+            List<DataEntryOperator> dataEntryOperators = dataEntryOperatorDAO
+                    .getDataEntryOperatorsByBranchCode(branch.getBranchCode());
 
             // Update list views
             cashiersList.setItems(FXCollections.observableArrayList(
-                    cashiers.stream().map(Cashier::getName).toList()
-            ));
+                    cashiers.stream().map(Cashier::getName).toList()));
             dataEntryOperatorsList.setItems(FXCollections.observableArrayList(
-                    dataEntryOperators.stream().map(DataEntryOperator::getName).toList()
-            ));
+                    dataEntryOperators.stream().map(DataEntryOperator::getName).toList()));
         }
     }
 
